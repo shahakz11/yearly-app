@@ -1,0 +1,43 @@
+{
+  "columns": [
+    { "id": "backlog", "title": "📥 BACKLOG" },
+    { "id": "todo", "title": "📋 TO DO" },
+    { "id": "in-progress", "title": "🚧 IN PROGRESS" },
+    { "id": "done", "title": "✅ DONE" }
+  ],
+  "assignees": [
+    "Fullstack Developer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Designer",
+    "DevOps",
+    "QA",
+    "Product Manager",
+    "Data Engineer"
+  ],
+  "types": [
+    "Feature",
+    "Bug",
+    "Refactor",
+    "Task",
+    "Research"
+  ],
+  "priorities": [
+    "Low",
+    "Moderate",
+    "High",
+    "Critical"
+  ],
+  "epics": [
+    "Frontend",
+    "Backend",
+    "Infrastructure",
+    "Design",
+    "Analytics",
+    "Authentication",
+    "Payments",
+    "Performance",
+    "Security",
+    "General"
+  ]
+}

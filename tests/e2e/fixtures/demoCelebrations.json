@@ -1,0 +1,22 @@
+[
+  {
+    "id": "demo-001",
+    "title": "Sarah's Birthday 🎂",
+    "date": "2026-10-15",
+    "celebrationType": "birthday",
+    "recipientName": "Sarah",
+    "suggestedGreeting": "Happy Birthday Sarah! Wishing you a fantastic year ahead! 🎂🎉",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Birthday%20Sarah!%20Wishing%20you%20a%20fantastic%20year%20ahead!%20%F0%9F%8E%82%F0%9F%8E%89%20https%3A%2F%2Fstarbucks.com%2Fgift%3Famount%3D25%26subId%3Dautogifter_cal_Sarah",
+    "suggestedBrands": ["starbucks", "amazon", "doordash", "target"]
+  },
+  {
+    "id": "demo-002",
+    "title": "Wedding Anniversary 💍",
+    "date": "2026-10-20",
+    "celebrationType": "anniversary",
+    "recipientName": "Alex & Jordan",
+    "suggestedGreeting": "Happy Anniversary Alex & Jordan! Here's to many more wonderful years together! 🥂❤️",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Anniversary%20Alex%20%26%20Jordan!%20Here's%20to%20many%20more%20wonderful%20years%20together!%20%F0%9F%A5%82%E2%9D%A4%EF%B8%8F",
+    "suggestedBrands": ["amazon", "doordash", "target", "starbucks"]
+  }
+]

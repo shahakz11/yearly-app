@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Auto-Gifter: Google Calendar Assistant",
+  "version": "1.0.0",
+  "description": "Seamless gifting assistant directly inside Google Calendar",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://calendar.google.com/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://calendar.google.com/*"],
+      "js": ["core/CoreEngine.js", "content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Auto-Gifter",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}

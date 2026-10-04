@@ -1,0 +1,50 @@
+[
+  {
+    "id": "demo-001",
+    "title": "Sarah's Birthday 🎂",
+    "date": "2026-10-15",
+    "celebrationType": "birthday",
+    "recipientName": "Sarah",
+    "suggestedGreeting": "Happy Birthday Sarah! Wishing you a fantastic year ahead! 🎂🎉",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Birthday%20Sarah!%20Wishing%20you%20a%20fantastic%20year%20ahead!%20%F0%9F%8E%82%F0%9F%8E%89%20https%3A%2F%2Fwww.starbucks.com%2Fgift%3Ftag%3Dautogifter-20%26subId%3Dautogifter_cal_Sarah%26amount%3D25%26recipient%3DSarah",
+    "suggestedBrands": ["starbucks", "amazon", "doordash", "target"],
+    "suggestedAmount": 25,
+    "daysUntil": 3
+  },
+  {
+    "id": "demo-002",
+    "title": "Wedding Anniversary 💍",
+    "date": "2026-10-20",
+    "celebrationType": "anniversary",
+    "recipientName": "Alex & Jordan",
+    "suggestedGreeting": "Happy Anniversary Alex & Jordan! Here's to many more wonderful years together! 🥂❤️",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Anniversary%20Alex%20%26%20Jordan!%20Here's%20to%20many%20more%20wonderful%20years%20together!%20%F0%9F%A5%82%E2%9D%A4%EF%B8%8F%20https%3A%2F%2Fwww.doordash.com%2Fgift-cards%3Ftag%3Dautogifter-20%26subId%3Dautogifter_cal_AlexJordan%26amount%3D50%26recipient%3DAlex%2520%2526%2520Jordan",
+    "suggestedBrands": ["doordash", "amazon", "starbucks", "target"],
+    "suggestedAmount": 50,
+    "daysUntil": 8
+  },
+  {
+    "id": "demo-003",
+    "title": "Mom's Birthday 🎂",
+    "date": "2026-10-24",
+    "celebrationType": "birthday",
+    "recipientName": "Mom",
+    "suggestedGreeting": "Happy Birthday Mom! Thank you for everything you do. Love you! 🎂❤️",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Birthday%20Mom!%20Thank%20you%20for%20everything%20you%20do.%20Love%20you!%20%F0%9F%8E%82%E2%9D%A4%EF%B8%8F%20https%3A%2F%2Fwww.target.com%2Fc%2Ftarget-giftcards%2F-%2FN-5xsxu%3Ftag%3Dautogifter-20%26subId%3Dautogifter_cal_Mom%26amount%3D50%26recipient%3DMom",
+    "suggestedBrands": ["target", "amazon", "starbucks", "doordash"],
+    "suggestedAmount": 50,
+    "daysUntil": 12
+  },
+  {
+    "id": "demo-004",
+    "title": "Work Anniversary 🎈",
+    "date": "2026-10-27",
+    "celebrationType": "milestone",
+    "recipientName": "David",
+    "suggestedGreeting": "Happy Work Anniversary David! Congrats on another great year with the team! 🎉👏",
+    "whatsAppUrl": "https://api.whatsapp.com/send?text=Happy%20Work%20Anniversary%20David!%20Congrats%20on%20another%20great%20year%20with%20the%20team!%20%F0%9F%8E%89%F0%9F%91%8F%20https%3A%2F%2Fwww.amazon.com%2Fgift-cards%3Ftag%3Dautogifter-20%26subId%3Dautogifter_cal_David%26amount%3D25%26recipient%3DDavid",
+    "suggestedBrands": ["amazon", "starbucks", "doordash", "target"],
+    "suggestedAmount": 25,
+    "daysUntil": 14
+  }
+]

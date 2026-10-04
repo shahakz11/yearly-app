@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Support &amp; FAQ | Yearly</title>
+  <meta name="description" content="Official Support and Help Center for Yearly (yearly.click). 12 detailed FAQs on Google Calendar permissions, FloristOne bouquet checkout, and privacy protections. Contact support@yearly.click.">
+  <link rel="canonical" href="https://yearly.click/support.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Support &amp; FAQ | Yearly">
+  <meta property="og:description" content="Yearly Help Center. Get answers on Google Calendar permissions, FloristOne orders, and data security.">
+  <meta property="og:url" content="https://yearly.click/support.html">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rose: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+            },
+            indigo: {
+              50: '#eef2ff',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Anti-overflow CSS Reset -->
+  <style>
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand -->
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-600 to-indigo-600 flex items-center justify-center text-white text-lg shadow-sm group-hover:scale-105 transition-transform">
+            🎁
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span class="font-extrabold text-xl text-slate-900 tracking-tight">Yearly</span>
+            <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono font-medium">.click</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-600">
+          <a href="index.html" class="hover:text-rose-600 transition">Home</a>
+          <a href="index.html#how-it-works" class="hover:text-rose-600 transition">How It Works</a>
+          <a href="index.html#bouquets" class="hover:text-rose-600 transition">Curated Bouquets</a>
+          <a href="index.html#calendar-addon" class="hover:text-rose-600 transition">Workspace Add-on</a>
+          <a href="support.html" class="text-rose-600 font-semibold" aria-current="page">Support &amp; FAQ</a>
+          <a href="privacy.html" class="hover:text-rose-600 transition">Privacy</a>
+          <a href="terms.html" class="hover:text-rose-600 transition">Terms</a>
+        </nav>
+
+        <!-- CTA & Mobile Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="index.html#install" class="hidden sm:inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">
+            Add to Calendar
+          </a>
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden px-4 pt-2 pb-4 space-y-2 border-b border-slate-200 bg-white">
+      <a href="index.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Home</a>
+      <a href="index.html#how-it-works" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">How It Works</a>
+      <a href="index.html#bouquets" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Curated Bouquets</a>
+      <a href="index.html#calendar-addon" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Workspace Add-on</a>
+      <a href="support.html" class="block px-3 py-2 rounded-lg text-base font-semibold text-rose-600 bg-rose-50">Support &amp; FAQ</a>
+      <a href="privacy.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Privacy Policy</a>
+      <a href="terms.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Terms of Service</a>
+      <a href="index.html#install" class="block w-full text-center bg-rose-600 hover:bg-rose-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm transition">Add to Calendar</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <!-- Breadcrumb -->
+    <nav class="flex text-xs text-slate-500 mb-6 gap-2" aria-label="Breadcrumb">
+      <a href="index.html" class="hover:text-slate-800">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 font-medium">Support &amp; Help Center</span>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="mb-10 text-center max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 mb-4">
+        💬 Yearly Help Center &amp; Community Care
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">How can we help you?</h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+        Everything you need to know about Google Calendar permissions, FloristOne flower deliveries, 1-click checkout, and data privacy.
+      </p>
+    </div>
+
+    <!-- Prominent Contact Card (#contact) -->
+    <div id="contact" class="bg-gradient-to-br from-rose-50 via-white to-indigo-50 border-2 border-rose-200 rounded-3xl p-6 sm:p-10 shadow-sm mb-14">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div class="flex items-start gap-5">
+          <div class="p-3.5 bg-rose-600 text-white rounded-2xl shadow-sm flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 mb-2">
+              Direct Support Desk • 24/7 Monitored
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Need personal assistance?</h2>
+            <p class="text-slate-600 text-sm mt-1 max-w-xl leading-relaxed">
+              Have a question regarding your Google Workspace Add-on, an order inquiry with FloristOne, or an account question? Our engineering team guarantees a human reply within 24 hours.
+            </p>
+            <div class="mt-3">
+              <span class="text-xs text-slate-500 block uppercase font-bold tracking-wider mb-0.5">Primary Support Inbox</span>
+              <a href="mailto:support@yearly.click?subject=Yearly%20Support%20Inquiry" class="font-mono font-bold text-rose-600 hover:text-rose-700 text-lg hover:underline break-all">
+                support@yearly.click
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="shrink-0">
+          <a href="mailto:support@yearly.click?subject=Yearly%20Support%20Inquiry" class="inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm px-6 py-3.5 rounded-xl shadow-sm transition w-full md:w-auto">
+            <span>Send Email Message</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Categories & 12 Accordion Sections -->
+    <div class="space-y-12">
+
+      <!-- Category 1: Calendar Permissions & Integration -->
+      <section id="faq-permissions" class="space-y-4">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+            📅
+          </div>
+          <h2 class="text-xl font-bold text-slate-900">Category 1: Google Calendar Permissions &amp; Integration</h2>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Q1 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">1. What Google Calendar permissions does Yearly require, and why?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2 border-t border-slate-100 pt-3">
+              <p>
+                Yearly operates as a native Google Workspace Add-on using the principle of least privilege. We request narrow scopes:
+              </p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li><code class="text-xs bg-slate-100 px-1 py-0.5 rounded">calendar.addons.current.event.read</code>: Inspects the title and date of the currently open event to detect milestone keywords (e.g. &ldquo;Sarah's Birthday&rdquo;).</li>
+                <li><code class="text-xs bg-slate-100 px-1 py-0.5 rounded">calendar.addons.current.event.write</code>: Allows optional 1-click description enrichment with bouquet suggestions.</li>
+                <li><code class="text-xs bg-slate-100 px-1 py-0.5 rounded">spreadsheets</code>: Optional, used only if you enable your personal <code class="text-xs bg-slate-100 px-1 py-0.5 rounded">CelebrationLog</code> in your own Google Drive.</li>
+              </ul>
+              <p>We strictly comply with the Google API Services User Data Policy and never ask for unnecessary access.</p>
+            </div>
+          </details>
+
+          <!-- Q2 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">2. Does Yearly read or access all my private calendar appointments?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                No. The add-on only runs contextual triggers when you open an individual event or when the scheduled daily trigger scans for celebrations in the next 14 days. Work meetings, doctor appointments, personal reminders, and private entries that do not match milestone keywords (like &ldquo;Birthday&rdquo;, &ldquo;Anniversary&rdquo;, 🎂, or 💍) are completely ignored and never stored.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q3 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">3. How do I disconnect Yearly or revoke permissions from my Google Account?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                You can revoke permissions at any moment with one click. Simply visit your <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" class="text-rose-600 underline font-medium">Google Account Security Permissions</a> page, find &ldquo;Yearly&rdquo;, and click &ldquo;Remove Access&rdquo;. You can also uninstall the add-on directly from Google Calendar by clicking the three-dot menu on the add-on panel.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q4 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">4. Does Yearly work on both desktop and mobile Google Calendar?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                Yes! Because Yearly is built using Google Workspace's CardService framework, once installed it appears seamlessly in the Google Calendar web interface on desktop as well as inside the official Google Calendar app on Android and iOS devices.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Category 2: FloristOne Bouquets & 1-Click Cart -->
+      <section id="faq-florist" class="space-y-4">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm">
+            🌸
+          </div>
+          <h2 class="text-xl font-bold text-slate-900">Category 2: FloristOne Bouquets, Ordering &amp; 1-Click Cart</h2>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Q5 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">5. How does 1-click cart checkout with FloristOne work?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                When you click on a bouquet recommendation (such as the Best Day Bouquet B07 or Pink Posh Bouquet B08), Yearly immediately opens FloristOne's secure checkout portal with the exact arrangement pre-loaded in your cart. You skip browsing and category filtering, entering only the delivery recipient's address and greeting card message.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q6 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">6. Who prepares and delivers the flower arrangements?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                All flower arrangements are hand-crafted and hand-delivered by certified local retail florists in the recipient's neighborhood across the United States and Canada through the FloristOne network. This ensures fresh flowers and supports local florists.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q7 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">7. What happens if there is an issue with my flower delivery?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                FloristOne backs every order with a 100% freshness and satisfaction guarantee. If an arrangement arrives late or differs significantly from the product description, FloristOne's 24/7 customer care team will redeliver or issue a full refund. You can reach FloristOne support directly through your order confirmation receipt or contact us at <a href="mailto:support@yearly.click" class="text-rose-600 underline">support@yearly.click</a> for escalation assistance.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q8 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">8. Are there any hidden fees or price markups on bouquets?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                No. Product pricing shown in Yearly matches standard retail pricing on FloristOne. As disclosed under FTC 16 CFR Part 255, Yearly may receive an affiliate referral fee from FloristOne at <strong>no extra cost to you</strong>.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Category 3: Privacy, Data Protection & Legal Disclosures -->
+      <section id="faq-privacy" class="space-y-4">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+            🛡️
+          </div>
+          <h2 class="text-xl font-bold text-slate-900">Category 3: Privacy, Data Protection &amp; Legal Disclosures</h2>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Q9 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">9. Does Yearly sell or monetize my personal calendar data?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                Never. We do not sell, rent, or trade user data to third parties, data brokers, or advertisers. We do not display third-party advertisements or use your information for behavioral advertising.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q10 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">10. Where is my celebration and gift history stored?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                Your celebration logs and gift records are stored in your own private Google Drive spreadsheet (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">CelebrationLog</code>) or in your local browser storage (<code class="text-xs bg-slate-100 px-1 py-0.5 rounded">localStorage</code> and <code class="text-xs bg-slate-100 px-1 py-0.5 rounded">chrome.storage.sync</code>). Yearly operates a zero-centralized-database architecture; we do not keep a copy on any external server.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q11 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">11. Is Yearly compliant with GDPR and CCPA/CPRA?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                Yes. Under GDPR (Articles 15–20) and CCPA/CPRA, you have full rights to access, export, and delete your data. Because all application logs reside in your own Google Drive and local browser, you can delete your data directly at any time by removing your spreadsheet or clearing browser storage. For verified DSR requests, email <a href="mailto:support@yearly.click" class="text-rose-600 underline">support@yearly.click</a>.
+              </p>
+            </div>
+          </details>
+
+          <!-- Q12 -->
+          <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:shadow-xs transition">
+            <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-slate-900 group-open:text-rose-600">
+              <span class="text-base">12. How does Yearly's AI greeting personalization handle privacy?</span>
+              <span class="ml-4 shrink-0 text-slate-400 group-open:rotate-180 transition-transform">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </span>
+            </summary>
+            <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              <p>
+                If you use the optional AI greeting generator, short event parameter snippets (recipient first name and celebration category) are sent to Google's Gemini API over TLS 1.3 encrypted connections. As stated in our <a href="privacy.html#google-limited-use" class="text-rose-600 underline">Privacy Policy</a>, Google user data is strictly prohibited from being used to train, retrain, or fine-tune public foundation AI/ML models.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-12 md:py-16 border-t border-slate-800 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <!-- Brand -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🎁</span>
+            <span class="font-bold text-xl text-white">Yearly</span>
+          </div>
+          <p class="text-xs leading-relaxed text-slate-400">
+            Never miss a milestone. Thoughtful gifts in one click directly from Google Calendar.
+          </p>
+          <div class="text-xs text-slate-400">
+            Support: <a href="mailto:support@yearly.click" class="text-slate-300 hover:text-white underline">support@yearly.click</a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3">Product</h3>
+          <ul class="space-y-2 text-xs">
+            <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-white transition">How It Works</a></li>
+            <li><a href="index.html#bouquets" class="hover:text-white transition">Curated Bouquets</a></li>
+            <li><a href="index.html#calendar-addon" class="hover:text-white transition">Workspace Add-on</a></li>
+            <li><a href="index.html#install" class="hover:text-white transition">Installation</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3">Compliance &amp; Legal</h3>
+          <ul class="space-y-2 text-xs">
+            <li><a href="privacy.html" class="hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="terms.html" class="hover:text-white transition">Terms of Service</a></li>
+            <li><a href="privacy.html#google-limited-use" class="hover:text-white transition">Google Limited Use</a></li>
+            <li><a href="terms.html#affiliate-disclosure" class="hover:text-white transition">FTC Disclosure</a></li>
+            <li><a href="privacy.html#oauth-scopes" class="hover:text-white transition">OAuth Scopes</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3">Support &amp; Trust</h3>
+          <ul class="space-y-2 text-xs">
+            <li><a href="support.html" class="text-rose-400 font-semibold hover:text-white transition">Support &amp; FAQ</a></li>
+            <li><a href="support.html#contact" class="hover:text-white transition">Contact Support</a></li>
+            <li><a href="support.html#faq-permissions" class="hover:text-white transition">Permissions FAQ</a></li>
+            <li><a href="support.html#faq-florist" class="hover:text-white transition">FloristOne FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 text-xs text-slate-400 space-y-3">
+        <p>
+          Google Workspace, Google Calendar, and Chrome are trademarks of Google LLC. FloristOne, Amazon, Starbucks, Target, DoorDash, and WhatsApp are trademarks of their respective owners. Yearly is an independent software application.
+        </p>
+        <p>
+          &copy; 2026 Yearly (yearly.click). All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-gifter | Backlog Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F9F7;
+        }
+
+        .task-card:active {
+            cursor: grabbing;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="p-8">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8">
+        <div>
+            <h1 class="text-6xl font-black italic uppercase tracking-tighter leading-[0.8] mb-2">Backlog <span
+                    class="text-black/10">Manager</span></h1>
+            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-black/30">The source of truth for all
+                tasks.</p>
+        </div>
+        
+        <div class="flex flex-wrap gap-4 items-center">
+            <div class="flex flex-col">
+                <label class="text-[8px] font-black uppercase tracking-widest text-black/40 mb-1 ml-1">Filter by Epic</label>
+                <select id="filter-epic" onchange="renderBoard()" 
+                    class="bg-white border border-black/5 px-4 py-2 rounded-xl text-[10px] font-bold outline-none shadow-sm min-w-[150px]">
+                    <option value="all">ALL EPICS</option>
+                </select>
+            </div>
+            
+            <div class="flex flex-col">
+                <label class="text-[8px] font-black uppercase tracking-widest text-black/40 mb-1 ml-1">Filter by Role</label>
+                <select id="filter-role" onchange="renderBoard()" 
+                    class="bg-white border border-black/5 px-4 py-2 rounded-xl text-[10px] font-bold outline-none shadow-sm min-w-[150px]">
+                    <option value="all">ALL ROLES</option>
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button onclick="openConfigModal()"
+                    class="bg-white border border-black/5 px-6 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-sm hover:scale-105 active:scale-95 transition-all mt-4 md:mt-0">Settings</button>
+                <button onclick="openNewTaskModal()"
+                    class="bg-black text-white px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl hover:scale-105 active:scale-95 transition-all mt-4 md:mt-0">New
+                    Task</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="kanban-board" class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Columns will be rendered here dynamically -->
+    </div>
+
+    <!-- Task Modal -->
+    <div id="modal" class="fixed inset-0 bg-black/40 backdrop-blur-md hidden z-50 flex items-center justify-center p-6">
+        <div class="bg-[#F9F9F7] w-full max-w-3xl rounded-[3rem] shadow-2xl p-10 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-start mb-8">
+                <h2 id="modal-title" class="text-4xl font-black italic uppercase tracking-tighter">Edit Task</h2>
+                <button onclick="closeModal()"
+                    class="p-3 bg-white rounded-2xl shadow-sm border border-black/5">Close</button>
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Title</label>
+                    <input id="edit-title"
+                        class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold text-xl uppercase italic tracking-tight"
+                        placeholder="Task title">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Priority</label>
+                        <select id="edit-priority"
+                            class="w-full bg-white border border-black/5 rounded-2xl px-4 py-3 outline-none font-bold text-[10px]">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Assignee</label>
+                        <select id="edit-assignee"
+                            class="w-full bg-white border border-black/5 rounded-2xl px-4 py-3 outline-none font-bold text-[10px]">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Epic</label>
+                        <select id="edit-epic"
+                            class="w-full bg-white border border-black/5 rounded-2xl px-4 py-3 outline-none font-bold text-[10px]">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Type</label>
+                        <select id="edit-type"
+                            class="w-full bg-white border border-black/5 rounded-2xl px-4 py-3 outline-none font-bold text-[10px]">
+                        </select>
+                    </div>
+                </div>
+                <div>
+                   <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Ready Status Tag</label>
+                   <select id="edit-readyStatus"
+                        class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold text-[10px]">
+                        <option value="">NONE</option>
+                        <option value="Ready for Architect">READY FOR ARCHITECT</option>
+                        <option value="Ready for Dev">READY FOR DEV</option>
+                    </select>
+                </div>
+
+                <!-- Context URLs Section -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Context & Reference URLs</label>
+                        <button type="button" onclick="addUrlField()" 
+                            class="text-[9px] font-black uppercase tracking-wider bg-black/5 hover:bg-black/10 text-black/70 px-3 py-1 rounded-xl transition-all">+ Add URL</button>
+                    </div>
+                    <div id="urls-container" class="space-y-2 max-h-40 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Dynamic URL Rows -->
+                    </div>
+                </div>
+
+                <!-- Media Attachments Section (Images & Videos) -->
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Media & Attachments (Images / Videos)</label>
+                    <div id="media-dropzone" 
+                        class="mt-2 border-2 border-dashed border-black/10 rounded-[2rem] p-6 text-center bg-white/60 hover:bg-white hover:border-black/30 transition-all cursor-pointer relative">
+                        <input type="file" id="media-file-input" multiple accept="image/*,video/*" class="hidden" onchange="handleFileSelect(event)">
+                        <div class="flex flex-col items-center gap-2">
+                            <span class="text-2xl" onclick="document.getElementById('media-file-input').click()">📸 🎬</span>
+                            <p class="text-[10px] font-black uppercase tracking-wider text-black/60" onclick="document.getElementById('media-file-input').click()">
+                                Drag & Drop images or videos here, or <span class="text-black underline">Browse Files</span>
+                            </p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <button type="button" onclick="pasteFromClipboard(event)" 
+                                    class="px-3 py-1.5 bg-black text-white text-[9px] font-black uppercase tracking-widest rounded-xl hover:scale-105 active:scale-95 transition-all shadow-md flex items-center gap-1">
+                                    📋 Paste Clipboard Image
+                                </button>
+                                <span class="text-[9px] font-bold text-black/40">or press <kbd class="bg-black/10 px-1.5 py-0.5 rounded text-[8px] text-black">Cmd+V</kbd> / <kbd class="bg-black/10 px-1.5 py-0.5 rounded text-[8px] text-black">Ctrl+V</kbd></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Media Preview Grid -->
+                    <div id="media-preview-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 max-h-48 overflow-y-auto custom-scrollbar">
+                        <!-- Dynamic Media Previews -->
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40 ml-2">Details & Spec</label>
+                    <textarea id="edit-spec"
+                        class="w-full custom-scrollbar bg-black text-white border border-white/10 rounded-[2rem] px-8 py-8 outline-none font-mono text-xs h-64 whitespace-pre-wrap"></textarea>
+                </div>
+                <button onclick="saveTask()"
+                    class="w-full bg-black text-white py-5 rounded-full font-black uppercase tracking-widest text-[10px] shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all">Save
+                    to BACKLOG.md</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Config Modal -->
+    <div id="config-modal" class="fixed inset-0 bg-black/40 backdrop-blur-md hidden z-50 flex items-center justify-center p-6">
+        <div class="bg-[#F9F9F7] w-full max-w-2xl rounded-[3rem] shadow-2xl p-10">
+            <div class="flex justify-between items-start mb-8">
+                <h2 class="text-4xl font-black italic uppercase tracking-tighter">Board Settings</h2>
+                <button onclick="closeConfigModal()"
+                    class="p-3 bg-white rounded-2xl shadow-sm border border-black/5">Close</button>
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40">Columns (Comma Separated ID:Title)</label>
+                    <textarea id="config-columns"
+                        class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold h-24"
+                        placeholder="backlog:📥 BACKLOG, todo:📋 TO DO, in-progress:🚧 IN PROGRESS, done:✅ DONE"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40">Assignees (Comma Separated)</label>
+                    <input id="config-assignees"
+                        class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold"
+                        placeholder="Fullstack Developer, SQL Master">
+                </div>
+                <div>
+                   <label class="text-[10px] font-black uppercase tracking-widest text-black/40">Epics (Comma Separated)</label>
+                   <input id="config-epics"
+                       class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold"
+                       placeholder="Onboarding, Authentication">
+               </div>
+                <div>
+                    <label class="text-[10px] font-black uppercase tracking-widest text-black/40">Types (Comma Separated)</label>
+                    <input id="config-types"
+                        class="w-full bg-white border border-black/5 rounded-2xl px-6 py-4 outline-none font-bold"
+                        placeholder="Feature, Bug, Refactor, Task">
+                </div>
+                <button onclick="saveConfig()"
+                    class="w-full bg-black text-white py-5 rounded-full font-black uppercase tracking-widest text-[10px]">Save
+                    Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let config = {};
+        let editingId = null;
+        let sortables = {};
+
+        function escapeHTML(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        const NEW_TASK_TEMPLATE = `- **Goal**:
+- **User story**:
+- **Scope**:
+  -
+- **Requirements**:
+  -
+- **Acceptance criteria**:
+  -
+- **Test plan**:
+  -
+- **Notes / open questions**:
+  - `;
+
+        async function fetchConfig() {
+            const res = await fetch('/api/config');
+            config = await res.json();
+            populateSelects();
+            renderBoardSkeleton();
+        }
+
+        function populateSelects() {
+            const p = document.getElementById('edit-priority');
+            const a = document.getElementById('edit-assignee');
+            const e = document.getElementById('edit-epic');
+            const t = document.getElementById('edit-type');
+            
+            const fe = document.getElementById('filter-epic');
+            const fr = document.getElementById('filter-role');
+
+            p.innerHTML = config.priorities.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+            a.innerHTML = config.assignees.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+            e.innerHTML = config.epics.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+            t.innerHTML = config.types.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+            
+            fe.innerHTML = '<option value="all">ALL EPICS</option>' + config.epics.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+            fr.innerHTML = '<option value="all">ALL ROLES</option>' + config.assignees.map(v => `<option value="${escapeHTML(v)}">${escapeHTML(v.toUpperCase())}</option>`).join('');
+        }
+
+        function renderBoardSkeleton() {
+            const board = document.getElementById('kanban-board');
+            board.innerHTML = config.columns.map(col => `
+                <div class="flex flex-col h-[calc(100vh-18rem)]">
+                    <div class="flex justify-between items-center mb-6 px-2">
+                        <h2 class="font-black italic uppercase tracking-tighter text-md">${escapeHTML(col.title)}</h2>
+                        <span id="count-${escapeHTML(col.id)}" class="text-[10px] font-black text-black/20">0</span>
+                    </div>
+                    <div id="tasks-${escapeHTML(col.id)}" class="flex-1 space-y-4 custom-scrollbar overflow-y-auto p-2 min-h-[50px]"></div>
+                </div>
+            `).join('');
+        }
+
+        async function fetchTasks() {
+            const res = await fetch('/api/tasks');
+            tasks = await res.json();
+            renderBoard();
+            initSortable();
+        }
+
+        function getPriorityColor(priority) {
+            const p = priority?.toLowerCase();
+            switch (p) {
+                case 'critical': return 'text-red-500 bg-red-500/10 px-2 py-0.5 rounded';
+                case 'high': return 'text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded';
+                case 'moderate': return 'text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded';
+                case 'low': return 'text-green-500 bg-green-500/10 px-2 py-0.5 rounded';
+                default: return 'text-black/40 bg-black/5 px-2 py-0.5 rounded';
+            }
+        }
+        
+        function getReadyStatusColor(status) {
+            if (!status) return 'hidden';
+            if (status.includes('Architect')) return 'text-purple-600 bg-purple-100 border border-purple-200 px-2 py-1 rounded-lg text-[8px] font-black uppercase';
+            if (status.includes('Dev')) return 'text-emerald-600 bg-emerald-100 border border-emerald-200 px-2 py-1 rounded-lg text-[8px] font-black uppercase';
+            return 'hidden';
+        }
+
+        let currentUrls = [];
+        let currentAttachments = [];
+
+        function addUrlField(title = '', url = '') {
+            currentUrls.push({ title, url });
+            renderUrlsUI();
+        }
+
+        function removeUrlField(index) {
+            currentUrls.splice(index, 1);
+            renderUrlsUI();
+        }
+
+        function updateUrlField(index, field, value) {
+            if (currentUrls[index]) {
+                currentUrls[index][field] = value;
+            }
+        }
+
+        function renderUrlsUI() {
+            const container = document.getElementById('urls-container');
+            if (!container) return;
+            if (currentUrls.length === 0) {
+                container.innerHTML = `<p class="text-[9px] font-bold text-black/30 italic ml-2">No context URLs added yet.</p>`;
+                return;
+            }
+            container.innerHTML = currentUrls.map((item, idx) => `
+                <div class="flex gap-2 items-center bg-white border border-black/5 p-2 rounded-2xl shadow-sm">
+                    <input type="text" value="${escapeHTML(item.title)}" placeholder="Label / Title (e.g. Figma, PRD)"
+                        oninput="updateUrlField(${idx}, 'title', this.value)"
+                        class="w-1/3 bg-black/5 px-3 py-2 rounded-xl text-[10px] font-bold outline-none">
+                    <input type="url" value="${escapeHTML(item.url)}" placeholder="https://..."
+                        oninput="updateUrlField(${idx}, 'url', this.value)"
+                        class="flex-1 bg-black/5 px-3 py-2 rounded-xl text-[10px] font-mono outline-none">
+                    <button type="button" onclick="removeUrlField(${idx})"
+                        class="p-2 text-black/30 hover:text-red-500 rounded-xl transition-all">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function renderAttachmentsUI() {
+            const grid = document.getElementById('media-preview-grid');
+            if (!grid) return;
+            if (currentAttachments.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-[9px] font-bold text-black/30 italic ml-2">No media files attached yet.</p>`;
+                return;
+            }
+            grid.innerHTML = currentAttachments.map((item, idx) => {
+                if (item.isLoading) {
+                    return `
+                        <div class="relative bg-black/5 rounded-2xl p-2 border border-black/10 flex flex-col items-center justify-center animate-pulse h-28">
+                            <span class="text-lg">⏳</span>
+                            <span class="text-[7px] font-black uppercase tracking-widest text-black/40 mt-2">Uploading...</span>
+                        </div>
+                    `;
+                }
+                return `
+                <div class="relative group bg-black/5 rounded-2xl p-2 border border-black/5 flex flex-col items-center justify-center overflow-hidden h-28">
+                    <button type="button" onclick="removeAttachment(${idx})"
+                        class="absolute top-1 right-1 z-10 bg-black/60 hover:bg-red-500 text-white rounded-full p-1 text-[8px] transition-all">✕</button>
+                    ${item.type === 'video' ? `
+                        <video src="${escapeHTML(item.url)}" class="w-full h-20 object-cover rounded-xl" controls></video>
+                        <span class="text-[7px] font-black uppercase tracking-widest text-black/50 mt-1 truncate w-full text-center">🎬 ${escapeHTML(item.name || 'Video')}</span>
+                    ` : `
+                        <img src="${escapeHTML(item.url)}" class="w-full h-20 object-cover rounded-xl cursor-pointer" onclick="window.open('${escapeHTML(item.url)}', '_blank')">
+                        <span class="text-[7px] font-black uppercase tracking-widest text-black/50 mt-1 truncate w-full text-center">🖼️ ${escapeHTML(item.name || 'Image')}</span>
+                    `}
+                </div>
+            `;
+            }).join('');
+        }
+
+        function removeAttachment(index) {
+            currentAttachments.splice(index, 1);
+            renderAttachmentsUI();
+        }
+
+        async function uploadFileBlob(blob, fileName, mimeType) {
+            const tempId = 'loading-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6);
+            
+            // Push loading placeholder
+            currentAttachments.push({
+                url: '',
+                name: fileName || 'Uploading...',
+                type: (mimeType && mimeType.startsWith('video/')) ? 'video' : 'image',
+                isLoading: true,
+                tempId
+            });
+            renderAttachmentsUI();
+
+            const reader = new FileReader();
+            reader.onerror = () => {
+                currentAttachments = currentAttachments.filter(a => a.tempId !== tempId);
+                renderAttachmentsUI();
+                alert('Failed to read image/video file');
+            };
+
+            reader.onload = async (e) => {
+                const base64Data = e.target.result;
+                try {
+                    const res = await fetch('/api/upload', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ fileName, mimeType: mimeType || 'image/png', base64Data })
+                    });
+                    if (!res.ok) throw new Error('Upload failed with status ' + res.status);
+                    const data = await res.json();
+
+                    const idx = currentAttachments.findIndex(a => a.tempId === tempId);
+                    if (idx !== -1) {
+                        currentAttachments[idx] = data;
+                    } else {
+                        currentAttachments.push(data);
+                    }
+                    renderAttachmentsUI();
+                } catch (err) {
+                    currentAttachments = currentAttachments.filter(a => a.tempId !== tempId);
+                    renderAttachmentsUI();
+                    alert('Media upload failed: ' + err.message);
+                }
+            };
+            reader.readAsDataURL(blob);
+        }
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files || []);
+            files.forEach(file => {
+                uploadFileBlob(file, file.name, file.type);
+            });
+            e.target.value = '';
+        }
+
+        async function pasteFromClipboard(e) {
+            if (e) { e.preventDefault(); e.stopPropagation(); }
+            try {
+                if (navigator.clipboard && navigator.clipboard.read) {
+                    const items = await navigator.clipboard.read();
+                    let found = false;
+                    for (const item of items) {
+                        for (const type of item.types) {
+                            if (type.startsWith('image/') || type.startsWith('video/')) {
+                                found = true;
+                                const blob = await item.getType(type);
+                                const ext = type.split('/')[1] || 'png';
+                                uploadFileBlob(blob, `pasted-media-${Date.now()}.${ext}`, type);
+                                break;
+                            }
+                        }
+                    }
+                    if (found) return;
+                }
+                alert('No image found on clipboard or clipboard permission denied. Press Cmd+V / Ctrl+V while the modal is open.');
+            } catch (err) {
+                alert('Please press Cmd+V or Ctrl+V directly to paste your clipboard image.');
+            }
+        }
+
+        async function handleGlobalPaste(e) {
+            const modal = document.getElementById('modal');
+            if (modal && modal.classList.contains('hidden')) return;
+
+            const clipboardData = e.clipboardData || window.clipboardData;
+            if (!clipboardData) return;
+
+            let handled = false;
+
+            // 1. Check clipboard files (e.g. copied image file or screenshot)
+            const files = Array.from(clipboardData.files || []);
+            for (const file of files) {
+                if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+                    handled = true;
+                    const ext = file.type.split('/')[1] || 'png';
+                    const name = file.name || `pasted-media-${Date.now()}.${ext}`;
+                    uploadFileBlob(file, name, file.type);
+                }
+            }
+
+            // 2. Check DataTransferItems
+            if (!handled && clipboardData.items) {
+                const items = Array.from(clipboardData.items);
+                for (const item of items) {
+                    if (item.type.startsWith('image/') || item.type.startsWith('video/')) {
+                        const file = item.getAsFile();
+                        if (file) {
+                            handled = true;
+                            const ext = item.type.split('/')[1] || 'png';
+                            const name = `pasted-media-${Date.now()}.${ext}`;
+                            uploadFileBlob(file, name, item.type);
+                        }
+                    }
+                }
+            }
+
+            // 3. Check HTML content for <img> data URL or HTTP URL
+            if (!handled) {
+                const html = clipboardData.getData('text/html');
+                if (html) {
+                    const imgMatch = html.match(/<img[^>]+src=["'](data:image\/[^;]+;base64,[^"']+)["']/i);
+                    if (imgMatch) {
+                        handled = true;
+                        const dataUrl = imgMatch[1];
+                        const mimeType = dataUrl.split(';')[0].replace('data:', '');
+                        const response = await fetch(dataUrl);
+                        const blob = await response.blob();
+                        uploadFileBlob(blob, `pasted-image-${Date.now()}.png`, mimeType);
+                    }
+                }
+            }
+
+            // 4. Check plain text if it starts with data:image/
+            if (!handled) {
+                const text = clipboardData.getData('text/plain');
+                if (text && text.trim().startsWith('data:image/')) {
+                    handled = true;
+                    const dataUrl = text.trim();
+                    const mimeType = dataUrl.split(';')[0].replace('data:', '');
+                    const response = await fetch(dataUrl);
+                    const blob = await response.blob();
+                    uploadFileBlob(blob, `pasted-image-${Date.now()}.png`, mimeType);
+                }
+            }
+
+            if (handled) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
+
+        function setupDropzoneAndPaste() {
+            const dropzone = document.getElementById('media-dropzone');
+            const modal = document.getElementById('modal');
+            if (!dropzone) return;
+
+            // Prevent default browser file-open behavior when dropping media files anywhere on window/modal
+            window.addEventListener('dragover', (e) => {
+                const types = Array.from(e.dataTransfer?.types || []);
+                const isFileDrag = types.includes('Files') || types.includes('application/x-moz-file');
+                if (modal && !modal.classList.contains('hidden') && isFileDrag) {
+                    e.preventDefault();
+                }
+            }, false);
+
+            window.addEventListener('drop', (e) => {
+                const types = Array.from(e.dataTransfer?.types || []);
+                const isFileDrag = types.includes('Files') || types.includes('application/x-moz-file');
+                if (modal && !modal.classList.contains('hidden') && isFileDrag) {
+                    e.preventDefault();
+                }
+            }, false);
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropzone.classList.add('border-black', 'bg-black/10', 'scale-[1.01]');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropzone.classList.remove('border-black', 'bg-black/10', 'scale-[1.01]');
+                }, false);
+            });
+
+            dropzone.addEventListener('drop', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dt = e.dataTransfer;
+                if (!dt) return;
+
+                let handled = false;
+
+                // 1. Handle dt.files (Desktop drag and drop)
+                const files = Array.from(dt.files || []);
+                if (files.length > 0) {
+                    files.forEach(file => {
+                        const isMedia = (file.type && (file.type.startsWith('image/') || file.type.startsWith('video/'))) ||
+                                        /\.(png|jpe?g|gif|webp|svg|mp4|webm|mov|ogv|mkv)$/i.test(file.name);
+                        if (isMedia) {
+                            handled = true;
+                            uploadFileBlob(file, file.name, file.type || 'image/png');
+                        }
+                    });
+                }
+
+                // 2. Handle dt.items if files array was empty
+                if (!handled && dt.items) {
+                    const items = Array.from(dt.items);
+                    items.forEach(item => {
+                        if (item.kind === 'file') {
+                            const file = item.getAsFile();
+                            if (file) {
+                                handled = true;
+                                uploadFileBlob(file, file.name || `dropped-media-${Date.now()}`, file.type || 'image/png');
+                            }
+                        }
+                    });
+                }
+
+                // 3. Handle web images/URLs dragged from another browser tab
+                if (!handled) {
+                    const html = dt.getData('text/html');
+                    const uri = dt.getData('text/uri-list');
+                    const targetUrl = (html && (html.match(/src=["'](https?:\/\/[^"']+)["']/i) || [])[1]) || uri;
+                    if (targetUrl && (targetUrl.startsWith('http://') || targetUrl.startsWith('https://') || targetUrl.startsWith('data:image/'))) {
+                        try {
+                            const response = await fetch(targetUrl);
+                            const blob = await response.blob();
+                            const ext = blob.type ? blob.type.split('/')[1] : 'png';
+                            uploadFileBlob(blob, `dropped-image-${Date.now()}.${ext}`, blob.type);
+                        } catch (err) {
+                            addUrlField('Dropped Image Link', targetUrl);
+                        }
+                    }
+                }
+            }, false);
+
+            window.addEventListener('paste', handleGlobalPaste);
+        }
+
+        function parseSpecContent(specText) {
+            const urls = [];
+            const attachments = [];
+
+            if (!specText) return { urls, attachments };
+
+            const urlRegex = /\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g;
+            let match;
+            while ((match = urlRegex.exec(specText)) !== null) {
+                if (!match[2].includes('/uploads/')) {
+                    urls.push({ title: match[1], url: match[2] });
+                }
+            }
+
+            const imgRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+            while ((match = imgRegex.exec(specText)) !== null) {
+                attachments.push({
+                    url: match[2],
+                    name: match[1] || 'Image',
+                    type: match[2].match(/\.(mp4|webm|mov|ogv)$/i) ? 'video' : 'image'
+                });
+            }
+
+            const videoRegex = /<video[^>]+src="([^"]+)"/g;
+            while ((match = videoRegex.exec(specText)) !== null) {
+                if (!attachments.some(a => a.url === match[1])) {
+                    attachments.push({
+                        url: match[1],
+                        name: 'Video Attachment',
+                        type: 'video'
+                    });
+                }
+            }
+
+            return { urls, attachments };
+        }
+
+        function renderBoard() {
+            const epicFilter = document.getElementById('filter-epic').value;
+            const roleFilter = document.getElementById('filter-role').value;
+
+            config.columns.forEach(col => {
+                let colTasks = tasks.filter(t => t.status === col.id);
+                
+                if (epicFilter !== 'all') {
+                    colTasks = colTasks.filter(t => t.epic === epicFilter);
+                }
+                if (roleFilter !== 'all') {
+                    colTasks = colTasks.filter(t => t.assignee === roleFilter);
+                }
+
+                document.getElementById(`count-${col.id}`).innerText = colTasks.length;
+                const container = document.getElementById(`tasks-${col.id}`);
+
+                container.innerHTML = colTasks.map(t => {
+                    const parsed = parseSpecContent(t.spec);
+                    return `
+                    <div data-id="${escapeHTML(t.id)}" onclick="openModal(this.getAttribute('data-id'))"
+                         class="task-card group relative bg-white p-6 rounded-[2.5rem] shadow-sm border border-black/5 hover:border-black/20 hover:shadow-xl transition-all hover:-translate-y-1 cursor-grab flex flex-col justify-between">
+                        <button onclick="event.stopPropagation(); deleteTask(this.closest('[data-id]').getAttribute('data-id'))" class="no-drag absolute top-4 right-4 p-2 text-black/20 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        </button>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[8px] font-black uppercase tracking-widest ${getPriorityColor(t.priority)}">${escapeHTML(t.priority)}</span>
+                                <span class="text-[8px] font-black uppercase tracking-widest bg-black text-white px-2 py-0.5 rounded">ID: #${escapeHTML(t.id)}</span>
+                            </div>
+                            
+                            <h3 class="font-black uppercase italic tracking-tighter leading-tight text-lg mb-4 pr-6">${escapeHTML(t.title)}</h3>
+                            
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                <span class="text-[7px] font-black uppercase tracking-widest bg-blue-500/10 text-blue-500 px-2 py-1 rounded-full border border-blue-500/20">${escapeHTML(t.assignee)}</span>
+                                <span class="text-[7px] font-black uppercase tracking-widest bg-pink-500/10 text-pink-500 px-2 py-1 rounded-full border border-pink-500/20">${escapeHTML(t.epic)}</span>
+                                <span class="${getReadyStatusColor(t.readyStatus)}">${escapeHTML(t.readyStatus)}</span>
+                            </div>
+
+                            ${parsed.urls.length > 0 ? `
+                                <div class="flex flex-wrap gap-1 my-2">
+                                    ${parsed.urls.map(u => `
+                                        <a href="${escapeHTML(u.url)}" target="_blank" onclick="event.stopPropagation()" 
+                                           class="no-drag text-[7px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-600 px-2 py-1 rounded-full border border-emerald-500/20 hover:bg-emerald-500/20 transition-all flex items-center gap-1">
+                                           🔗 ${escapeHTML(u.title || 'Link')}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div>
+                            ${t.spec && t.spec.trim() ? '<div class="mt-3 text-[9px] font-medium text-black/40 tracking-tight line-clamp-3 bg-black/5 p-3 rounded-2xl">' + escapeHTML(t.spec.trim()) + '</div>' : ''}
+
+                            ${parsed.attachments.length > 0 ? `
+                                <div class="mt-3 pt-3 border-t border-black/5 flex flex-col gap-2">
+                                    <div class="flex items-center justify-between text-[8px] font-black uppercase tracking-widest text-black/40">
+                                        <span>Attachments (${parsed.attachments.length})</span>
+                                        <span>${parsed.attachments.some(a => a.type === 'video') ? '🎬 Video' : '📸 Images'}</span>
+                                    </div>
+                                    <div class="flex gap-2 overflow-x-auto custom-scrollbar pb-1">
+                                        ${parsed.attachments.slice(0, 3).map(a => a.type === 'video' ? `
+                                            <div class="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center flex-shrink-0 text-xs shadow-sm" title="${escapeHTML(a.name)}">🎬</div>
+                                        ` : `
+                                            <img src="${escapeHTML(a.url)}" class="w-12 h-12 object-cover rounded-xl border border-black/10 flex-shrink-0 shadow-sm">
+                                        `).join('')}
+                                        ${parsed.attachments.length > 3 ? `<div class="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center text-[9px] font-black text-black/40 flex-shrink-0">+${parsed.attachments.length - 3}</div>` : ''}
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `}).join('');
+            });
+
+            initSortable();
+        }
+
+        function initSortable() {
+            if (!config || !config.columns) return;
+            config.columns.forEach(col => {
+                const el = document.getElementById(`tasks-${col.id}`);
+                if (!el) return;
+                if (sortables[col.id]) {
+                    try { sortables[col.id].destroy(); } catch (e) {}
+                }
+                sortables[col.id] = new Sortable(el, {
+                    group: 'shared',
+                    animation: 150,
+                    ghostClass: 'opacity-50',
+                    filter: '.no-drag',
+                    preventOnFilter: false,
+                    onEnd: async function () {
+                        const allRenderedIds = [];
+                        config.columns.forEach(c => {
+                            const container = document.getElementById(`tasks-${c.id}`);
+                            if (!container) return;
+                            Array.from(container.children).forEach(cardEl => {
+                                const id = cardEl.getAttribute('data-id');
+                                if (id) allRenderedIds.push({ id, status: c.id });
+                            });
+                        });
+                        
+                        tasks = tasks.map(t => {
+                            const found = allRenderedIds.find(r => String(r.id) === String(t.id));
+                            if (found) {
+                                return { ...t, status: found.status };
+                            }
+                            return t;
+                        });
+
+                        renderCounts();
+                        await sync();
+                    }
+                });
+            });
+        }
+
+        function renderCounts() {
+            if (!config || !config.columns) return;
+            config.columns.forEach(col => {
+                const count = tasks.filter(t => t.status === col.id).length;
+                const el = document.getElementById(`count-${col.id}`);
+                if (el) el.innerText = count;
+            });
+        }
+
+        async function sync() {
+            await fetch('/api/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(tasks)
+            });
+        }
+
+        async function deleteTask(id) {
+            if (confirm('Are you certain you want to delete this task?')) {
+                tasks = tasks.filter(t => String(t.id) !== String(id));
+                renderBoard();
+                await sync();
+            }
+        }
+
+        function openNewTaskModal() {
+            editingId = null;
+            currentUrls = [];
+            currentAttachments = [];
+            document.getElementById('modal-title').innerText = 'New Task';
+            document.getElementById('edit-title').value = '';
+            document.getElementById('edit-priority').value = 'Moderate';
+            document.getElementById('edit-assignee').value = config.assignees[0];
+            document.getElementById('edit-epic').value = config.epics[0];
+            document.getElementById('edit-type').value = 'Task';
+            document.getElementById('edit-readyStatus').value = '';
+            document.getElementById('edit-spec').value = NEW_TASK_TEMPLATE;
+            renderUrlsUI();
+            renderAttachmentsUI();
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function openModal(id) {
+            editingId = id;
+            document.getElementById('modal-title').innerText = 'Edit Task';
+            const task = tasks.find(t => String(t.id) === String(id));
+            if (!task) return;
+            
+            document.getElementById('edit-title').value = task.title;
+            document.getElementById('edit-priority').value = task.priority || 'Moderate';
+            document.getElementById('edit-assignee').value = task.assignee || config.assignees[0];
+            document.getElementById('edit-epic').value = task.epic || config.epics[0];
+            document.getElementById('edit-type').value = task.type || 'Task';
+            document.getElementById('edit-readyStatus').value = task.readyStatus || '';
+            document.getElementById('edit-spec').value = task.spec || '';
+
+            const parsed = parseSpecContent(task.spec || '');
+            currentUrls = parsed.urls;
+            currentAttachments = parsed.attachments;
+
+            renderUrlsUI();
+            renderAttachmentsUI();
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+
+        async function saveTask() {
+            if (!document.getElementById('edit-title').value.trim()) return alert('Title required');
+
+            const p = document.getElementById('edit-priority').value;
+            const a = document.getElementById('edit-assignee').value;
+            const e_epic = document.getElementById('edit-epic').value;
+            const t_type = document.getElementById('edit-type').value;
+            const rs = document.getElementById('edit-readyStatus').value;
+
+            let specText = document.getElementById('edit-spec').value.trim();
+
+            // Clean previous Context URLs and Media Attachments blocks to prevent duplicated headers
+            specText = specText
+                .replace(/- \*\*Context URLs\*\*:[\s\S]*?(?=\n\n|\n###|\n- \*\*|$)/, '')
+                .replace(/### 📷 Media & Attachments[\s\S]*?(?=\n\n|\n- \*\*|$)/, '')
+                .trim();
+
+            const validUrls = currentUrls.filter(u => u.url && u.url.trim());
+            if (validUrls.length > 0) {
+                specText += '\n\n- **Context URLs**:\n' + validUrls.map(u => `  - [${(u.title && u.title.trim()) || u.url.trim()}](${u.url.trim()})`).join('\n');
+            }
+
+            if (currentAttachments.length > 0) {
+                specText += '\n\n### 📷 Media & Attachments\n' + currentAttachments.map(a => {
+                    if (a.type === 'video') {
+                        return `<video src="${a.url}" controls width="100%"></video>`;
+                    } else {
+                        return `![${a.name || 'Image Attachment'}](${a.url})`;
+                    }
+                }).join('\n');
+            }
+
+            if (editingId) {
+                tasks = tasks.map(t => String(t.id) === String(editingId) ? {
+                    ...t,
+                    title: document.getElementById('edit-title').value,
+                    priority: p,
+                    assignee: a,
+                    epic: e_epic,
+                    type: t_type,
+                    readyStatus: rs,
+                    spec: specText
+                } : t);
+            } else {
+                const maxId = tasks.reduce((max, t) => Math.max(max, parseInt(String(t.id).replace('#','')) || 0), 0);
+                tasks.push({
+                    id: String(maxId + 1),
+                    title: document.getElementById('edit-title').value,
+                    status: config.columns[0].id,
+                    priority: p,
+                    assignee: a,
+                    epic: e_epic,
+                    type: t_type,
+                    readyStatus: rs,
+                    spec: specText
+                });
+            }
+            closeModal();
+            renderBoard();
+            await sync();
+        }
+
+        function openConfigModal() {
+            document.getElementById('config-columns').value = config.columns.map(c => `${c.id}:${c.title}`).join(', ');
+            document.getElementById('config-assignees').value = config.assignees.join(', ');
+            document.getElementById('config-epics').value = config.epics.join(', ');
+            document.getElementById('config-types').value = config.types.join(', ');
+            document.getElementById('config-modal').classList.remove('hidden');
+        }
+
+        function closeConfigModal() { document.getElementById('config-modal').classList.add('hidden'); }
+
+        async function saveConfig() {
+            const cols = document.getElementById('config-columns').value.split(',').map(s => {
+                const parts = s.trim().split(':');
+                if (parts.length < 2) return null;
+                return { id: parts[0].trim(), title: parts[1].trim() };
+            }).filter(x => x);
+
+            const assignees = document.getElementById('config-assignees').value.split(',').map(s => s.trim());
+            const epics = document.getElementById('config-epics').value.split(',').map(s => s.trim());
+            const types = document.getElementById('config-types').value.split(',').map(s => s.trim());
+
+            config = { ...config, columns: cols, assignees, epics, types };
+
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(config)
+            });
+
+            closeConfigModal();
+            location.reload();
+        }
+
+        async function init() {
+            await fetchConfig();
+            await fetchTasks();
+            setupDropzoneAndPaste();
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

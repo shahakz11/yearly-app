@@ -1,0 +1,380 @@
+/* Auto-Gifter Calendar Content Script Styles */
+
+/* 1. Injected 🎁 Badge inside Event Chip */
+.autogifter-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 4px !important;
+  padding: 1px 4px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
+  z-index: 999 !important;
+  user-select: none !important;
+  vertical-align: middle !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.autogifter-badge:hover {
+  transform: scale(1.25) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.autogifter-badge:active {
+  transform: scale(1.05) !important;
+}
+
+/* 2. Modal Backdrop Overlay */
+.autogifter-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+/* 3. Modal Dialog Card */
+.autogifter-modal-card {
+  position: relative;
+  width: 500px;
+  max-width: 94vw;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 22px 24px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b;
+  animation: autogifter-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes autogifter-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.autogifter-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: #f1f5f9;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.autogifter-modal-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.autogifter-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-right: 32px;
+}
+
+.autogifter-modal-icon {
+  font-size: 32px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.autogifter-modal-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.autogifter-modal-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.autogifter-modal-subtitle {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.autogifter-section {
+  margin-bottom: 12px;
+}
+
+.autogifter-section-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.autogifter-bouquets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 390px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.autogifter-bouquets-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.autogifter-bouquets-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.autogifter-bouquet-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.autogifter-bouquet-card:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+.autogifter-bouquet-card.active {
+  border-color: #E11D48;
+  background: #fff5f6;
+  box-shadow: 0 0 0 1px #E11D48, 0 4px 12px rgba(225, 29, 72, 0.12);
+}
+
+.autogifter-bouquet-img-wrap {
+  width: 96px;
+  height: 96px;
+  min-width: 96px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f5f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.autogifter-bouquet-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.autogifter-bouquet-card:hover .autogifter-bouquet-thumb {
+  transform: scale(1.04);
+}
+
+.autogifter-bouquet-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.autogifter-bouquet-head-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.autogifter-bouquet-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.autogifter-bouquet-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: #e11d48;
+  background: #ffe4e6;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.autogifter-bouquet-desc {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.45;
+  margin: 4px 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.autogifter-bouquet-card.active .autogifter-bouquet-desc {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  color: #334155;
+}
+
+.autogifter-bouquet-action-row {
+  margin-top: 4px;
+}
+
+.autogifter-btn-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  color: #ffffff !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 5px rgba(225, 29, 72, 0.25);
+  white-space: nowrap;
+}
+
+.autogifter-btn-order:hover {
+  background: linear-gradient(135deg, #be123c 0%, #9f1239 100%);
+  box-shadow: 0 4px 8px rgba(225, 29, 72, 0.35);
+  transform: translateY(-1px);
+}
+
+.autogifter-btn-order:active {
+  transform: translateY(0);
+}
+
+.autogifter-share-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.autogifter-btn-whatsapp,
+.autogifter-btn-email {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.autogifter-btn-whatsapp {
+  background: #25D366;
+  color: #ffffff !important;
+  box-shadow: 0 3px 6px rgba(37, 211, 102, 0.25);
+}
+
+.autogifter-btn-email {
+  background: #2563EB;
+  color: #ffffff !important;
+  box-shadow: 0 3px 6px rgba(37, 99, 235, 0.25);
+}
+
+.autogifter-btn-whatsapp:hover,
+.autogifter-btn-email:hover {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+.autogifter-btn-whatsapp:active {
+  transform: translateY(0);
+}
+
+.autogifter-modal-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.autogifter-browse-all-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.autogifter-browse-all-link:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}

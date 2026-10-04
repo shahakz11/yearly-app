@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Gifter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-wrapper">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="header-brand">
+        <span class="header-logo">🎁</span>
+        <div class="header-titles">
+          <h1>Auto-Gifter</h1>
+          <span class="header-subtitle">Google Calendar Assistant</span>
+        </div>
+      </div>
+      <div class="header-controls">
+        <span id="statusPill" class="status-pill connected" title="Google Calendar Sync">● Calendar Ready</span>
+        <button id="settingsToggleBtn" class="icon-button" title="Configure Settings" aria-label="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Settings Drawer -->
+    <section id="settingsDrawer" class="settings-drawer hidden">
+      <div class="drawer-header">
+        <h2>Celebration Reminders</h2>
+        <button id="closeSettingsBtn" class="icon-button" aria-label="Close settings">&times;</button>
+      </div>
+      <p class="settings-desc">Choose when Auto-Gifter alerts you before upcoming birthdays and celebrations:</p>
+      
+      <div class="reminder-options">
+        <label class="reminder-checkbox-label">
+          <input type="checkbox" id="remind14d" value="14" />
+          <span>📅 14 Days Before (Advance planning)</span>
+        </label>
+        <label class="reminder-checkbox-label">
+          <input type="checkbox" id="remind7d" value="7" checked />
+          <span>💐 7 Days Before (Default - Recommended)</span>
+        </label>
+        <label class="reminder-checkbox-label">
+          <input type="checkbox" id="remind3d" value="3" checked />
+          <span>⏰ 3 Days Before (Default - Last Chance Order)</span>
+        </label>
+        <label class="reminder-checkbox-label">
+          <input type="checkbox" id="remind1d" value="1" />
+          <span>⚡ 1 Day Before (Urgent Reminder)</span>
+        </label>
+      </div>
+
+      <div class="drawer-buttons">
+        <button id="saveSettingsBtn" class="btn btn-primary" style="width:100%;">Save Reminder Settings</button>
+      </div>
+
+      <!-- Diagnostics & Alerting Section -->
+      <div class="settings-diagnostics-section" style="margin-top: 14px; border-top: 1px solid #e5e7eb; padding-top: 12px;">
+        <h3 style="font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #374151;">System Health & Diagnostics</h3>
+        <p class="settings-desc" style="font-size: 11px; margin-bottom: 8px;">Download diagnostic traces or configure webhook alerts:</p>
+        
+        <div style="margin-bottom: 8px;">
+          <input type="url" id="gchatWebhookInput" placeholder="https://chat.googleapis.com/v1/spaces/..." style="width: 100%; font-size: 11px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box;" />
+        </div>
+
+        <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+          <button id="testAlertBtn" class="btn btn-secondary" style="flex: 1; font-size: 11px; padding: 6px 8px;">🚨 Test Alert</button>
+          <button id="exportDiagnosticsBtn" class="btn btn-secondary" style="flex: 1; font-size: 11px; padding: 6px 8px;">📥 Export Log</button>
+        </div>
+      </div>
+
+      <div id="connectionFeedback" class="feedback-box"></div>
+    </section>
+
+    <!-- Quick Sync & Actions Bar -->
+    <div class="sync-banner">
+      <button id="syncAllEventsBtn" class="btn btn-sync">⚡ Sync & Enrich All Celebrations</button>
+      <a id="browseAllFlowersBtn" class="btn btn-browse" href="https://www.floristone.com/index.cfm?source_id=aff&affiliateid=2026097209" target="_blank" rel="noopener noreferrer">💐 Browse All Flowers & Gifts</a>
+      
+      <!-- Progress Bar with Running % -->
+      <div id="syncProgressContainer" class="sync-progress-container hidden">
+        <div class="sync-progress-header">
+          <span id="syncProgressStatus" class="sync-progress-status">🔍 Scanning Google Calendar...</span>
+          <span id="syncProgressPercent" class="sync-progress-percent">0%</span>
+        </div>
+        <div class="sync-progress-track">
+          <div id="syncProgressBar" class="sync-progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div id="syncFeedback" class="sync-feedback hidden"></div>
+    </div>
+
+    <!-- Celebrations Container -->
+    <main id="celebrationsContainer" class="celebrations-container">
+      <div id="loadingIndicator" class="loading-state hidden">
+        <div class="spinner"></div>
+        <span>Scanning upcoming celebrations...</span>
+      </div>
+      <div id="celebrationsList" class="celebrations-list"></div>
+      <div id="loadMoreContainer" class="load-more-container hidden">
+        <button id="loadMoreBtn" class="btn btn-load-more">📅 Load More Celebrations</button>
+      </div>
+      <div id="emptyState" class="empty-state hidden">
+        <span class="empty-icon">📅</span>
+        <p>No celebrations found in your calendar.</p>
+        <p class="empty-hint">Click <b>"⚡ Sync & Enrich All Celebrations"</b> to scan and link your calendar.</p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <span>Auto-Gifter • 1-Tap Calendar Gifting</span>
+    </footer>
+  </div>
+
+  <script src="../core/telemetry.js"></script>
+  <script src="../core/CoreEngine.js"></script>
+  <script src="../storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

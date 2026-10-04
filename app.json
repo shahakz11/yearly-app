@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Auto-gifter",
+    "slug": "auto-gifter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSRemindersUsageDescription": "Auto-gifter requires reminders access to track upcoming events.",
+        "NSCalendarsUsageDescription": "Auto-gifter connects to your calendar to detect upcoming birthdays and anniversaries.",
+        "NSContactsUsageDescription": "Auto-gifter matches event names with your contacts to simplify sending gifts."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "READ_CONTACTS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Auto-gifter needs access to your calendar to notify you of birthdays and anniversaries."
+        }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Auto-gifter needs access to contacts to help you easily reach your gift recipients."
+        }
+      ],
+      "expo-asset"
+    ],
+    "scheme": "autogifter"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "timeZone": "Etc/UTC",
+  "dependencies": {
+    "enabledAdvancedServices": []
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "urlFetchWhitelist": [
+    "https://api.whatsapp.com/",
+    "https://script.google.com/",
+    "https://script.googleusercontent.com/",
+    "https://generativelanguage.googleapis.com/",
+    "https://www.floristone.com/",
+    "https://cdn.floristone.com/",
+    "https://floristone.com/",
+    "https://media.floristone.com/",
+    "https://images.floristone.com/",
+    "https://img.icons8.com/"
+  ],
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/calendar.addons.execute",
+    "https://www.googleapis.com/auth/calendar.addons.current.event.read",
+    "https://www.googleapis.com/auth/calendar.addons.current.event.write",
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/script.scriptapp"
+  ],
+  "addOns": {
+    "common": {
+      "name": "Auto-Gifter",
+      "logoUrl": "https://img.icons8.com/color/48/gift--v1.png",
+      "layoutProperties": {
+        "primaryColor": "#FF3008",
+        "secondaryColor": "#006241"
+      },
+      "homepageTrigger": {
+        "runFunction": "onCalendarHomepage",
+        "enabled": true
+      }
+    },
+    "calendar": {
+      "currentEventAccess": "READ_WRITE",
+      "homepageTrigger": {
+        "runFunction": "onCalendarHomepage"
+      },
+      "eventOpenTrigger": {
+        "runFunction": "onCalendarEventOpen"
+      }
+    }
+  }
+}
