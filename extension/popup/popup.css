@@ -614,10 +614,43 @@ body {
 /* Footer */
 .popup-footer {
   text-align: center;
-  padding: 10px 16px;
+  padding: 10px 14px;
   font-size: 11px;
   color: #94a3b8;
   border-top: 1px solid #e2e8f0;
-  background: #ffffff;
+  background: #f8fafc;
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-disclosure {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  background: #ffffff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+
+.disclosure-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.disclosure-text {
+  flex: 1;
+}
+
+.footer-meta {
+  font-size: 10px;
+  color: #94a3b8;
+  letter-spacing: 0.2px;
 }

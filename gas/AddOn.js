@@ -415,7 +415,7 @@ function onCalendarHomepage(e) {
   try {
     var card = CardService.newCardBuilder()
       .setHeader(CardService.newCardHeader()
-        .setTitle("Auto-Gifter 🌸")
+        .setTitle("Yearly 🌸")
         .setSubtitle("Calendar Gifting Assistant"));
 
     var section = CardService.newCardSection()
@@ -455,12 +455,12 @@ function onCalendarHomepage(e) {
     }
 
     try {
-      var healthSec = createHealthAndAlertSettingsSection();
-      if (healthSec) {
-        card.addSection(healthSec);
+      var disclosureSec = createAffiliateDisclosureSection();
+      if (disclosureSec) {
+        card.addSection(disclosureSec);
       }
-    } catch (hErr) {
-      console.log('[Auto-Gifter] Note adding health section: ' + hErr);
+    } catch (dErr) {
+      console.log('[Auto-Gifter] Note adding disclosure section: ' + dErr);
     }
 
     return card.build();
@@ -471,11 +471,11 @@ function onCalendarHomepage(e) {
     }
     var fallbackCard = CardService.newCardBuilder()
       .setHeader(CardService.newCardHeader()
-        .setTitle("Auto-Gifter 🌸")
+        .setTitle("Yearly 🌸")
         .setSubtitle("Calendar Assistant"));
     var fallbackSec = CardService.newCardSection();
     fallbackSec.addWidget(CardService.newDecoratedText()
-      .setText("Auto-Gifter is ready!")
+      .setText("Yearly is ready!")
       .setBottomLabel("Select any event in Google Calendar to view gift recommendations."));
     fallbackCard.addSection(fallbackSec);
     return fallbackCard.build();
@@ -561,6 +561,24 @@ function createHealthAndAlertSettingsSection() {
     return healthSection;
   } catch (err) {
     console.log('[Auto-Gifter] Note building health section: ' + err);
+    return null;
+  }
+}
+
+/**
+ * Creates a compliant affiliate & partner disclosure section for add-on cards.
+ */
+function createAffiliateDisclosureSection() {
+  try {
+    var sec = CardService.newCardSection()
+      .setHeader("ℹ️ Partner & Affiliate Disclosure");
+    sec.addWidget(CardService.newDecoratedText()
+      .setText("<b>Yearly is free &amp; reader-supported</b>")
+      .setBottomLabel("When you order bouquets or gifts through our curated links, we may receive an affiliate commission from our partner (FloristOne) at no additional cost to you.")
+      .setWrapText(true));
+    return sec;
+  } catch (err) {
+    console.log('[Auto-Gifter] Note building disclosure section: ' + err);
     return null;
   }
 }
@@ -675,7 +693,7 @@ function buildCelebrationCard(event, classification, core, calendarId, eventId, 
 
   var card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader()
-      .setTitle("Auto-Gifter 🌸")
+      .setTitle("Yearly 🌸")
       .setSubtitle(recipientName + "'s Celebration"));
 
   // --- SECTION 1: TOP FLORISTONE BOUQUETS ---
@@ -745,6 +763,10 @@ function buildCelebrationCard(event, classification, core, calendarId, eventId, 
   }
 
   card.addSection(createReminderSettingsSection());
+  var disclosureSection = createAffiliateDisclosureSection();
+  if (disclosureSection) {
+    card.addSection(disclosureSection);
+  }
   return card.build();
 }
 
@@ -819,7 +841,7 @@ function buildNonCelebrationCard(event, classification) {
   var title = event.getTitle ? event.getTitle() : "Event";
   var card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader()
-      .setTitle("Auto-Gifter 🎁")
+      .setTitle("Yearly 🎁")
       .setSubtitle("No Celebration Detected"));
 
   var section = CardService.newCardSection();
@@ -840,7 +862,7 @@ function buildNonCelebrationCard(event, classification) {
 function buildEmptyCard(message) {
   var card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader()
-      .setTitle("Auto-Gifter 🎁")
+      .setTitle("Yearly 🎁")
       .setSubtitle("Assistant"));
 
   var section = CardService.newCardSection();
@@ -1053,7 +1075,7 @@ function onSyncAllCelebrations(e) {
   // Build a result summary card
   var card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader()
-      .setTitle("Auto-Gifter 🌸")
+      .setTitle("Yearly 🌸")
       .setSubtitle("Calendar Sync Complete"));
 
   var section = CardService.newCardSection()
@@ -1067,7 +1089,7 @@ function onSyncAllCelebrations(e) {
   section.addWidget(CardService.newDecoratedText()
     .setTopLabel("Automatic Background Sync")
     .setText("🟢 Active on Autopilot")
-    .setBottomLabel("Auto-Gifter automatically scans and refreshes reminders weekly on Mondays at 2:00 AM in the background."));
+    .setBottomLabel("Yearly automatically scans and refreshes reminders weekly on Mondays at 2:00 AM in the background."));
 
   card.addSection(section);
 

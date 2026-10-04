@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Auto-Gifter",
+  "name": "Yearly",
   "version": "1.0.0",
   "description": "Smart dual-surface gifting assistant directly inside Google Calendar",
   "permissions": [
@@ -29,7 +29,7 @@
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Auto-Gifter",
+    "default_title": "Yearly",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

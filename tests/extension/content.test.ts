@@ -230,5 +230,10 @@ describe('Content Script & Calendar DOM Injection (extension/content/content.js)
     cards[1].dispatchEvent(new MockEvent('click', { bubbles: true }));
     expect(cards[0].classList.contains('active')).toBe(false);
     expect(cards[1].classList.contains('active')).toBe(true);
+
+    // Verify affiliate disclosure element
+    const disclosureEl = modal?.querySelector('.autogifter-modal-disclosure');
+    expect(disclosureEl).toBeDefined();
+    expect(disclosureEl?.textContent).toContain('affiliate');
   });
 });

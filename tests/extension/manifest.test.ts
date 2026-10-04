@@ -16,7 +16,7 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
   });
 
   it('defines valid name, version, and description', () => {
-    expect(manifest.name).toBe('Auto-Gifter');
+    expect(manifest.name).toBe('Yearly');
     expect(typeof manifest.version).toBe('string');
     expect(manifest.version.length).toBeGreaterThan(0);
     expect(typeof manifest.description).toBe('string');
@@ -48,7 +48,7 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
   it('configures the action default_popup to popup/popup.html', () => {
     expect(manifest.action).toBeDefined();
     expect(manifest.action.default_popup).toBe('popup/popup.html');
-    expect(manifest.action.default_title).toBe('Auto-Gifter');
+    expect(manifest.action.default_title).toBe('Yearly');
   });
 
   it('references existing icon asset files', () => {

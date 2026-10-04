@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto-Gifter</title>
+  <title>Yearly</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
       <div class="header-brand">
         <span class="header-logo">🎁</span>
         <div class="header-titles">
-          <h1>Auto-Gifter</h1>
+          <h1>Yearly</h1>
           <span class="header-subtitle">Google Calendar Assistant</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <h2>Celebration Reminders</h2>
         <button id="closeSettingsBtn" class="icon-button" aria-label="Close settings">&times;</button>
       </div>
-      <p class="settings-desc">Choose when Auto-Gifter alerts you before upcoming birthdays and celebrations:</p>
+      <p class="settings-desc">Choose when Yearly alerts you before upcoming birthdays and celebrations:</p>
       
       <div class="reminder-options">
         <label class="reminder-checkbox-label">
@@ -54,20 +54,6 @@
         <button id="saveSettingsBtn" class="btn btn-primary" style="width:100%;">Save Reminder Settings</button>
       </div>
 
-      <!-- Diagnostics & Alerting Section -->
-      <div class="settings-diagnostics-section" style="margin-top: 14px; border-top: 1px solid #e5e7eb; padding-top: 12px;">
-        <h3 style="font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #374151;">System Health & Diagnostics</h3>
-        <p class="settings-desc" style="font-size: 11px; margin-bottom: 8px;">Download diagnostic traces or configure webhook alerts:</p>
-        
-        <div style="margin-bottom: 8px;">
-          <input type="url" id="gchatWebhookInput" placeholder="https://chat.googleapis.com/v1/spaces/..." style="width: 100%; font-size: 11px; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box;" />
-        </div>
-
-        <div style="display: flex; gap: 6px; margin-bottom: 6px;">
-          <button id="testAlertBtn" class="btn btn-secondary" style="flex: 1; font-size: 11px; padding: 6px 8px;">🚨 Test Alert</button>
-          <button id="exportDiagnosticsBtn" class="btn btn-secondary" style="flex: 1; font-size: 11px; padding: 6px 8px;">📥 Export Log</button>
-        </div>
-      </div>
 
       <div id="connectionFeedback" class="feedback-box"></div>
     </section>
@@ -110,7 +96,11 @@
 
     <!-- Footer -->
     <footer class="popup-footer">
-      <span>Auto-Gifter • 1-Tap Calendar Gifting</span>
+      <div class="footer-disclosure">
+        <span class="disclosure-icon" aria-hidden="true">ℹ️</span>
+        <span class="disclosure-text">Yearly is free &amp; supported by affiliate links. We may earn a commission on qualifying purchases at no extra cost to you.</span>
+      </div>
+      <div class="footer-meta">Yearly • 1-Tap Calendar Gifting</div>
     </footer>
   </div>
 

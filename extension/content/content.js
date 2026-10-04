@@ -182,8 +182,8 @@
     badge.className = 'autogifter-badge';
     badge.setAttribute('role', 'button');
     badge.setAttribute('tabindex', '0');
-    badge.setAttribute('aria-label', 'Auto-Gifter: Prepare gift for ' + (classification.recipientName || 'celebration'));
-    badge.title = '🎁 Auto-Gifter: Send a gift to ' + (classification.recipientName || 'celebrant');
+    badge.setAttribute('aria-label', 'Yearly: Prepare gift for ' + (classification.recipientName || 'celebration'));
+    badge.title = '🎁 Yearly: Send a gift to ' + (classification.recipientName || 'celebrant');
     badge.textContent = '🎁';
 
     badge.dataset.recipientName = classification.recipientName || '';
@@ -460,6 +460,12 @@
       e.stopPropagation();
     });
     browseFooter.appendChild(browseLink);
+
+    var disclosureNote = document.createElement('div');
+    disclosureNote.className = 'autogifter-modal-disclosure';
+    disclosureNote.innerHTML = '<span class="autogifter-disclosure-icon" aria-hidden="true">ℹ️</span> Yearly is free &amp; supported by affiliate partnerships. We may earn a commission on qualifying purchases at no extra cost to you.';
+    browseFooter.appendChild(disclosureNote);
+
     card.appendChild(browseFooter);
 
     backdrop.appendChild(card);
