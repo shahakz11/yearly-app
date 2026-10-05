@@ -38,7 +38,17 @@ function findCalendarEvent(cal, eventId) {
   if (cal) calsToTry.push(cal);
   if (typeof CalendarApp !== 'undefined') {
     var def = CalendarApp.getDefaultCalendar();
-    if (def && def !== cal) calsToTry.push(def);
+    if (def && calsToTry.indexOf(def) === -1) calsToTry.push(def);
+    try {
+      if (typeof CalendarApp.getAllCalendars === 'function') {
+        var allCals = CalendarApp.getAllCalendars() || [];
+        for (var a = 0; a < allCals.length; a++) {
+          if (allCals[a] && calsToTry.indexOf(allCals[a]) === -1) {
+            calsToTry.push(allCals[a]);
+          }
+        }
+      }
+    } catch (_) {}
   }
 
   // Clean and prepare variations of the ID
@@ -268,40 +278,80 @@ function enrichCalendarEvent(event, cal, calendarId, eventId, classification, ex
     console.log('[Auto-Gifter] Read-only system event detected ("' + (event.getTitle ? event.getTitle() : recipientName) + '"). Bridging to primary editable celebration...');
   }
 
-  // 5. If event is read-only (Google Contacts Birthdays / Subscribed Calendars) or direct update failed,
+  // 5. If event is read-only (Google Contacts Birthdays / Observances / Subscribed Calendars) or direct update failed,
   // automatically create / update an editable companion celebration event on the user's primary calendar so they get popup alerts & gift links!
   if (!success && typeof CalendarApp !== 'undefined') {
     try {
       var primaryCal = CalendarApp.getDefaultCalendar();
       if (primaryCal) {
-        var startTime = typeof event.getStartTime === 'function' ? event.getStartTime() : new Date();
+        var startTime = (typeof event.getAllDayStartDate === 'function')
+          ? event.getAllDayStartDate()
+          : (typeof event.getStartTime === 'function' ? event.getStartTime() : new Date());
         var isAllDay = typeof event.isAllDayEvent === 'function' ? event.isAllDayEvent() : true;
-        var celebrantTitle = "🎂 " + (classification.recipientName ? classification.recipientName : (event.getTitle ? event.getTitle() : "Celebration"));
 
-        var dayStart = new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate(), 0, 0, 0);
-        var dayEnd = new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate(), 23, 59, 59);
-        var existingPrimaryEvents = primaryCal.getEvents(dayStart, dayEnd) || [];
+        var celebrationType = classification.celebrationType || 'birthday';
+        var celebrationEmoji = (core && typeof core.getCelebrationEmoji === 'function')
+          ? core.getCelebrationEmoji(celebrationType)
+          : '🎂';
+
+        var rawTitle = event.getTitle ? event.getTitle().trim() : '';
+        var celebrantTitle;
+        if (rawTitle && (/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(rawTitle))) {
+          celebrantTitle = rawTitle;
+        } else if (celebrationType === 'birthday' && classification.recipientName) {
+          celebrantTitle = celebrationEmoji + " " + classification.recipientName;
+        } else if (rawTitle) {
+          celebrantTitle = celebrationEmoji + " " + rawTitle;
+        } else {
+          celebrantTitle = celebrationEmoji + " " + (classification.recipientName || "Celebration");
+        }
+
+        // To prevent timezone offset shifts (e.g. UTC-5 placing UTC 00:00 events on the previous day),
+        // we use noon (12:00:00) so the date is invariant across all world timezones.
+        var eventYear, eventMonth, eventDay;
+        if (startTime) {
+          eventYear = startTime.getFullYear();
+          eventMonth = startTime.getMonth();
+          eventDay = startTime.getDate();
+        } else {
+          var nowD = new Date();
+          eventYear = nowD.getFullYear();
+          eventMonth = nowD.getMonth();
+          eventDay = nowD.getDate();
+        }
+
+        var middayDate = new Date(eventYear, eventMonth, eventDay, 12, 0, 0);
+        var searchStart = new Date(eventYear, eventMonth, eventDay, 0, 0, 0);
+        var searchEnd = new Date(eventYear, eventMonth, eventDay, 23, 59, 59);
+        var existingPrimaryEvents = primaryCal.getEvents(searchStart, searchEnd) || [];
         var targetEvent = null;
+
+        var searchName = (classification.recipientName || '').toLowerCase();
+        var cleanTitleWithoutEmoji = rawTitle.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s]+/u, '').toLowerCase();
 
         for (var k = 0; k < existingPrimaryEvents.length; k++) {
           var pe = existingPrimaryEvents[k];
-          var pTitle = pe.getTitle ? pe.getTitle() : '';
-          var pDesc = pe.getDescription ? pe.getDescription() : '';
-          if (pe.getId() !== event.getId() && (pTitle.indexOf(recipientName) !== -1 || pDesc.indexOf('FloristOne') !== -1)) {
-            targetEvent = pe;
-            break;
+          var pTitle = (pe.getTitle ? pe.getTitle() : '').toLowerCase();
+          var pDesc = (pe.getDescription ? pe.getDescription() : '');
+          if (pe.getId() !== event.getId()) {
+            if ((searchName && pTitle.indexOf(searchName) !== -1) ||
+                (cleanTitleWithoutEmoji && pTitle.indexOf(cleanTitleWithoutEmoji) !== -1) ||
+                (pDesc.indexOf('FloristOne') !== -1 && (searchName && pDesc.indexOf(searchName) !== -1 || cleanTitleWithoutEmoji && pTitle.indexOf(cleanTitleWithoutEmoji) !== -1))) {
+              targetEvent = pe;
+              break;
+            }
           }
         }
 
         if (targetEvent) {
           applyPopupReminders(targetEvent, reminderDays);
           targetEvent.setDescription(enrichedDescription);
-          console.log('[Auto-Gifter] Enriched existing editable celebration event on primary calendar for ' + recipientName);
+          console.log('[Auto-Gifter] Enriched existing editable celebration event on primary calendar for ' + (classification.recipientName || rawTitle));
           success = true;
         } else {
           var created;
           if (isAllDay) {
-            created = primaryCal.createAllDayEvent(celebrantTitle, dayStart, {
+            created = primaryCal.createAllDayEvent(celebrantTitle, middayDate, {
               description: enrichedDescription
             });
           } else {
@@ -312,7 +362,7 @@ function enrichCalendarEvent(event, cal, calendarId, eventId, classification, ex
           }
           if (created) {
             applyPopupReminders(created, reminderDays);
-            console.log('[Auto-Gifter] Created new enriched celebration on primary calendar with ' + reminderDays.join(',') + 'd reminders for ' + recipientName);
+            console.log('[Auto-Gifter] Created new enriched celebration on primary calendar with ' + reminderDays.join(',') + 'd reminders for ' + (classification.recipientName || rawTitle));
             success = true;
           }
         }
@@ -935,6 +985,57 @@ function onManualMarkSent(e) {
 }
 
 /**
+ * Retrieves all relevant calendars to scan (primary, owned, contacts birthdays, holiday / observance calendars).
+ * @return {GoogleAppsScript.Calendar.Calendar[]}
+ */
+function getCalendarsToScan() {
+  var cals = [];
+  var seenIds = {};
+  if (typeof CalendarApp === 'undefined') return cals;
+
+  try {
+    var def = CalendarApp.getDefaultCalendar();
+    if (def) {
+      cals.push(def);
+      var defId = (def.getId ? def.getId() : 'primary').toLowerCase();
+      seenIds[defId] = true;
+    }
+  } catch (_) {}
+
+  try {
+    if (typeof CalendarApp.getAllCalendars === 'function') {
+      var all = CalendarApp.getAllCalendars() || [];
+      for (var k = 0; k < all.length; k++) {
+        var aCal = all[k];
+        if (!aCal) continue;
+        var aId = (aCal.getId ? aCal.getId() : '').toLowerCase();
+        if (aId && seenIds[aId]) continue;
+
+        var cName = (aCal.getName ? aCal.getName() : '').toLowerCase();
+        var isOwned = (typeof aCal.isOwnedByMe === 'function') ? aCal.isOwnedByMe() : false;
+        var isHolidayOrObservance = aId.indexOf('holiday') !== -1 ||
+                                    aId.indexOf('group.v.calendar.google.com') !== -1 ||
+                                    cName.indexOf('holiday') !== -1 ||
+                                    cName.indexOf('observance') !== -1 ||
+                                    cName.indexOf('festivo') !== -1 ||
+                                    cName.indexOf('feriado') !== -1 ||
+                                    cName.indexOf('dia') !== -1;
+        var isContacts = aId.indexOf('contacts') !== -1 || cName.indexOf('birthday') !== -1 || cName.indexOf('cumpleaño') !== -1;
+
+        if (isOwned || isHolidayOrObservance || isContacts) {
+          cals.push(aCal);
+          if (aId) seenIds[aId] = true;
+        }
+      }
+    }
+  } catch (err) {
+    console.log('[Auto-Gifter] Note fetching all calendars: ' + err);
+  }
+
+  return cals;
+}
+
+/**
  * CardService action callback to scan and enrich all upcoming celebration events in the user's calendar.
  *
  * @param {Object} e CardService event
@@ -957,10 +1058,8 @@ function onSyncAllCelebrations(e) {
       .build();
   }
 
-  // Target primary calendar for sub-second UI response
-  var cals = [];
-  var def = CalendarApp.getDefaultCalendar();
-  if (def) cals.push(def);
+  // Retrieve primary and relevant celebration / observance calendars
+  var cals = getCalendarsToScan();
 
   // 365 days window from start of day so all birthdays and celebrations across the full year are captured
   var now = new Date();
@@ -1043,7 +1142,7 @@ function onSyncAllCelebrations(e) {
 
     // Time budget: guarantee completion under 4 seconds to avoid Google AddOn timeout
     var timeElapsed = Date.now() - scanStartTime;
-    if (!item.isAlreadyEnriched && newlyEnrichedCount < 5 && timeElapsed < 3500) {
+    if (newlyEnrichedCount < 10 && timeElapsed < 3500) {
       try {
         var ok = enrichCalendarEvent(item.event, item.cal, item.calId, item.eventId, item.classification, item.notes, core, userReminders);
         if (ok) newlyEnrichedCount++;
@@ -1153,9 +1252,7 @@ function autoSyncWeeklyTrigger() {
   if (!core || typeof CalendarApp === 'undefined') return;
 
   var userReminders = getUserReminderSettings();
-  var cals = [];
-  var def = CalendarApp.getDefaultCalendar();
-  if (def) cals.push(def);
+  var cals = getCalendarsToScan();
 
   var now = new Date();
   var startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);

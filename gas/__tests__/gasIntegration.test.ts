@@ -2,6 +2,7 @@ import {
   setupGasGlobals,
   resetGasGlobals,
   MockCalendarApp,
+  MockCalendar,
   MockSpreadsheetApp,
   MockPropertiesService,
   MockScriptApp,
@@ -478,6 +479,81 @@ describe('Milestone 2: Google Workspace Add-on (GAS) & Sheets Persistence', () =
       const data = JSON.parse(resp.getContent());
       expect(data.status).toBe('error');
       expect(data.error).toContain('Unknown action');
+    });
+  });
+
+  // =========================================================================
+  // 6. Observance Calendar Date Accuracy & Holiday Scanning
+  // =========================================================================
+  describe('6. Observance Calendar Date Accuracy & Holiday Scanning', () => {
+    it('creates bridged celebration event on the EXACT date (not off by one day) for New Year\'s Eve and Day', () => {
+      // Setup read-only Observance calendar
+      const obsCal = new MockCalendar('en.usa#holiday@group.v.calendar.google.com', 'Holidays in United States', false);
+      MockCalendarApp.setCalendar('en.usa#holiday@group.v.calendar.google.com', obsCal);
+
+      const nyeDate = new Date('2026-12-31T00:00:00Z');
+      const nyeEnd = new Date('2027-01-01T00:00:00Z');
+      const nyeEvent = new MockCalendarEvent('evt_nye_2026', "New Year's Eve", nyeDate, nyeEnd, 'Holiday observance', true);
+      obsCal.addEvent(nyeEvent);
+
+      const triggerEvent = {
+        calendar: {
+          calendarId: 'en.usa#holiday@group.v.calendar.google.com',
+          id: 'evt_nye_2026'
+        }
+      };
+
+      const card = AddOn.onCalendarEventOpen(triggerEvent);
+      expect(card).toBeDefined();
+
+      // Verify the bridged event on primary calendar
+      const primaryCal = MockCalendarApp.getDefaultCalendar();
+      const searchDayStart = new Date(2026, 11, 31, 0, 0, 0);
+      const searchDayEnd = new Date(2026, 11, 31, 23, 59, 59);
+      const createdEvents = primaryCal.getEvents(searchDayStart, searchDayEnd);
+
+      expect(createdEvents.length).toBeGreaterThanOrEqual(1);
+      const bridgedNye = createdEvents[0];
+      expect(bridgedNye.getTitle()).toContain("New Year's Eve");
+      // Check start date day/month/year
+      const createdStart = bridgedNye.getStartTime();
+      expect(createdStart.getFullYear()).toBe(2026);
+      expect(createdStart.getMonth()).toBe(11); // December
+      expect(createdStart.getDate()).toBe(31); // 31st, NOT 30th!
+      expect(bridgedNye.getDescription()).toContain('FloristOne Flower Delivery');
+    });
+
+    it('scans observance and holiday calendars during onSyncAllCelebrations and bridges Mother\'s Day & Father\'s Day', () => {
+      const holidayCal = new MockCalendar('es.spain#holiday@group.v.calendar.google.com', 'Festivos en España', false);
+      MockCalendarApp.setCalendar('es.spain#holiday@group.v.calendar.google.com', holidayCal);
+
+      const now = new Date();
+      const mothersDayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5);
+      const mothersDayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 6);
+      const mEvent = new MockCalendarEvent('evt_mothers_day', "Día de la Madre", mothersDayDate, mothersDayEnd, 'Observance', true);
+      holidayCal.addEvent(mEvent);
+
+      const fathersDayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10);
+      const fathersDayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 11);
+      const fEvent = new MockCalendarEvent('evt_fathers_day', "Father's Day", fathersDayDate, fathersDayEnd, 'Observance', true);
+      holidayCal.addEvent(fEvent);
+
+      const resp = AddOn.onSyncAllCelebrations({});
+      expect(resp).toBeDefined();
+
+      // Check that events were bridged to primary calendar
+      const primaryCal = MockCalendarApp.getDefaultCalendar();
+      const mSearchStart = new Date(mothersDayDate.getFullYear(), mothersDayDate.getMonth(), mothersDayDate.getDate(), 0, 0, 0);
+      const mSearchEnd = new Date(mothersDayDate.getFullYear(), mothersDayDate.getMonth(), mothersDayDate.getDate(), 23, 59, 59);
+      const mBridged = primaryCal.getEvents(mSearchStart, mSearchEnd);
+      expect(mBridged.length).toBeGreaterThanOrEqual(1);
+      expect(mBridged[0].getTitle()).toContain('Día de la Madre');
+
+      const fSearchStart = new Date(fathersDayDate.getFullYear(), fathersDayDate.getMonth(), fathersDayDate.getDate(), 0, 0, 0);
+      const fSearchEnd = new Date(fathersDayDate.getFullYear(), fathersDayDate.getMonth(), fathersDayDate.getDate(), 23, 59, 59);
+      const fBridged = primaryCal.getEvents(fSearchStart, fSearchEnd);
+      expect(fBridged.length).toBeGreaterThanOrEqual(1);
+      expect(fBridged[0].getTitle()).toContain("Father's Day");
     });
   });
 });

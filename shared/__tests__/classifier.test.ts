@@ -225,6 +225,76 @@ describe('Classifier Service (shared/classifier.ts)', () => {
     });
   });
 
+  describe('Holidays and Observances Recognition', () => {
+    it("should classify Mother's Day in English and Spanish", () => {
+      const res1 = classifyEvent("Mother's Day");
+      expect(res1.isCelebration).toBe(true);
+      expect(res1.celebrationType).toBe('mothers_day');
+      expect(res1.occasionCategory).toBe('mothers_day');
+
+      const res2 = classifyEvent("Día de la Madre");
+      expect(res2.isCelebration).toBe(true);
+      expect(res2.celebrationType).toBe('mothers_day');
+    });
+
+    it("should classify Father's Day in English and Spanish", () => {
+      const res1 = classifyEvent("Father's Day");
+      expect(res1.isCelebration).toBe(true);
+      expect(res1.celebrationType).toBe('fathers_day');
+
+      const res2 = classifyEvent("Día del Padre");
+      expect(res2.isCelebration).toBe(true);
+      expect(res2.celebrationType).toBe('fathers_day');
+    });
+
+    it("should classify Valentine's Day in English and Spanish", () => {
+      const res1 = classifyEvent("Valentine's Day");
+      expect(res1.isCelebration).toBe(true);
+      expect(res1.celebrationType).toBe('valentines');
+      expect(res1.occasionCategory).toBe('love');
+
+      const res2 = classifyEvent("Día de San Valentín");
+      expect(res2.isCelebration).toBe(true);
+      expect(res2.celebrationType).toBe('valentines');
+    });
+
+    it("should classify New Year's Eve and Day in English and Spanish", () => {
+      const res1 = classifyEvent("New Year's Eve");
+      expect(res1.isCelebration).toBe(true);
+      expect(res1.celebrationType).toBe('new_year');
+
+      const res2 = classifyEvent("New Year's Day");
+      expect(res2.isCelebration).toBe(true);
+      expect(res2.celebrationType).toBe('new_year');
+
+      const res3 = classifyEvent("Nochevieja");
+      expect(res3.isCelebration).toBe(true);
+      expect(res3.celebrationType).toBe('new_year');
+
+      const res4 = classifyEvent("Año Nuevo");
+      expect(res4.isCelebration).toBe(true);
+      expect(res4.celebrationType).toBe('new_year');
+    });
+
+    it("should classify International Women's Day, Grandparents Day, Boss's Day, and Hanukkah", () => {
+      const resW = classifyEvent("International Women's Day");
+      expect(resW.isCelebration).toBe(true);
+      expect(resW.celebrationType).toBe('womens_day');
+
+      const resG = classifyEvent("Grandparents Day");
+      expect(resG.isCelebration).toBe(true);
+      expect(resG.celebrationType).toBe('grandparents_day');
+
+      const resB = classifyEvent("Boss's Day");
+      expect(resB.isCelebration).toBe(true);
+      expect(resB.celebrationType).toBe('boss_day');
+
+      const resH = classifyEvent("Hanukkah");
+      expect(resH.isCelebration).toBe(true);
+      expect(resH.celebrationType).toBe('hanukkah');
+    });
+  });
+
   describe('Enriched Event Idempotency & Catalog Consistency', () => {
     it("should classify 'Sarah\\'s Birthday' as birthday even when notes contain flower emojis and previous FloristOne links", () => {
       const notes = [

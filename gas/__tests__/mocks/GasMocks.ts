@@ -498,12 +498,19 @@ export class MockCalendarEvent {
   private startTime: Date;
   private endTime: Date;
 
-  constructor(id: string, title: string, startTime: Date, endTime: Date, description = '') {
+  private isAllDay: boolean = true;
+  private allDayStartDate?: Date;
+
+  constructor(id: string, title: string, startTime: Date, endTime: Date, description = '', isAllDay = true) {
     this.id = id;
     this.title = title;
     this.startTime = startTime;
     this.endTime = endTime;
     this.description = description;
+    this.isAllDay = isAllDay;
+    if (isAllDay) {
+      this.allDayStartDate = startTime;
+    }
   }
 
   getId() {
@@ -541,6 +548,19 @@ export class MockCalendarEvent {
     return this.endTime;
   }
 
+  isAllDayEvent() {
+    return this.isAllDay;
+  }
+
+  setIsAllDayEvent(allDay: boolean) {
+    this.isAllDay = allDay;
+    return this;
+  }
+
+  getAllDayStartDate() {
+    return this.allDayStartDate || this.startTime;
+  }
+
   private reminders: number[] = [];
 
   addPopupReminder(minutes: number) {
@@ -561,11 +581,13 @@ export class MockCalendarEvent {
 export class MockCalendar {
   private id: string;
   private name: string;
+  private isOwned: boolean;
   private events: MockCalendarEvent[] = [];
 
-  constructor(id = 'primary', name = 'Primary Calendar') {
+  constructor(id = 'primary', name = 'Primary Calendar', isOwned = true) {
     this.id = id;
     this.name = name;
+    this.isOwned = isOwned;
   }
 
   getId() {
@@ -576,6 +598,14 @@ export class MockCalendar {
     return this.name;
   }
 
+  isOwnedByMe() {
+    return this.isOwned;
+  }
+
+  getTimeZone() {
+    return 'America/New_York';
+  }
+
   addEvent(event: MockCalendarEvent) {
     this.events.push(event);
     return event;
@@ -583,7 +613,15 @@ export class MockCalendar {
 
   createEvent(title: string, startTime: Date, endTime: Date, options?: { description?: string }) {
     const id = 'evt_' + Math.random().toString(36).substring(2, 9);
-    const event = new MockCalendarEvent(id, title, startTime, endTime, options ? options.description : '');
+    const event = new MockCalendarEvent(id, title, startTime, endTime, options ? options.description : '', false);
+    this.events.push(event);
+    return event;
+  }
+
+  createAllDayEvent(title: string, startDate: Date, options?: { description?: string }) {
+    const id = 'evt_allday_' + Math.random().toString(36).substring(2, 9);
+    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+    const event = new MockCalendarEvent(id, title, startDate, endDate, options ? options.description : '', true);
     this.events.push(event);
     return event;
   }
@@ -598,7 +636,7 @@ export class MockCalendar {
     return this.events.filter(e => {
       const eStart = e.getStartTime().getTime();
       const eEnd = e.getEndTime().getTime();
-      return eStart < endMs && eEnd > startMs;
+      return eStart <= endMs && eEnd >= startMs;
     });
   }
 
@@ -608,7 +646,7 @@ export class MockCalendar {
 }
 
 export class MockCalendarApp {
-  private static defaultCalendar = new MockCalendar('primary', 'Default Calendar');
+  private static defaultCalendar = new MockCalendar('primary', 'Default Calendar', true);
   private static calendars = new Map<string, MockCalendar>([['primary', MockCalendarApp.defaultCalendar]]);
 
   static getDefaultCalendar() {
@@ -618,10 +656,23 @@ export class MockCalendarApp {
   static getCalendarById(id: string) {
     let cal = MockCalendarApp.calendars.get(id);
     if (!cal) {
-      cal = new MockCalendar(id, 'Calendar ' + id);
+      const isOwned = !id.includes('holiday') && !id.includes('contacts') && !id.includes('group.v.calendar');
+      cal = new MockCalendar(id, 'Calendar ' + id, isOwned);
       MockCalendarApp.calendars.set(id, cal);
     }
     return cal;
+  }
+
+  static getAllCalendars() {
+    return Array.from(MockCalendarApp.calendars.values());
+  }
+
+  static getAllOwnedCalendars() {
+    return Array.from(MockCalendarApp.calendars.values()).filter(c => c.isOwnedByMe());
+  }
+
+  static setCalendar(id: string, cal: MockCalendar) {
+    MockCalendarApp.calendars.set(id, cal);
   }
 
   static reset() {

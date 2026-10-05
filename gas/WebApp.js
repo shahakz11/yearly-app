@@ -377,18 +377,42 @@ function syncAllCelebrations(days, reminderDays) {
   }
 
   var cals = [];
+  var seenIds = {};
   var def = CalendarApp.getDefaultCalendar();
-  if (def) cals.push(def);
+  if (def) {
+    cals.push(def);
+    var defId = (def.getId ? def.getId() : 'primary').toLowerCase();
+    seenIds[defId] = true;
+  }
 
   try {
-    var owned = CalendarApp.getAllOwnedCalendars() || [];
-    for (var k = 0; k < owned.length; k++) {
-      if (owned[k] && (!def || owned[k].getId() !== def.getId())) {
-        cals.push(owned[k]);
+    var allCals = (typeof CalendarApp.getAllCalendars === 'function')
+      ? CalendarApp.getAllCalendars()
+      : ((typeof CalendarApp.getAllOwnedCalendars === 'function') ? CalendarApp.getAllOwnedCalendars() : []);
+    for (var k = 0; k < allCals.length; k++) {
+      var aCal = allCals[k];
+      if (!aCal) continue;
+      var aId = (aCal.getId ? aCal.getId() : '').toLowerCase();
+      if (aId && seenIds[aId]) continue;
+
+      var cName = (aCal.getName ? aCal.getName() : '').toLowerCase();
+      var isOwned = (typeof aCal.isOwnedByMe === 'function') ? aCal.isOwnedByMe() : false;
+      var isHolidayOrObservance = aId.indexOf('holiday') !== -1 ||
+                                  aId.indexOf('group.v.calendar.google.com') !== -1 ||
+                                  cName.indexOf('holiday') !== -1 ||
+                                  cName.indexOf('observance') !== -1 ||
+                                  cName.indexOf('festivo') !== -1 ||
+                                  cName.indexOf('feriado') !== -1 ||
+                                  cName.indexOf('dia') !== -1;
+      var isContacts = aId.indexOf('contacts') !== -1 || cName.indexOf('birthday') !== -1 || cName.indexOf('cumpleaño') !== -1;
+
+      if (isOwned || isHolidayOrObservance || isContacts) {
+        cals.push(aCal);
+        if (aId) seenIds[aId] = true;
       }
     }
   } catch (err) {
-    console.log('[Auto-Gifter WebApp] Note fetching owned calendars: ' + err);
+    console.log('[Auto-Gifter WebApp] Note fetching all calendars: ' + err);
   }
 
   var core = _core || (typeof AutoGifterCore !== 'undefined' ? AutoGifterCore : null);
@@ -523,15 +547,48 @@ function syncAllCelebrations(days, reminderDays) {
             var primaryCal = CalendarApp.getDefaultCalendar();
             if (primaryCal) {
               var isAllDay = typeof item.event.isAllDayEvent === 'function' ? item.event.isAllDayEvent() : true;
-              var celebrantTitle = "🎂 " + (item.classification.recipientName ? item.classification.recipientName : (item.title || "Celebration"));
-              var dayStart = new Date(item.startTime.getFullYear(), item.startTime.getMonth(), item.startTime.getDate(), 0, 0, 0);
-              var dayEnd = new Date(item.startTime.getFullYear(), item.startTime.getMonth(), item.startTime.getDate(), 23, 59, 59);
-              var peEvents = primaryCal.getEvents(dayStart, dayEnd) || [];
+              var celebrationType = item.classification.celebrationType || 'birthday';
+              var celebrationEmoji = (core && typeof core.getCelebrationEmoji === 'function')
+                ? core.getCelebrationEmoji(celebrationType)
+                : '🎂';
+              var rawTitle = item.title ? item.title.trim() : '';
+              var celebrantTitle;
+              if (rawTitle && (/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(rawTitle))) {
+                celebrantTitle = rawTitle;
+              } else if (celebrationType === 'birthday' && item.classification.recipientName) {
+                celebrantTitle = celebrationEmoji + " " + item.classification.recipientName;
+              } else if (rawTitle) {
+                celebrantTitle = celebrationEmoji + " " + rawTitle;
+              } else {
+                celebrantTitle = celebrationEmoji + " " + (item.classification.recipientName || "Celebration");
+              }
+
+              var startTimeObj = (typeof item.event.getAllDayStartDate === 'function')
+                ? item.event.getAllDayStartDate()
+                : (item.startTime || new Date());
+              var eventYear = startTimeObj.getFullYear();
+              var eventMonth = startTimeObj.getMonth();
+              var eventDay = startTimeObj.getDate();
+
+              var middayDate = new Date(eventYear, eventMonth, eventDay, 12, 0, 0);
+              var searchStart = new Date(eventYear, eventMonth, eventDay, 0, 0, 0);
+              var searchEnd = new Date(eventYear, eventMonth, eventDay, 23, 59, 59);
+              var peEvents = primaryCal.getEvents(searchStart, searchEnd) || [];
               var found = null;
+              var searchName = (item.classification.recipientName || '').toLowerCase();
+              var cleanTitleWithoutEmoji = rawTitle.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s]+/u, '').toLowerCase();
+
               for (var p = 0; p < peEvents.length; p++) {
-                if (peEvents[p].getId() !== item.event.getId() && (peEvents[p].getTitle().indexOf(item.classification.recipientName) !== -1 || peEvents[p].getDescription().indexOf('FloristOne') !== -1)) {
-                  found = peEvents[p];
-                  break;
+                var pEvt = peEvents[p];
+                if (pEvt.getId() !== item.event.getId()) {
+                  var pTitle = (pEvt.getTitle ? pEvt.getTitle() : '').toLowerCase();
+                  var pDesc = (pEvt.getDescription ? pEvt.getDescription() : '');
+                  if ((searchName && pTitle.indexOf(searchName) !== -1) ||
+                      (cleanTitleWithoutEmoji && pTitle.indexOf(cleanTitleWithoutEmoji) !== -1) ||
+                      (pDesc.indexOf('FloristOne') !== -1 && (searchName && pDesc.indexOf(searchName) !== -1 || cleanTitleWithoutEmoji && pTitle.indexOf(cleanTitleWithoutEmoji) !== -1))) {
+                    found = pEvt;
+                    break;
+                  }
                 }
               }
               if (found) {
@@ -545,7 +602,7 @@ function syncAllCelebrations(days, reminderDays) {
               } else {
                 var newCreated;
                 if (isAllDay) {
-                  newCreated = primaryCal.createAllDayEvent(celebrantTitle, dayStart, { description: desc });
+                  newCreated = primaryCal.createAllDayEvent(celebrantTitle, middayDate, { description: desc });
                 } else {
                   var endTime = typeof item.event.getEndTime === 'function' ? item.event.getEndTime() : new Date(item.startTime.getTime() + 3600000);
                   newCreated = primaryCal.createEvent(celebrantTitle, item.startTime, endTime, { description: desc });

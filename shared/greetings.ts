@@ -311,6 +311,114 @@ const GREETING_TEMPLATES: Record<
       formal: "Wishing you a happy, healthy, and prosperous New Year{nameClause}."
     }
   },
+  womens_day: {
+    friend: {
+      warm: "Happy International Women's Day{nameClause}! 🌸 Celebrating you and all the incredible things you do!",
+      fun: "Happy Women's Day{nameClause}! ✨ Keep shining bright and inspiring everyone around you!",
+      formal: "Wishing you a wonderful and uplifting International Women's Day{nameClause}."
+    },
+    partner: {
+      warm: "Happy Women's Day, my love{nameClause}! 🌸 You are strong, beautiful, and so inspiring every day.",
+      fun: "Happy Women's Day{nameClause}! 👑 Time to get spoiled and celebrated today!",
+      formal: "Wishing you a joyful and fulfilling International Women's Day{nameClause}."
+    },
+    family: {
+      warm: "Happy International Women's Day{nameClause}! 💐 So blessed to have such strong, wonderful women in our family!",
+      fun: "Happy Women's Day{nameClause}! 🌸 Hope your day is filled with love and treats!",
+      formal: "Warmest wishes on International Women's Day{nameClause}."
+    },
+    colleague: {
+      warm: "Happy International Women's Day{nameClause}! 🌸 Thank you for being such an inspiring colleague!",
+      fun: "Happy Women's Day{nameClause}! ☕ Hope you have a fantastic day!",
+      formal: "Wishing you continued success and a Happy International Women's Day{nameClause}."
+    },
+    general: {
+      warm: "Happy International Women's Day{nameClause}! 🌸 Celebrating you and wishing you happiness!",
+      fun: "Happy Women's Day{nameClause}! ✨ Have a fabulous celebration!",
+      formal: "Wishing you a wonderful International Women's Day{nameClause}."
+    }
+  },
+  grandparents_day: {
+    friend: {
+      warm: "Happy Grandparents Day{nameClause}! 💐 Thank you for your wisdom, love, and warm hugs!",
+      fun: "Happy Grandparents Day{nameClause}! 💖 Hope you get spoiled with lots of treats today!",
+      formal: "Wishing you a peaceful and blessed Grandparents Day{nameClause}."
+    },
+    partner: {
+      warm: "Happy Grandparents Day, my love{nameClause}! 💐 Seeing you with the family is such a joy.",
+      fun: "Happy Grandparents Day{nameClause}! 🎉 Best grandparent ever!",
+      formal: "Wishing you a joyous and blessed Grandparents Day{nameClause}."
+    },
+    family: {
+      warm: "Happy Grandparents Day{nameClause}! 💐 Thank you for everything you do for all of us!",
+      fun: "Happy Grandparents Day{nameClause}! 🍰 Enjoy your special day with the family!",
+      formal: "Warmest blessings and Happy Grandparents Day{nameClause}."
+    },
+    colleague: {
+      warm: "Happy Grandparents Day{nameClause}! 💐 Hope you have a lovely time with family.",
+      fun: "Happy Grandparents Day{nameClause}! ☕ Enjoy your day!",
+      formal: "Wishing you a relaxing Grandparents Day{nameClause}."
+    },
+    general: {
+      warm: "Happy Grandparents Day{nameClause}! 💐 Wishing you a day filled with joy and appreciation!",
+      fun: "Happy Grandparents Day{nameClause}! 💖 Have a wonderful celebration!",
+      formal: "Wishing you a peaceful and blessed Grandparents Day{nameClause}."
+    }
+  },
+  boss_day: {
+    friend: {
+      warm: "Happy Boss's Day{nameClause}! 🌟 Thank you for your leadership, encouragement, and support!",
+      fun: "Happy Boss's Day{nameClause}! ☕ Hope you get to relax and enjoy a great day!",
+      formal: "Wishing you a very Happy Boss's Day and continued success{nameClause}."
+    },
+    partner: {
+      warm: "Happy Boss's Day, my love{nameClause}! 🌟 Proud of the amazing leader you are.",
+      fun: "Happy Boss's Day{nameClause}! 👑 You're the boss at work and at home!",
+      formal: "Wishing you a rewarding and successful Boss's Day{nameClause}."
+    },
+    family: {
+      warm: "Happy Boss's Day{nameClause}! 🌟 So proud of your hard work and achievements!",
+      fun: "Happy Boss's Day{nameClause}! ☕ Take a break from running things today!",
+      formal: "Warmest congratulations and best wishes on Boss's Day{nameClause}."
+    },
+    colleague: {
+      warm: "Happy Boss's Day{nameClause}! 🌟 Thank you for your guidance, vision, and support!",
+      fun: "Happy Boss's Day{nameClause}! ☕ May your coffee be strong and your day stress-free!",
+      formal: "Wishing you a very Happy Boss's Day and continued success{nameClause}."
+    },
+    general: {
+      warm: "Happy Boss's Day{nameClause}! 🌟 Wishing you appreciation and success!",
+      fun: "Happy Boss's Day{nameClause}! ☕ Have a great celebration!",
+      formal: "Wishing you a pleasant and successful Boss's Day{nameClause}."
+    }
+  },
+  hanukkah: {
+    friend: {
+      warm: "Happy Hanukkah{nameClause}! 🕎 Wishing you and your family peace, light, and joy this holiday season!",
+      fun: "Chag Sameach & Happy Hanukkah{nameClause}! 🍩 May your week be filled with light, latkes, and laughter!",
+      formal: "Wishing you a joyous and bright Hanukkah celebration{nameClause}."
+    },
+    partner: {
+      warm: "Happy Hanukkah, my love{nameClause}! 🕎 Grateful for the light you bring to my life every day.",
+      fun: "Happy Hanukkah{nameClause}! 🍩 Time for latkes and holiday fun!",
+      formal: "Wishing you a peaceful and blessed Hanukkah{nameClause}."
+    },
+    family: {
+      warm: "Chag Hanukkah Sameach{nameClause}! 🕎 Sending warm blessings and light to the whole family!",
+      fun: "Happy Hanukkah{nameClause}! 🍩 Let the dreidel spinning and latke eating begin!",
+      formal: "Warmest holiday blessings for a bright and joyous Hanukkah{nameClause}."
+    },
+    colleague: {
+      warm: "Happy Hanukkah{nameClause}! 🕎 Wishing you and your family a wonderful holiday season.",
+      fun: "Happy Hanukkah{nameClause}! 🍩 Enjoy the festive week and holiday treats!",
+      formal: "Season's greetings and warmest wishes for a Happy Hanukkah{nameClause}."
+    },
+    general: {
+      warm: "Happy Hanukkah{nameClause}! 🕎 May the Festival of Lights bring peace and joy to your home!",
+      fun: "Chag Sameach{nameClause}! 🍩 Wishing you lots of light, donuts, and fun!",
+      formal: "Wishing you a peaceful and bright Hanukkah celebration{nameClause}."
+    }
+  },
   milestone: {
     friend: {
       warm: "Congratulations{nameClause}! 🎓 So proud of everything you have accomplished. You truly deserve this success!",

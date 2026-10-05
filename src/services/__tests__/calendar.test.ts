@@ -28,6 +28,24 @@ describe('Calendar Event Classifier', () => {
     expect(res.confidenceScore).toBeLessThan(0.5);
   });
 
+  test('correctly identifies holidays and observances', () => {
+    const resM = classifyEventTitle("Mother's Day 💐");
+    expect(resM.eventType).toBe('holiday');
+    expect(resM.confidenceScore).toBeGreaterThanOrEqual(0.85);
+
+    const resF = classifyEventTitle("Father's Day");
+    expect(resF.eventType).toBe('holiday');
+
+    const resV = classifyEventTitle("Valentine's Day 💖");
+    expect(resV.eventType).toBe('holiday');
+
+    const resN = classifyEventTitle("New Year's Eve 🥂");
+    expect(resN.eventType).toBe('holiday');
+
+    const resS = classifyEventTitle("Día de la Madre");
+    expect(resS.eventType).toBe('holiday');
+  });
+
   test('calculates days until upcoming annual event', () => {
     const fixedToday = new Date(2026, 8, 5); // Sep 5, 2026
     // Event is Sep 8, 2026 -> exactly 3 days away

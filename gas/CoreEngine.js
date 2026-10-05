@@ -832,31 +832,43 @@
   var ANNIVERSARY_KEYWORD_RE = /\b(anniversary|anniv|wedding|years together|wedding day|aniversario|jubiläum)\b|יום\s*נישואין|יום\s*נישואים/i;
   var ANNIVERSARY_EMOJI_RE = /[\u{1F48D}\u{1F942}\u{1F491}\u{1F492}\u{2764}]/u;
 
-  var VALENTINES_KEYWORD_RE = /\b(valentine'?s?\s*day|valentines\s*day|val\s*day|valentine'?s?)\b|יום\s*האהבה|ולנטיין/iu;
+  var VALENTINES_KEYWORD_RE = /\b(valentine'?s?\s*day|valentines\s*day|val\s*day|valentine'?s?|d[ií]a\s+de\s+san\s+valent[ií]n|san\s+valent[ií]n|d[ií]a\s+de\s+los\s+enamorados)\b|יום\s*האהבה|ולנטיין/iu;
   var VALENTINES_EMOJI_RE = /[\u{1F496}\u{1F498}\u{1F49D}\u{1F48B}\u{1F339}]/u;
 
-  var MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day)\b|יום\s*האם|יום\s*המשפחה/iu;
+  var MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day|d[ií]a\s+de\s+la\s+madre|d[ií]a\s+de\s+las\s+madres)\b|יום\s*האם|יום\s*המשפחה/iu;
   var MOTHERS_DAY_EMOJI_RE = /[\u{1F931}]/u;
 
-  var FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day)\b|יום\s*האב/iu;
+  var FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day|d[ií]a\s+del\s+padre|d[ií]a\s+de\s+los\s+padres)\b|יום\s*האב/iu;
   var FATHERS_DAY_EMOJI_RE = /[\u{1F454}]/u;
 
-  var THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving)\b|חג\s*ההודיה/iu;
+  var THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving|d[ií]a\s+de\s+acci[oó]n\s+de\s+gracias|acci[oó]n\s+de\s+gracias)\b|חג\s*ההודיה/iu;
   var THANKSGIVING_EMOJI_RE = /[\u{1F983}\u{1F342}\u{1F37D}]/u;
 
-  var CHRISTMAS_KEYWORD_RE = /\b(christmas(?: eve| day)?|xmas|yuletide|holiday season|winter holiday)\b|חג\s*המולד|כריסמס/iu;
+  var CHRISTMAS_KEYWORD_RE = /\b(christmas(?: eve| day)?|xmas|yuletide|holiday season|winter holiday|nochebuena|navidad|d[ií]a\s+de\s+navidad)\b|חג\s*המולד|כריסמס/iu;
   var CHRISTMAS_EMOJI_RE = /[\u{1F384}\u{2744}\u{1F385}\u{1F381}]/u;
 
-  var EASTER_KEYWORD_RE = /\b(easter(?: sunday)?|good friday|pascha)\b|פסחא/iu;
+  var EASTER_KEYWORD_RE = /\b(easter(?: sunday| monday)?|good friday|pascha|pascua|domingo\s+de\s+resurrecci[oó]n|viernes\s+santo)\b|פסחא/iu;
   var EASTER_EMOJI_RE = /[\u{1F430}\u{1F95A}\u{1F423}]/u;
 
-  var HALLOWEEN_KEYWORD_RE = /\b(halloween|trick or treat|all hallows)\b|ליל\s*כל\s*הקדושים/iu;
+  var HALLOWEEN_KEYWORD_RE = /\b(halloween|trick or treat|all hallows|noche\s+de\s+brujas|d[ií]a\s+de\s+muertos|todos\s+los\s+santos)\b|ליל\s*כל\s*הקדושים/iu;
   var HALLOWEEN_EMOJI_RE = /[\u{1F383}\u{1F47B}\u{1F578}]/u;
 
-  var INDEPENDENCE_KEYWORD_RE = /\b(4th of july|fourth of july|independence day|memorial day|labor day|veterans day)\b/iu;
+  var INDEPENDENCE_KEYWORD_RE = /\b(4th of july|fourth of july|independence day|memorial day|labor day|veterans day|fiesta\s+nacional|d[ií]a\s+de\s+la\s+independencia|d[ií]a\s+del\s+trabajo)\b/iu;
   var INDEPENDENCE_EMOJI_RE = /[\u{1F1FA}\u{1F1F8}\u{1F386}\u{1F387}]/u;
 
-  var NEW_YEAR_KEYWORD_RE = /\b(new year'?s?(?: eve| day)?|happy new year|rosh hashanah)\b|שנה\s*אזרחית\s*חדשה|נובי\s*גוד|ראש\s*השנה/iu;
+  var NEW_YEAR_KEYWORD_RE = /\b(new year'?s?(?: eve| day)?|happy new year|rosh hashanah|nochevieja|a[ñn]o\s+nuevo|v[ií]spera\s+de\s+a[ñn]o\s+nuevo)\b|שנה\s*אזרחית\s*חדשה|נובי\s*גוד|ראש\s*השנה/iu;
+
+  var WOMENS_DAY_KEYWORD_RE = /\b(women'?s?\s*day|international\s+women'?s?\s*day|d[ií]a\s+(?:internacional\s+)?de\s+la\s+mujer)\b|יום\s*האישה/iu;
+  var WOMENS_DAY_EMOJI_RE = /[\u{1F338}\u{1F469}\u{2728}]/u;
+
+  var GRANDPARENTS_DAY_KEYWORD_RE = /\b(grandparent'?s?\s*day|grandparents\s*day|grandma'?s?\s*day|grandpa'?s?\s*day|d[ií]a\s+de\s+los\s+abuelos)\b|יום\s*הסבא|יום\s*הסבתא/iu;
+  var GRANDPARENTS_DAY_EMOJI_RE = /[\u{1F474}\u{1F475}\u{1F490}]/u;
+
+  var BOSS_DAY_KEYWORD_RE = /\b(boss'?s?\s*day|bosses\s*day|administrative\s+professionals?\s*day|secretar(?:y|ies)'?\s*day|d[ií]a\s+del\s+jefe|d[ií]a\s+de\s+la\s+secretaria)\b/iu;
+  var BOSS_DAY_EMOJI_RE = /[\u{1F454}\u{1F4BC}]/u;
+
+  var HANUKKAH_KEYWORD_RE = /\b(hanukkah|chanukah|chanuka|hanuka|passover|pesach|purim|sukkot)\b|חנוכה|פסח|פורים|סוכות/iu;
+  var HANUKKAH_EMOJI_RE = /[\u{1F54E}\u{2721}\u{1F369}]/u;
 
   var MILESTONE_KEYWORD_RE = /\b(graduation|baby shower|retirement|housewarming|promotion|new baby|engaged|engagement|milestone|get well|thank you|sympathy|celebration)\b/i;
   var MILESTONE_EMOJI_RE = /[\u{1F393}\u{1F476}\u{1F3E1}\u{1F37E}\u{2728}]/u;
@@ -1069,6 +1081,22 @@
       celebrationType = "new_year";
       occasionCategory = "holiday";
       matchedKeyword = "New Year's";
+    } else if (WOMENS_DAY_KEYWORD_RE.test(combined) || WOMENS_DAY_EMOJI_RE.test(combined)) {
+      celebrationType = "womens_day";
+      occasionCategory = "everyday";
+      matchedKeyword = "Women's Day";
+    } else if (GRANDPARENTS_DAY_KEYWORD_RE.test(combined) || GRANDPARENTS_DAY_EMOJI_RE.test(combined)) {
+      celebrationType = "grandparents_day";
+      occasionCategory = "everyday";
+      matchedKeyword = "Grandparents Day";
+    } else if (BOSS_DAY_KEYWORD_RE.test(combined) || BOSS_DAY_EMOJI_RE.test(combined)) {
+      celebrationType = "boss_day";
+      occasionCategory = "everyday";
+      matchedKeyword = "Boss's Day";
+    } else if (HANUKKAH_KEYWORD_RE.test(combined) || HANUKKAH_EMOJI_RE.test(combined)) {
+      celebrationType = "hanukkah";
+      occasionCategory = "holiday";
+      matchedKeyword = "Hanukkah";
     } else if (MILESTONE_KEYWORD_RE.test(combined) || MILESTONE_EMOJI_RE.test(combined)) {
       celebrationType = "milestone";
       occasionCategory = "everyday";
@@ -1380,6 +1408,26 @@
         fun: "Happy New Year! 🎉 Let's make this upcoming year the most epic one yet!",
         formal: "Wishing you a successful and rewarding New Year."
       },
+      womens_day: {
+        warm: "Happy International Women's Day, " + name + "! 🌸 Celebrating you and all the incredible things you do!",
+        fun: "Happy Women's Day! ✨ Keep shining bright and inspiring everyone around you!",
+        formal: "Wishing you a wonderful and uplifting International Women's Day."
+      },
+      grandparents_day: {
+        warm: "Happy Grandparents Day, " + name + "! 💐 Thank you for your love, wisdom, and warm hugs!",
+        fun: "Happy Grandparents Day! 💖 Hope your day is filled with lots of joy and treats!",
+        formal: "Wishing you a peaceful and blessed Grandparents Day."
+      },
+      boss_day: {
+        warm: "Happy Boss's Day, " + name + "! 🌟 Thank you for your leadership, encouragement, and support!",
+        fun: "Happy Boss's Day! ☕ Hope you get to relax and enjoy a great day!",
+        formal: "Wishing you a very Happy Boss's Day and continued success."
+      },
+      hanukkah: {
+        warm: "Happy Hanukkah, " + name + "! 🕎 Wishing you and your family peace, light, and joy this holiday season!",
+        fun: "Chag Sameach & Happy Hanukkah! 🍩 May your week be filled with light, latkes, and laughter!",
+        formal: "Wishing you a joyous and bright Hanukkah celebration."
+      },
       milestone: {
         warm: "Congratulations, " + name + "! ✨ So proud of you and excited for your next chapter!",
         fun: "Huge congratulations, " + name + "! 🎓🍾 Time to celebrate this incredible milestone!",
@@ -1389,6 +1437,28 @@
 
     var categoryGreetings = greetings[type] || greetings.birthday;
     return categoryGreetings[tone] || categoryGreetings.warm;
+  }
+
+  function getCelebrationEmoji(type) {
+    switch (type) {
+      case "birthday": return "🎂";
+      case "anniversary": return "💍";
+      case "valentines": return "💖";
+      case "mothers_day": return "💐";
+      case "fathers_day": return "👑";
+      case "christmas": return "🎄";
+      case "thanksgiving": return "🦃";
+      case "easter": return "🐰";
+      case "halloween": return "🎃";
+      case "new_year": return "🥂";
+      case "womens_day": return "🌸";
+      case "grandparents_day": return "💐";
+      case "boss_day": return "👔";
+      case "hanukkah": return "🕎";
+      case "independence_day": return "🎆";
+      case "milestone": return "✨";
+      default: return "🎂";
+    }
   }
 
   function sanitizePhoneNumber(phone) {
@@ -1450,6 +1520,7 @@
     getFullCatalog: getFullCatalog,
     getCatalog: getCatalog,
     getBrand: getBrand,
+    getCelebrationEmoji: getCelebrationEmoji,
     buildGiftUrl: buildGiftUrl,
     cleanExistingNotes: cleanExistingNotes,
     buildEnrichedEventDescription: buildEnrichedEventDescription,

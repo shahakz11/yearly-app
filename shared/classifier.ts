@@ -12,6 +12,10 @@ export type CelebrationType =
   | 'halloween'
   | 'independence_day'
   | 'new_year'
+  | 'womens_day'
+  | 'grandparents_day'
+  | 'boss_day'
+  | 'hanukkah'
   | 'milestone'
   | 'everyday';
 
@@ -123,31 +127,43 @@ const BIRTHDAY_EMOJI_RE = /[\u{1F382}\u{1F388}\u{1F370}\u{1F389}]/u; // 🎂, �
 const ANNIVERSARY_KEYWORD_RE = /\b(anniversary|anniv|wedding|years together|wedding day|aniversario|jubiläum)\b|יום\s*נישואין|יום\s*נישואים/i;
 const ANNIVERSARY_EMOJI_RE = /[\u{1F48D}\u{1F942}\u{1F491}\u{1F492}\u{2764}]/u; // 💍, 🥂, 💑, 💒, ❤️
 
-const VALENTINES_KEYWORD_RE = /\b(valentine'?s?\s*day|valentines\s*day|val\s*day|valentine'?s?)\b|יום\s*האהבה|ולנטיין/iu;
+const VALENTINES_KEYWORD_RE = /\b(valentine'?s?\s*day|valentines\s*day|val\s*day|valentine'?s?|d[ií]a\s+de\s+san\s+valent[ií]n|san\s+valent[ií]n|d[ií]a\s+de\s+los\s+enamorados)\b|יום\s*האהבה|ולנטיין/iu;
 const VALENTINES_EMOJI_RE = /[\u{1F496}\u{1F498}\u{1F49D}\u{1F48B}\u{1F339}]/u; // 💖, 💘, 💝, 💋, 🌹
 
-const MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day)\b|יום\s*האם|יום\s*המשפחה/iu;
+const MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day|d[ií]a\s+de\s+la\s+madre|d[ií]a\s+de\s+las\s+madres)\b|יום\s*האם|יום\s*המשפחה/iu;
 const MOTHERS_DAY_EMOJI_RE = /[\u{1F931}]/u; // 🤱
 
-const FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day)\b|יום\s*האב/iu;
+const FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day|d[ií]a\s+del\s+padre|d[ií]a\s+de\s+los\s+padres)\b|יום\s*האב/iu;
 const FATHERS_DAY_EMOJI_RE = /[\u{1F454}]/u; // 👔
 
-const THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving)\b|חג\s*ההודיה/iu;
+const THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving|d[ií]a\s+de\s+acci[oó]n\s+de\s+gracias|acci[oó]n\s+de\s+gracias)\b|חג\s*ההודיה/iu;
 const THANKSGIVING_EMOJI_RE = /[\u{1F983}\u{1F342}\u{1F37D}]/u; // 🦃, 🍂, 🍽️
 
-const CHRISTMAS_KEYWORD_RE = /\b(christmas(?: eve| day)?|xmas|yuletide|holiday season|winter holiday)\b|חג\s*המולד|כריסמס/iu;
+const CHRISTMAS_KEYWORD_RE = /\b(christmas(?: eve| day)?|xmas|yuletide|holiday season|winter holiday|nochebuena|navidad|d[ií]a\s+de\s+navidad)\b|חג\s*המולד|כריסמס/iu;
 const CHRISTMAS_EMOJI_RE = /[\u{1F384}\u{2744}\u{1F385}\u{1F381}]/u; // 🎄, ❄️, 🎅, 🎁
 
-const EASTER_KEYWORD_RE = /\b(easter(?: sunday)?|good friday|pascha)\b|פסחא/iu;
+const EASTER_KEYWORD_RE = /\b(easter(?: sunday| monday)?|good friday|pascha|pascua|domingo\s+de\s+resurrecci[oó]n|viernes\s+santo)\b|פסחא/iu;
 const EASTER_EMOJI_RE = /[\u{1F430}\u{1F95A}\u{1F423}]/u; // 🐰, 🥚, 🐣
 
-const HALLOWEEN_KEYWORD_RE = /\b(halloween|trick or treat|all hallows)\b|ליל\s*כל\s*הקדושים/iu;
+const HALLOWEEN_KEYWORD_RE = /\b(halloween|trick or treat|all hallows|noche\s+de\s+brujas|d[ií]a\s+de\s+muertos|todos\s+los\s+santos)\b|ליל\s*כל\s*הקדושים/iu;
 const HALLOWEEN_EMOJI_RE = /[\u{1F383}\u{1F47B}\u{1F578}]/u; // 🎃, 👻, 🕸️
 
-const INDEPENDENCE_KEYWORD_RE = /\b(4th of july|fourth of july|independence day|memorial day|labor day|veterans day)\b/iu;
+const INDEPENDENCE_KEYWORD_RE = /\b(4th of july|fourth of july|independence day|memorial day|labor day|veterans day|fiesta\s+nacional|d[ií]a\s+de\s+la\s+independencia|d[ií]a\s+del\s+trabajo)\b/iu;
 const INDEPENDENCE_EMOJI_RE = /[\u{1F1FA}\u{1F1F8}\u{1F386}\u{1F387}]/u; // 🇺🇸, 🎆, 🎇
 
-const NEW_YEAR_KEYWORD_RE = /\b(new year'?s?(?: eve| day)?|happy new year|rosh hashanah)\b|שנה\s*אזרחית\s*חדשה|נובי\s*גוד|ראש\s*השנה/iu;
+const NEW_YEAR_KEYWORD_RE = /\b(new year'?s?(?: eve| day)?|happy new year|rosh hashanah|nochevieja|a[ñn]o\s+nuevo|v[ií]spera\s+de\s+a[ñn]o\s+nuevo)\b|שנה\s*אזרחית\s*חדשה|נובי\s*גוד|ראש\s*השנה/iu;
+
+const WOMENS_DAY_KEYWORD_RE = /\b(women'?s?\s*day|international\s+women'?s?\s*day|d[ií]a\s+(?:internacional\s+)?de\s+la\s+mujer)\b|יום\s*האישה/iu;
+const WOMENS_DAY_EMOJI_RE = /[\u{1F338}\u{1F469}\u{2728}]/u;
+
+const GRANDPARENTS_DAY_KEYWORD_RE = /\b(grandparent'?s?\s*day|grandparents\s*day|grandma'?s?\s*day|grandpa'?s?\s*day|d[ií]a\s+de\s+los\s+abuelos)\b|יום\s*הסבא|יום\s*הסבתא/iu;
+const GRANDPARENTS_DAY_EMOJI_RE = /[\u{1F474}\u{1F475}\u{1F490}]/u;
+
+const BOSS_DAY_KEYWORD_RE = /\b(boss'?s?\s*day|bosses\s*day|administrative\s+professionals?\s*day|secretar(?:y|ies)'?\s*day|d[ií]a\s+del\s+jefe|d[ií]a\s+de\s+la\s+secretaria)\b/iu;
+const BOSS_DAY_EMOJI_RE = /[\u{1F454}\u{1F4BC}]/u;
+
+const HANUKKAH_KEYWORD_RE = /\b(hanukkah|chanukah|chanuka|hanuka|passover|pesach|purim|sukkot)\b|חנוכה|פסח|פורים|סוכות/iu;
+const HANUKKAH_EMOJI_RE = /[\u{1F54E}\u{2721}\u{1F369}]/u;
 
 const MILESTONE_KEYWORD_RE = /\b(graduation|baby shower|retirement|housewarming|promotion|new baby|engaged|engagement|milestone|get well|thank you|sympathy|celebration)\b/i;
 const MILESTONE_EMOJI_RE = /[\u{1F393}\u{1F476}\u{1F3E1}\u{1F37E}\u{2728}]/u; // 🎓, 👶, 🏡, 🍾, ✨
@@ -397,6 +413,22 @@ export function classifyEvent(title?: string, notes?: string): ClassificationRes
     celebrationType = 'new_year';
     occasionCategory = 'holiday';
     matchedKeyword = "New Year's";
+  } else if (WOMENS_DAY_KEYWORD_RE.test(combined) || WOMENS_DAY_EMOJI_RE.test(combined)) {
+    celebrationType = 'womens_day';
+    occasionCategory = 'everyday';
+    matchedKeyword = "Women's Day";
+  } else if (GRANDPARENTS_DAY_KEYWORD_RE.test(combined) || GRANDPARENTS_DAY_EMOJI_RE.test(combined)) {
+    celebrationType = 'grandparents_day';
+    occasionCategory = 'everyday';
+    matchedKeyword = 'Grandparents Day';
+  } else if (BOSS_DAY_KEYWORD_RE.test(combined) || BOSS_DAY_EMOJI_RE.test(combined)) {
+    celebrationType = 'boss_day';
+    occasionCategory = 'everyday';
+    matchedKeyword = "Boss's Day";
+  } else if (HANUKKAH_KEYWORD_RE.test(combined) || HANUKKAH_EMOJI_RE.test(combined)) {
+    celebrationType = 'hanukkah';
+    occasionCategory = 'holiday';
+    matchedKeyword = 'Hanukkah';
   } else if (MILESTONE_KEYWORD_RE.test(combined) || MILESTONE_EMOJI_RE.test(combined)) {
     celebrationType = 'milestone';
     occasionCategory = 'everyday';

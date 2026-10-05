@@ -11,9 +11,20 @@ const BIRTHDAY_KEYWORDS = [
 const ANNIVERSARY_KEYWORDS = [
   /\b(anniversary|wedding|anniv)\b/i,
   /💍/,
-  /🥂/,
-  /💐/,
   /❤️/
+];
+
+const HOLIDAY_KEYWORDS = [
+  /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day|d[ií]a\s+de\s+la\s+madre)\b/i,
+  /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day|d[ií]a\s+del\s+padre)\b/i,
+  /\b(valentine'?s?\s*day|valentines\s*day|val\s*day|d[ií]a\s+de\s+san\s+valent[ií]n)\b/i,
+  /\b(christmas(?: eve| day)?|xmas|navidad|nochebuena)\b/i,
+  /\b(thanksgiving|accion de gracias)\b/i,
+  /\b(easter|pascua)\b/i,
+  /\b(halloween|noche de brujas)\b/i,
+  /\b(new year'?s?(?: eve| day)?|happy new year|nochevieja|a[ñn]o nuevo)\b/i,
+  /\b(women'?s?\s*day|grandparent'?s?\s*day|boss'?s?\s*day|hanukkah|chanukah)\b/i,
+  /🎄/, /🎅/, /🦃/, /🐰/, /🎃/, /🥂/, /💖/, /👑/
 ];
 
 export interface ClassificationResult {
@@ -51,6 +62,16 @@ export function classifyEventTitle(title: string): ClassificationResult {
       eventType: 'birthday',
       extractedName,
       confidenceScore: 0.95,
+    };
+  }
+
+  // Check for Holiday / Observance (Mother's Day, Father's Day, New Year's, etc.)
+  const isHoliday = HOLIDAY_KEYWORDS.some((regex) => regex.test(cleanTitle));
+  if (isHoliday) {
+    return {
+      eventType: 'holiday',
+      extractedName: cleanTitle.replace(/^[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s]+/u, '').trim(),
+      confidenceScore: 0.9,
     };
   }
 
