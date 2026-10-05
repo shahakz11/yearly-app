@@ -6,13 +6,166 @@
   <title>Support &amp; FAQ | Yearly</title>
   <meta name="description" content="Official Support and Help Center for Yearly (yearly.click). 12 detailed FAQs on Google Calendar permissions, FloristOne bouquet checkout, and privacy protections. Contact support@yearly.click.">
   <link rel="canonical" href="https://yearly.click/support.html">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#f43f5e">
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="Support &amp; FAQ | Yearly">
-  <meta property="og:description" content="Yearly Help Center. Get answers on Google Calendar permissions, FloristOne orders, and data security.">
-  <meta property="og:url" content="https://yearly.click/support.html">
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://yearly.click/assets/icon-32.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="https://yearly.click/assets/icon-128.png">
+  <link rel="apple-touch-icon" sizes="256x256" href="https://yearly.click/assets/icon-256.png">
+
+  <!-- OpenGraph / Facebook / LinkedIn -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Yearly">
+  <meta property="og:title" content="Support &amp; FAQ | Yearly">
+  <meta property="og:description" content="Official Support and Help Center for Yearly (yearly.click). 12 detailed FAQs on Google Calendar permissions, FloristOne bouquet checkout, and privacy protections.">
+  <meta property="og:url" content="https://yearly.click/support.html">
+  <meta property="og:image" content="https://yearly.click/assets/icon-512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Support &amp; FAQ | Yearly">
+  <meta name="twitter:description" content="Yearly Help Center. Answers on Google Calendar permissions, FloristOne orders, and data security.">
+  <meta name="twitter:image" content="https://yearly.click/assets/icon-512.png">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://yearly.click/support.html#webpage",
+        "url": "https://yearly.click/support.html",
+        "name": "Support & FAQ | Yearly",
+        "description": "Official Support and Help Center for Yearly (yearly.click)."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://yearly.click/support.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://yearly.click/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Support & FAQ",
+            "item": "https://yearly.click/support.html"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://yearly.click/support.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What Google Calendar permissions does Yearly require, and why?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yearly uses granular, minimal-privilege Google Calendar scopes to scan celebration event titles (e.g. Birthdays, Anniversaries) and add reminder notes with bouquet recommendations. We never alter your schedules or read unrelated meeting details."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Yearly read or access all my private calendar appointments?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Yearly filters specifically for recurring milestone patterns and keywords. All event matching runs client-side or within your authenticated Google Apps Script environment. We do not transmit or store your personal schedule on external tracking servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I disconnect Yearly or revoke permissions from my Google Account?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can revoke Yearly's access at any time directly through your Google Account Security Settings under Third-party apps with account access, or by uninstalling the add-on in Google Workspace Marketplace."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Yearly work on both desktop and mobile Google Calendar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Yearly is available across desktop web browsers via Google Calendar sidebar and seamlessly synchronizes with mobile calendar notifications."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does 1-click cart checkout with FloristOne work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When you select a recommended floral bouquet, Yearly generates a pre-configured, secure FloristOne checkout cart with recipient milestone details populated so you can finish checkout securely in seconds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who prepares and delivers the flower arrangements?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All bouquets are hand-crafted and delivered on time by FloristOne's network of over 15,000 top-tier local florists across the United States and Canada."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if there is an issue with my flower delivery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "FloristOne offers full customer satisfaction guarantees with live order tracking and dedicated florist support for any delivery modifications or inquiries."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there any hidden fees or price markups on bouquets?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Yearly provides direct merchant pricing with transparent shipping and florist charges with zero platform markups."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Yearly sell or monetize my personal calendar data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. Yearly strictly adheres to the Google API Services User Data Policy, including Limited Use requirements. We never sell, rent, or monetize your calendar or contact data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where is my celebration and gift history stored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Your preferences and milestone reminders are persisted in Google User Properties isolated exclusively to your authenticated Google account."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Yearly compliant with GDPR and CCPA/CPRA?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Yearly is engineered from the ground up for strict compliance with global privacy regulations including GDPR and CCPA/CPRA."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Yearly's AI greeting personalization handle privacy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AI greeting suggestions are ephemeral and strictly restricted to milestone context (such as anniversary year or relation) without retaining personal identifiable transcripts."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -71,7 +224,6 @@
           </div>
           <div class="flex items-baseline gap-1">
             <span class="font-extrabold text-xl text-slate-900 tracking-tight">Yearly</span>
-            <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono font-medium">.click</span>
           </div>
         </a>
 

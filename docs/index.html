@@ -6,13 +6,75 @@
   <title>Yearly — Never miss a milestone. Thoughtful gifts in one click.</title>
   <meta name="description" content="Yearly integrates directly into Google Calendar to detect birthdays and anniversaries, recommending curated FloristOne flower bouquets with instant milestone reminders.">
   <link rel="canonical" href="https://yearly.click/">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#f43f5e">
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="Yearly — Thoughtful gifts in one click">
-  <meta property="og:description" content="Never miss a milestone. Thoughtful gifts in one click directly inside Google Calendar.">
-  <meta property="og:url" content="https://yearly.click/">
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://yearly.click/assets/icon-32.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="https://yearly.click/assets/icon-128.png">
+  <link rel="apple-touch-icon" sizes="256x256" href="https://yearly.click/assets/icon-256.png">
+
+  <!-- OpenGraph / Facebook / LinkedIn -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Yearly">
+  <meta property="og:title" content="Yearly — Never miss a milestone. Thoughtful gifts in one click.">
+  <meta property="og:description" content="Yearly integrates directly into Google Calendar to detect birthdays and anniversaries, recommending curated FloristOne flower bouquets with instant milestone reminders.">
+  <meta property="og:url" content="https://yearly.click/">
+  <meta property="og:image" content="https://yearly.click/assets/icon-512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Yearly — Thoughtful gifts in one click">
+  <meta name="twitter:description" content="Never miss a milestone. Thoughtful gifts in one click directly inside Google Calendar.">
+  <meta name="twitter:image" content="https://yearly.click/assets/icon-512.png">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://yearly.click/#website",
+        "url": "https://yearly.click/",
+        "name": "Yearly",
+        "description": "Smart gifting companion for Google Calendar",
+        "publisher": {
+          "@id": "https://yearly.click/#organization"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://yearly.click/#organization",
+        "name": "Yearly",
+        "url": "https://yearly.click/",
+        "logo": "https://yearly.click/assets/icon-512.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@yearly.click",
+          "contactType": "Customer Support"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://yearly.click/#app",
+        "name": "Yearly for Google Calendar",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Google Workspace / Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        },
+        "description": "Google Calendar companion add-on that detects birthdays and anniversaries, providing one-click curated FloristOne bouquet gifting and automated notifications.",
+        "image": "https://yearly.click/assets/icon-512.png"
+      }
+    ]
+  }
+  </script>
 
   <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -59,7 +121,7 @@
 
   <!-- Announcement Trust Bar -->
   <div class="bg-rose-50 border-b border-rose-100 py-2 px-4 text-center text-xs sm:text-sm font-medium text-rose-800">
-    🌸 Built for Google Calendar • Official FloristOne Partner • 100% Private &amp; On-Device
+    🌸 Built for Google Calendar • Official FloristOne Partner • Available in US &amp; Canada (for now) • 100% Private
   </div>
 
   <!-- Global Header -->
@@ -73,7 +135,6 @@
           </div>
           <div class="flex items-baseline gap-1">
             <span class="font-extrabold text-xl text-slate-900 tracking-tight">Yearly</span>
-            <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono font-medium">.click</span>
           </div>
         </a>
 
@@ -128,7 +189,7 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-indigo-600">Thoughtful gifts in one click.</span>
           </h1>
           <p class="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
-            Yearly integrates directly into Google Calendar, intelligently detects birthdays and anniversaries from your schedule, and presents hand-crafted florist bouquet recommendations and personalized greetings.
+            Yearly integrates directly into Google Calendar, intelligently detects birthdays and anniversaries from your schedule, and presents hand-crafted florist bouquet recommendations and personalized greetings (currently available across the US and Canada).
           </p>
 
           <!-- Dual CTAs -->
@@ -151,7 +212,7 @@
               <span class="text-emerald-600 font-bold">✓</span> 100% Private (Limited Use)
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-emerald-600 font-bold">✓</span> Curated local bouquets
+              <span class="text-emerald-600 font-bold">✓</span> US &amp; Canada only (for now)
             </div>
           </div>
         </div>
@@ -269,7 +330,7 @@
           Curated Bouquets Delivered by Local Florists
         </p>
         <p class="mt-4 text-base text-slate-600">
-          Hand-arranged with peak freshness and delivered same-day or next-day across the United States and Canada.
+          Hand-arranged with peak freshness and delivered same-day or next-day across the United States and Canada (service is limited to US &amp; Canada for now).
         </p>
       </div>
 
@@ -294,7 +355,7 @@
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
               <span class="inline-flex items-center gap-1 text-emerald-600 font-medium">🌸 Local Florist Delivery</span>
-              <span class="bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded text-[10px]">View Only</span>
+              <span class="text-slate-400">US &amp; Canada</span>
             </div>
           </div>
         </div>
@@ -317,7 +378,7 @@
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
               <span class="inline-flex items-center gap-1 text-emerald-600 font-medium">🌸 Local Florist Delivery</span>
-              <span class="bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded text-[10px]">View Only</span>
+              <span class="text-slate-400">US &amp; Canada</span>
             </div>
           </div>
         </div>
@@ -340,7 +401,7 @@
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
               <span class="inline-flex items-center gap-1 text-emerald-600 font-medium">🌸 Local Florist Delivery</span>
-              <span class="bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded text-[10px]">View Only</span>
+              <span class="text-slate-400">US &amp; Canada</span>
             </div>
           </div>
         </div>
@@ -363,7 +424,7 @@
             </div>
             <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
               <span class="inline-flex items-center gap-1 text-emerald-600 font-medium">🌸 Local Florist Delivery</span>
-              <span class="bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded text-[10px]">View Only</span>
+              <span class="text-slate-400">US &amp; Canada</span>
             </div>
           </div>
         </div>
@@ -374,7 +435,7 @@
       <div class="mt-12 bg-white rounded-2xl border border-slate-200 p-6 flex flex-col sm:flex-row items-center justify-around gap-4 text-xs sm:text-sm text-slate-600 font-medium">
         <div class="flex items-center gap-2">
           <span>🚚</span>
-          <span>Same-Day Delivery Available across US &amp; Canada</span>
+          <span>Same-Day Delivery across US &amp; Canada (Limited to US &amp; Canada for now)</span>
         </div>
         <div class="flex items-center gap-2">
           <span>🌸</span>

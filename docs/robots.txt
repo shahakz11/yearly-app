@@ -1,0 +1,6 @@
+# robots.txt for https://yearly.click
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yearly.click/sitemap.xml
