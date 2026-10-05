@@ -69,7 +69,7 @@
     {
       "id": "B07",
       "name": "Best Day Bouquet",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The Best Day Bouquet is ready to create a moment your recipient will always remember! An instant mood booster with it's mix of bright bold colors, this gorgeous fresh flower arrangement brings together sunflowers, hot pink roses, purple double lisianthus, orange LA Hybrid Lilies, yellow snapdragons, green button poms, and lush greens to make this day, their best day. Presented in a clear glass vase, this fresh flower arrangement is made just for you to help you send your warmest birthday, congratulations, or get well wishes to your favorite friends and family.",
       "dimensions": "15\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B07_t1.jpg",
@@ -82,7 +82,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -95,7 +95,7 @@
     {
       "id": "B11",
       "name": "High Style Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The High Style Bouquet is on-trend and ready to wow your special recipient with it's mix of bold and beautiful blooms! Rich red roses, Stargazer Lilies, pink Peruvian Lilies, burgundy mini carnations, pink statice, and lush greens are arranged to perfection by our floral professionals to create a gift of flowers that is set to impress. Presented in a clear glass vase, this fresh flower bouquet is a wonderful way to express your happy anniversary, happy birthday, or thinking of you wishes.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B11_t1.jpg",
@@ -108,7 +108,7 @@
     {
       "id": "B19-4387",
       "name": "The True Romance Rose Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The True Romance Rose Bouquet is the perfect expression of love and passion. A bright burst of color, this bouquet combines red, pink and fuchsia roses, accented with beautiful greens and seated in a clear glass vase, to create a truly romantic representation of your love.",
       "dimensions": "15\"w x 22\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B19-4387_t1.jpg",
@@ -121,7 +121,7 @@
     {
       "id": "B2-4957",
       "name": "The Harvest Heartstrings Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Harvest Heartstrings Bouquet brings sunlit autumn beauty straight to their door. Unforgettable mini sunflowers catch the eye at every turn surrounded by yellow Asiatic lilies, red dianthus, orange spray roses and lush greens to create a stunning fresh flower arrangement. Presented in a clear glass gathered square vase and accented throughout with red glycerized oak leaves, this flower bouquet is set to make an excellent birthday, thank you, get well or Thanksgiving gift.",
       "dimensions": "12\"w x 15\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-4957_t1.jpg",
@@ -136,7 +136,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -149,7 +149,7 @@
     {
       "id": "B11",
       "name": "High Style Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The High Style Bouquet is on-trend and ready to wow your special recipient with it's mix of bold and beautiful blooms! Rich red roses, Stargazer Lilies, pink Peruvian Lilies, burgundy mini carnations, pink statice, and lush greens are arranged to perfection by our floral professionals to create a gift of flowers that is set to impress. Presented in a clear glass vase, this fresh flower bouquet is a wonderful way to express your happy anniversary, happy birthday, or thinking of you wishes.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B11_t1.jpg",
@@ -162,7 +162,7 @@
     {
       "id": "B19-4387",
       "name": "The True Romance Rose Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The True Romance Rose Bouquet is the perfect expression of love and passion. A bright burst of color, this bouquet combines red, pink and fuchsia roses, accented with beautiful greens and seated in a clear glass vase, to create a truly romantic representation of your love.",
       "dimensions": "15\"w x 22\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B19-4387_t1.jpg",
@@ -175,7 +175,7 @@
     {
       "id": "B2-4957",
       "name": "The Harvest Heartstrings Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Harvest Heartstrings Bouquet brings sunlit autumn beauty straight to their door. Unforgettable mini sunflowers catch the eye at every turn surrounded by yellow Asiatic lilies, red dianthus, orange spray roses and lush greens to create a stunning fresh flower arrangement. Presented in a clear glass gathered square vase and accented throughout with red glycerized oak leaves, this flower bouquet is set to make an excellent birthday, thank you, get well or Thanksgiving gift.",
       "dimensions": "12\"w x 15\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-4957_t1.jpg",
@@ -188,7 +188,7 @@
     {
       "id": "B2-5123",
       "name": "The Vibrant Views Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Blooming with a vibrant light that can't be denied, this brilliant fall flower bouquet is ready to lift any mood and raise any spirit throughout the autumn months ahead. Swirling orange roses, orange spray roses, and star-shaped peach Asiatic Lilies are surrounded with the eye-catching textures of yellow solidago, bittersweet stems, aralia leaves and lush greens with brilliant yellow gourd accents tucked in a just the right spot, all beautifully arranged in an orange ceramic cylinder vase. A wonderful fall birthday, get well, thank you, or happy harvest gift!",
       "dimensions": "11\"w x 11\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-5123_t1.jpg",
@@ -203,7 +203,7 @@
     {
       "id": "B19-4387",
       "name": "The True Romance Rose Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The True Romance Rose Bouquet is the perfect expression of love and passion. A bright burst of color, this bouquet combines red, pink and fuchsia roses, accented with beautiful greens and seated in a clear glass vase, to create a truly romantic representation of your love.",
       "dimensions": "15\"w x 22\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B19-4387_t1.jpg",
@@ -216,7 +216,7 @@
     {
       "id": "B20-4970",
       "name": "The Tranquil Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "This bouquet blooms with a sweet sophistication and style to bring a calming grace to any event or occasion. Hot pink and pink roses are brought together with purple, lavender and fuchsia stock stems accented with pink Peruvian lilies and lush greens to create a simply stunning flower arrangement. Presented in a clear glass bubble bowl vase, this exquisite fresh flower bouquet will make an excellent birthday, anniversary or sympathy gift.",
       "dimensions": "12\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B20-4970_t1.jpg",
@@ -229,7 +229,7 @@
     {
       "id": "B21-4968",
       "name": "The Bright Lights Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Bright Lights Bouquet brings color and beauty straight to your special recipient's door! Yellow Asiatic lilies, pink roses, purple stock, lavender monte casino asters, pink carnations, pink mini carnations and lush greens are brought together to create a sweetly fascinating flower arrangement. Presented in a square lavender pastel washed basket, this fresh flower bouquet is set to make an excellent birthday, thank you or get well gift.",
       "dimensions": "14\"w x 13\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B21-4968_t1.jpg",
@@ -242,7 +242,7 @@
     {
       "id": "B21-5145",
       "name": "The Blushing Invitations Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Exuding a special charm, with a casual fresh-from-the-garden look, this gorgeous spring bouquet is the perfect way to delight your recipient in honor of any of life's most treasured moments. Peach gerbera daisies are soft and sophisticated surrounded by pink roses, pink snapdragons, pink mini carnations, purple liatris, and lush greens arranged with an artist's eye in a gathered square clear glass vase. A wonderful way to celebrate a spring birthday, Mother's Day, or to express your thanks and gratitude.",
       "dimensions": "7\"w x 16\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B21-5145_t1.jpg",
@@ -255,7 +255,7 @@
     {
       "id": "B22-5150",
       "name": "The Sweet Beginnings Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Bringing a blush to their cheeks with each soft, sweet bloom, this stunning spring flower bouquet is ready to surprise and delight your recipient. Clouds of white hydrangea blooms are the base of this arrangement, making the colors of the hot pink roses, pink gerbera daisies, and pink Peruvian Lilies pop against their clean, textured background. Accented with seeded eucalyptus and presented in a hot pink cylinder ceramic vase, this gorgeous flower bouquet is the perfect way to celebrate a birthday, the birth of a new baby girl, or a special anniversary.",
       "dimensions": "12\"w x 12\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B22-5150_t1.jpg",
@@ -270,7 +270,7 @@
     {
       "id": "B10-4368",
       "name": "Celebration of the Season Centerpiece",
-      "price": 99.95,
+      "price": 109.95,
       "description": "The Celebration of the Season Centerpiece is a grand display of holiday elegance. Red roses and spray roses pop against a backdrop of assorted holiday greens and variegated holly that beautifully encircle three red taper candles. Accented with gold pinecones and gold metallic brocade ribbon this centerpiece creates a warm and enchanting glow to benefit their holiday festivities.",
       "dimensions": "7\"H x 14\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-4368_t1.jpg",
@@ -283,7 +283,7 @@
     {
       "id": "B10-4962",
       "name": "The Christmas Peace Bouquet",
-      "price": 99.95,
+      "price": 109.95,
       "description": "The Christmas Peace Bouquet brings beauty and grace to their home or holiday table with each elegant bloom. Rich red roses are a standout arranged amongst red carnations and mini carnations, red hypericum berries and an assortment of lush holiday greens. Accented with white pinecone pics and a red, white, and green plaid designer ribbon, this fresh flower bouquet is presented in a clear glass bubble bowl vase to create a wonderful Christmas gift for any of the special people in your life.",
       "dimensions": "11\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-4962_t1.jpg",
@@ -296,8 +296,8 @@
     {
       "id": "B10-5139",
       "name": "The Christmas Coziness  Basket",
-      "price": 84.95,
-      "description": "Adding warmth and a homespun look to your Christmas d\u00e9cor, this fresh and fragrant floral arrangement is a wonderful way to bring color and life to any corner of the home. An assortment of Christmas greens and variegated holly are arranged to perfection in a rectangular stained woodchip basket, accented with clusters of red berries, natural pinecones, and a festive red plaid ribbon. A wonderful holiday gift for your relatives, neighbors, or friends throughout the yuletide season ahead",
+      "price": 94.95,
+      "description": "Adding warmth and a homespun look to your Christmas décor, this fresh and fragrant floral arrangement is a wonderful way to bring color and life to any corner of the home. An assortment of Christmas greens and variegated holly are arranged to perfection in a rectangular stained woodchip basket, accented with clusters of red berries, natural pinecones, and a festive red plaid ribbon. A wonderful holiday gift for your relatives, neighbors, or friends throughout the yuletide season ahead",
       "dimensions": "10\"H x 15\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-5139_t1.jpg",
       "detailImage": "https://cdn.floristone.com/large/B10-5139_d1.jpg",
@@ -309,7 +309,7 @@
     {
       "id": "B11-5132",
       "name": "The Spirit of the Season Bouquet",
-      "price": 94.95,
+      "price": 104.95,
       "description": "A sensational splash of red to celebrate the Christmas season in style, this impressive flower bouquet is ready to get you noticed. Red roses, gerbera daisies, Peruvian Lilies, mini carnations, and hypericum berries are accented with an assortment of fresh Christmas greens to create a joyful holiday look. Presented in a ruby red glass vase, this holiday flower arrangement is a heartfelt way for you to send your warmest season's greetings.",
       "dimensions": "14\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B11-5132_t1.jpg",
@@ -322,7 +322,7 @@
     {
       "id": "B12-5135",
       "name": "The Winter Wishes Basket",
-      "price": 84.95,
+      "price": 94.95,
       "description": "Taking traditional Christmas colors and turning up the volume to create a bright and brilliant arrangement, this fresh flower bouquet is ready to bring holiday joy to even the darkest corner of your recipient's home. Rich red roses and red carnations are accented with green hypericum berries, green button poms, clusters of shining red glass holiday balls, and an assortment of fragrant Christmas greens. Arranged to perfection in a white wash woodchip basket, this gift of flowers is ready to make a splash as a centerpiece, or when placed on the buffet table or side counter for their holiday gathering.",
       "dimensions": "9\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B12-5135_t1.jpg",
@@ -337,7 +337,7 @@
     {
       "id": "B07",
       "name": "Best Day Bouquet",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The Best Day Bouquet is ready to create a moment your recipient will always remember! An instant mood booster with it's mix of bright bold colors, this gorgeous fresh flower arrangement brings together sunflowers, hot pink roses, purple double lisianthus, orange LA Hybrid Lilies, yellow snapdragons, green button poms, and lush greens to make this day, their best day. Presented in a clear glass vase, this fresh flower arrangement is made just for you to help you send your warmest birthday, congratulations, or get well wishes to your favorite friends and family.",
       "dimensions": "15\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B07_t1.jpg",
@@ -350,7 +350,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -363,7 +363,7 @@
     {
       "id": "B11",
       "name": "High Style Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The High Style Bouquet is on-trend and ready to wow your special recipient with it's mix of bold and beautiful blooms! Rich red roses, Stargazer Lilies, pink Peruvian Lilies, burgundy mini carnations, pink statice, and lush greens are arranged to perfection by our floral professionals to create a gift of flowers that is set to impress. Presented in a clear glass vase, this fresh flower bouquet is a wonderful way to express your happy anniversary, happy birthday, or thinking of you wishes.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B11_t1.jpg",
@@ -376,7 +376,7 @@
     {
       "id": "B14",
       "name": "Free Spirit Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Free Spirit Bouquet celebrates life's most treasured moments in alluring blues and purples to create a fantastic gift of flowers. Inviting blue iris blooms add depth and texture to this fresh flower arrangement when set against lavender daisies, lavender statice, green button poms, and lush greens. Presented in a clear glass vase, this beautiful flower bouquet creates an impressive congratulations, thinking of you, or thank you gift.",
       "dimensions": "17\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B14_t1.jpg",
@@ -389,7 +389,7 @@
     {
       "id": "B19-4387",
       "name": "The True Romance Rose Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The True Romance Rose Bouquet is the perfect expression of love and passion. A bright burst of color, this bouquet combines red, pink and fuchsia roses, accented with beautiful greens and seated in a clear glass vase, to create a truly romantic representation of your love.",
       "dimensions": "15\"w x 22\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B19-4387_t1.jpg",
@@ -404,7 +404,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -417,7 +417,7 @@
     {
       "id": "B21-5205",
       "name": "The Spring Sunshine Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Ready to wake your recipient up to the arrival of the spring season with a bright array of sun crushed blooms, this vibrant flower bouquet exudes fun and beauty to their day. A bold rush of yellow, this flower arrangement brings together roses, daisies, gerbera daisies, and solidago accented with red and yellow tulips, lush greens, and tropical leaves. Arranged beautifully in a clear glass cubed vase to give it a modern trend forward look they will adore, this spring flower bouquet is ready to celebrate a birthday, Mother's Day, or Easter in blooming style.",
       "dimensions": "9\"w x 8\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B21-5205_t1.jpg",
@@ -430,7 +430,7 @@
     {
       "id": "B25-4126",
       "name": "Spirit of Spring",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Capture the Spirit of Spring with this traditional bouquet. A handled bamboo basket holds bold purple iris and statice that defer to lemon yellow Asiatic lilies, soft yellow carnations and bright yellow daisy poms. It's the perfect petite basket to celebrate any occasion.",
       "dimensions": "9\"w x 9\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B25-4126_t1.jpg",
@@ -443,7 +443,7 @@
     {
       "id": "C13-5036",
       "name": "The Pink Dream Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Classically elegant in a way that will never go out of style, this fresh flower arrangement is truly a dream. Pink roses and pink mini carnations are soft and sophisticated amongst a bed of white Asiatic Lilies, Peruvian Lilies, chrysanthemums, and statice, perfectly accented with lush greens while situated in a classic clear glass vase. A gorgeous birthday, thank you, or Mother's Day gift!",
       "dimensions": "12\"w x 13\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/C13-5036_t1.jpg",
@@ -456,7 +456,7 @@
     {
       "id": "C15C-4972",
       "name": "Pink Pursuits Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Pursuits Bouquet is perfectly sweet and truly charming, casting its spell with each blushing bloom. Hot pink roses, carnations and matsumoto asters are brought together with pink carnations, waxflower and lush greens to create a fun and spirited flower arrangement. Presented in a clear glass cylinder vase lined with a ti leaf material to give it a sophisticated styling, this fresh flower bouquet is set to send your sweetest wishes to friends, family and loved ones in honor of a birthday, to express your thanks or to send your congratulations wishes on the birth of their new baby girl.",
       "dimensions": "10\"h x 11\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/C15C-4972_t1.jpg",
@@ -464,14 +464,14 @@
       "extraLargeImage": "https://cdn.floristone.com/hi-res/C15C-4972_h1.jpg",
       "detailUrl": "http://www.floristone.com/detail.cfm?dcode=C15C-4972&source_id=aff&affiliateid=2026097209",
       "cartUrl": "http://www.floristone.com/cart.cfm?dcode=C15C-4972&source_id=aff&affiliateid=2026097209",
-      "category": ""
+      "category": "Vase Arrangements"
     }
   ],
   "get_well": [
     {
       "id": "B07",
       "name": "Best Day Bouquet",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The Best Day Bouquet is ready to create a moment your recipient will always remember! An instant mood booster with it's mix of bright bold colors, this gorgeous fresh flower arrangement brings together sunflowers, hot pink roses, purple double lisianthus, orange LA Hybrid Lilies, yellow snapdragons, green button poms, and lush greens to make this day, their best day. Presented in a clear glass vase, this fresh flower arrangement is made just for you to help you send your warmest birthday, congratulations, or get well wishes to your favorite friends and family.",
       "dimensions": "15\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B07_t1.jpg",
@@ -484,7 +484,7 @@
     {
       "id": "B2-4957",
       "name": "The Harvest Heartstrings Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Harvest Heartstrings Bouquet brings sunlit autumn beauty straight to their door. Unforgettable mini sunflowers catch the eye at every turn surrounded by yellow Asiatic lilies, red dianthus, orange spray roses and lush greens to create a stunning fresh flower arrangement. Presented in a clear glass gathered square vase and accented throughout with red glycerized oak leaves, this flower bouquet is set to make an excellent birthday, thank you, get well or Thanksgiving gift.",
       "dimensions": "12\"w x 15\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-4957_t1.jpg",
@@ -497,7 +497,7 @@
     {
       "id": "B2-5123",
       "name": "The Vibrant Views Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "Blooming with a vibrant light that can't be denied, this brilliant fall flower bouquet is ready to lift any mood and raise any spirit throughout the autumn months ahead. Swirling orange roses, orange spray roses, and star-shaped peach Asiatic Lilies are surrounded with the eye-catching textures of yellow solidago, bittersweet stems, aralia leaves and lush greens with brilliant yellow gourd accents tucked in a just the right spot, all beautifully arranged in an orange ceramic cylinder vase. A wonderful fall birthday, get well, thank you, or happy harvest gift!",
       "dimensions": "11\"w x 11\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-5123_t1.jpg",
@@ -510,7 +510,7 @@
     {
       "id": "B20-4970",
       "name": "The Tranquil Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "This bouquet blooms with a sweet sophistication and style to bring a calming grace to any event or occasion. Hot pink and pink roses are brought together with purple, lavender and fuchsia stock stems accented with pink Peruvian lilies and lush greens to create a simply stunning flower arrangement. Presented in a clear glass bubble bowl vase, this exquisite fresh flower bouquet will make an excellent birthday, anniversary or sympathy gift.",
       "dimensions": "12\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B20-4970_t1.jpg",
@@ -523,7 +523,7 @@
     {
       "id": "B21-4968",
       "name": "The Bright Lights Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Bright Lights Bouquet brings color and beauty straight to your special recipient's door! Yellow Asiatic lilies, pink roses, purple stock, lavender monte casino asters, pink carnations, pink mini carnations and lush greens are brought together to create a sweetly fascinating flower arrangement. Presented in a square lavender pastel washed basket, this fresh flower bouquet is set to make an excellent birthday, thank you or get well gift.",
       "dimensions": "14\"w x 13\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B21-4968_t1.jpg",
@@ -538,7 +538,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -551,7 +551,7 @@
     {
       "id": "B14",
       "name": "Free Spirit Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Free Spirit Bouquet celebrates life's most treasured moments in alluring blues and purples to create a fantastic gift of flowers. Inviting blue iris blooms add depth and texture to this fresh flower arrangement when set against lavender daisies, lavender statice, green button poms, and lush greens. Presented in a clear glass vase, this beautiful flower bouquet creates an impressive congratulations, thinking of you, or thank you gift.",
       "dimensions": "17\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B14_t1.jpg",
@@ -564,7 +564,7 @@
     {
       "id": "B2-4957",
       "name": "The Harvest Heartstrings Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Harvest Heartstrings Bouquet brings sunlit autumn beauty straight to their door. Unforgettable mini sunflowers catch the eye at every turn surrounded by yellow Asiatic lilies, red dianthus, orange spray roses and lush greens to create a stunning fresh flower arrangement. Presented in a clear glass gathered square vase and accented throughout with red glycerized oak leaves, this flower bouquet is set to make an excellent birthday, thank you, get well or Thanksgiving gift.",
       "dimensions": "12\"w x 15\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B2-4957_t1.jpg",
@@ -577,7 +577,7 @@
     {
       "id": "B20-4970",
       "name": "The Tranquil Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "This bouquet blooms with a sweet sophistication and style to bring a calming grace to any event or occasion. Hot pink and pink roses are brought together with purple, lavender and fuchsia stock stems accented with pink Peruvian lilies and lush greens to create a simply stunning flower arrangement. Presented in a clear glass bubble bowl vase, this exquisite fresh flower bouquet will make an excellent birthday, anniversary or sympathy gift.",
       "dimensions": "12\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B20-4970_t1.jpg",
@@ -590,7 +590,7 @@
     {
       "id": "B21-4968",
       "name": "The Bright Lights Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Bright Lights Bouquet brings color and beauty straight to your special recipient's door! Yellow Asiatic lilies, pink roses, purple stock, lavender monte casino asters, pink carnations, pink mini carnations and lush greens are brought together to create a sweetly fascinating flower arrangement. Presented in a square lavender pastel washed basket, this fresh flower bouquet is set to make an excellent birthday, thank you or get well gift.",
       "dimensions": "14\"w x 13\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B21-4968_t1.jpg",
@@ -605,7 +605,7 @@
     {
       "id": "B30-4341",
       "name": "The Independence Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Independence Bouquet will dazzle your recipient this Summer just in time for the exciting celebration that the Fourth of July brings. Brilliant red roses and white Asiatic lilies are subtly accented with Queen Anne's Lace and a sheer blue ribbon all perfectly presented in a clear glass bubble bowl creating a gorgeous gift that will make their holiday complete.",
       "dimensions": "8\"w x 9\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B30-4341_t1.jpg",
@@ -618,7 +618,7 @@
     {
       "id": "B30-4433",
       "name": "The American Glory Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The American Glory Bouquet bursts with patriotic pride and heartfelt beauty. Blue delphinium, bright red carnations and mini carnations and brilliant white Asiatic lilies create a spectacular display arranged amongst American Flags in a round whitewash basket, creating a lovely way to celebrate this coming July 4th holiday.",
       "dimensions": "12\"w x 18\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B30-4433_t1.jpg",
@@ -631,7 +631,7 @@
     {
       "id": "B30-4434",
       "name": "The Unity Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Unity Bouquet sparks the hearts of all Americans with its patriotic beauty and dazzling color. Bright red roses mingle with blue iris arranged amongst white Peruvian lilies and assorted greens. Accented with two American Flags and a red, white and blue ribbon, this stunning bouquet arrives arranged in a clear glass vase to create a gorgeous way to celebrate our Independence Day.",
       "dimensions": "14\"w x 18\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/B30-4434_t1.jpg",
@@ -644,7 +644,7 @@
     {
       "id": "C15-4790",
       "name": "Precious Heart Bouquet",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The Precious Heart Bouquet is a blushing display of loving kindness. Fuchsia roses are sweetly stunning amongst red matsumoto asters, pink mini carnations and lush greens. Arranged in a classic clear glass vase. This bouquet will convey your warmest wishes.",
       "dimensions": "11\"w x 15\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/C15-4790_t1.jpg",
@@ -657,7 +657,7 @@
     {
       "id": "C2-5229",
       "name": "The New Sunrise Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "It's a new dawn for a new day, and your recipient is going to rise to meet every expectation with the energy and beauty of this gorgeous flower arrangement by their side. Orange roses capture the essence of the perfect sunrise offset by hot pink spray roses, hot pink carnations, orange carnations, fuchsia gilly flower, green mini hydrangea, seeded eucalyptus, and lush greens situated in a oval stained woodchip basket to give it a natural, rustic, and simply stylish look. A wonderful thank you, birthday, or thinking of you gift!",
       "dimensions": "13\"w x 10\"h",
       "thumbnailImage": "https://cdn.floristone.com/small/C2-5229_t1.jpg",
@@ -672,7 +672,7 @@
     {
       "id": "B07",
       "name": "Best Day Bouquet",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The Best Day Bouquet is ready to create a moment your recipient will always remember! An instant mood booster with it's mix of bright bold colors, this gorgeous fresh flower arrangement brings together sunflowers, hot pink roses, purple double lisianthus, orange LA Hybrid Lilies, yellow snapdragons, green button poms, and lush greens to make this day, their best day. Presented in a clear glass vase, this fresh flower arrangement is made just for you to help you send your warmest birthday, congratulations, or get well wishes to your favorite friends and family.",
       "dimensions": "15\"h x 12\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B07_t1.jpg",
@@ -685,7 +685,7 @@
     {
       "id": "B08",
       "name": "Pink Posh Bouquet",
-      "price": 79.95,
+      "price": 89.95,
       "description": "The Pink Posh Bouquet is chic and pink to help you celebrate life's most treasured moments in style! Hot pink roses are bright and beautiful arranged amongst pink Asiatic Lilies, pink stock, green button poms, bupleurum and lush greens to create that perfect gift of flowers. Presented in a clear glass vase, this blushing fresh flower arrangement is ready to send your sweetest wishes in honor of a birthday, an anniversary, or as a way to express your thanks and gratitude.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B08_t1.jpg",
@@ -698,7 +698,7 @@
     {
       "id": "B10-4368",
       "name": "Celebration of the Season Centerpiece",
-      "price": 99.95,
+      "price": 109.95,
       "description": "The Celebration of the Season Centerpiece is a grand display of holiday elegance. Red roses and spray roses pop against a backdrop of assorted holiday greens and variegated holly that beautifully encircle three red taper candles. Accented with gold pinecones and gold metallic brocade ribbon this centerpiece creates a warm and enchanting glow to benefit their holiday festivities.",
       "dimensions": "7\"H x 14\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-4368_t1.jpg",
@@ -711,7 +711,7 @@
     {
       "id": "B10-4962",
       "name": "The Christmas Peace Bouquet",
-      "price": 99.95,
+      "price": 109.95,
       "description": "The Christmas Peace Bouquet brings beauty and grace to their home or holiday table with each elegant bloom. Rich red roses are a standout arranged amongst red carnations and mini carnations, red hypericum berries and an assortment of lush holiday greens. Accented with white pinecone pics and a red, white, and green plaid designer ribbon, this fresh flower bouquet is presented in a clear glass bubble bowl vase to create a wonderful Christmas gift for any of the special people in your life.",
       "dimensions": "11\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-4962_t1.jpg",
@@ -724,8 +724,8 @@
     {
       "id": "B10-5139",
       "name": "The Christmas Coziness  Basket",
-      "price": 84.95,
-      "description": "Adding warmth and a homespun look to your Christmas d\u00e9cor, this fresh and fragrant floral arrangement is a wonderful way to bring color and life to any corner of the home. An assortment of Christmas greens and variegated holly are arranged to perfection in a rectangular stained woodchip basket, accented with clusters of red berries, natural pinecones, and a festive red plaid ribbon. A wonderful holiday gift for your relatives, neighbors, or friends throughout the yuletide season ahead",
+      "price": 94.95,
+      "description": "Adding warmth and a homespun look to your Christmas décor, this fresh and fragrant floral arrangement is a wonderful way to bring color and life to any corner of the home. An assortment of Christmas greens and variegated holly are arranged to perfection in a rectangular stained woodchip basket, accented with clusters of red berries, natural pinecones, and a festive red plaid ribbon. A wonderful holiday gift for your relatives, neighbors, or friends throughout the yuletide season ahead",
       "dimensions": "10\"H x 15\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B10-5139_t1.jpg",
       "detailImage": "https://cdn.floristone.com/large/B10-5139_d1.jpg",
@@ -737,7 +737,7 @@
     {
       "id": "B11",
       "name": "High Style Bouquet",
-      "price": 89.95,
+      "price": 99.95,
       "description": "The High Style Bouquet is on-trend and ready to wow your special recipient with it's mix of bold and beautiful blooms! Rich red roses, Stargazer Lilies, pink Peruvian Lilies, burgundy mini carnations, pink statice, and lush greens are arranged to perfection by our floral professionals to create a gift of flowers that is set to impress. Presented in a clear glass vase, this fresh flower bouquet is a wonderful way to express your happy anniversary, happy birthday, or thinking of you wishes.",
       "dimensions": "16\"h x 13\"w",
       "thumbnailImage": "https://cdn.floristone.com/small/B11_t1.jpg",
@@ -750,7 +750,7 @@
     {
       "id": "B11-5132",
       "name": "The Spirit of the Season Bouquet",
-      "price": 94.95,
+      "price": 104.95,
       "description": "A sensational splash of red to celebrate the Christmas season in style, this impressive flower bouquet is ready to get you noticed. Red roses, gerbera daisies, Peruvian Lilies, mini carnations, and hypericum berries are accented with an assortment of fresh Christmas greens to create a joyful holiday look. Presented in a ruby red glass vase, this holiday flower arrangement is a heartfelt way for you to send your warmest season's greetings.",
       "dimensions": "14\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B11-5132_t1.jpg",
@@ -763,7 +763,7 @@
     {
       "id": "B12-5135",
       "name": "The Winter Wishes Basket",
-      "price": 84.95,
+      "price": 94.95,
       "description": "Taking traditional Christmas colors and turning up the volume to create a bright and brilliant arrangement, this fresh flower bouquet is ready to bring holiday joy to even the darkest corner of your recipient's home. Rich red roses and red carnations are accented with green hypericum berries, green button poms, clusters of shining red glass holiday balls, and an assortment of fragrant Christmas greens. Arranged to perfection in a white wash woodchip basket, this gift of flowers is ready to make a splash as a centerpiece, or when placed on the buffet table or side counter for their holiday gathering.",
       "dimensions": "9\"H x 12\"W",
       "thumbnailImage": "https://cdn.floristone.com/small/B12-5135_t1.jpg",
@@ -776,7 +776,7 @@
     {
       "id": "B13-3601",
       "name": "Red Poinsettia Basket (Small)",
-      "price": 84.95,
+      "price": 94.95,
       "description": "The traditional holiday blooming plant, a Christmas Poinsettia, with its dark leaves and deep red flowers is the perfect gift for family and friends.",
       "dimensions": "6\" pot",
       "thumbnailImage": "https://cdn.floristone.com/small/B11-3601_t1.jpg",
@@ -789,7 +789,7 @@
     {
       "id": "B13-3602",
       "name": "Red Poinsettia Basket (Large)",
-      "price": 109.95,
+      "price": 119.95,
       "description": "The traditional holiday blooming plant, a Christmas Poinsettia, with its dark leaves and deep red flowers is the perfect gift for family and friends.",
       "dimensions": "8\" pot",
       "thumbnailImage": "https://cdn.floristone.com/small/B11-3602_t1.jpg",
@@ -800,7 +800,8 @@
       "category": "Plants"
     }
   ]
-};
+}
+;
 
   var STOP_WORDS = {
     "wedding": true, "annual": true, "happy": true, "our": true, "my": true,
@@ -835,10 +836,10 @@
   var VALENTINES_EMOJI_RE = /[\u{1F496}\u{1F498}\u{1F49D}\u{1F48B}\u{1F339}]/u;
 
   var MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day)\b|יום\s*האם|יום\s*המשפחה/iu;
-  var MOTHERS_DAY_EMOJI_RE = /[\u{1F469}\u{1F490}\u{1F970}]/u;
+  var MOTHERS_DAY_EMOJI_RE = /[\u{1F931}]/u;
 
   var FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day)\b|יום\s*האב/iu;
-  var FATHERS_DAY_EMOJI_RE = /[\u{1F468}\u{1F454}\u{1F451}]/u;
+  var FATHERS_DAY_EMOJI_RE = /[\u{1F454}]/u;
 
   var THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving)\b|חג\s*ההודיה/iu;
   var THANKSGIVING_EMOJI_RE = /[\u{1F983}\u{1F342}\u{1F37D}]/u;
@@ -1002,7 +1003,8 @@
 
   function classifyEvent(title, notes) {
     var safeTitle = (title || "").replace(ZERO_WIDTH_RE, "").trim();
-    var safeNotes = (notes || "").replace(ZERO_WIDTH_RE, "").trim();
+    var cleanedNotes = cleanExistingNotes(notes || "");
+    var safeNotes = cleanedNotes.replace(ZERO_WIDTH_RE, "").trim();
     var combined = (safeTitle + " " + safeNotes).trim();
 
     if (!combined) {
@@ -1019,7 +1021,19 @@
     var baseConfidence = 0.90;
     var occasionCategory = "everyday";
 
-    if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
+    if (BIRTHDAY_KEYWORD_RE.test(safeTitle) || BIRTHDAY_EMOJI_RE.test(safeTitle) || BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
+      celebrationType = "birthday";
+      occasionCategory = "birthday";
+      var kwB = combined.match(BIRTHDAY_KEYWORD_RE);
+      var emB = combined.match(BIRTHDAY_EMOJI_RE);
+      matchedKeyword = kwB ? kwB[0] : (emB ? emB[0] : "birthday");
+    } else if (ANNIVERSARY_KEYWORD_RE.test(safeTitle) || ANNIVERSARY_EMOJI_RE.test(safeTitle) || ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
+      celebrationType = "anniversary";
+      occasionCategory = "anniversary";
+      var kwA = combined.match(ANNIVERSARY_KEYWORD_RE);
+      var emA = combined.match(ANNIVERSARY_EMOJI_RE);
+      matchedKeyword = kwA ? kwA[0] : (emA ? emA[0] : "anniversary");
+    } else if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
       celebrationType = "valentines";
       occasionCategory = "love";
       matchedKeyword = "Valentine's Day";
@@ -1055,18 +1069,6 @@
       celebrationType = "new_year";
       occasionCategory = "holiday";
       matchedKeyword = "New Year's";
-    } else if (BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
-      celebrationType = "birthday";
-      occasionCategory = "birthday";
-      var kwB = combined.match(BIRTHDAY_KEYWORD_RE);
-      var emB = combined.match(BIRTHDAY_EMOJI_RE);
-      matchedKeyword = kwB ? kwB[0] : (emB ? emB[0] : "birthday");
-    } else if (ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
-      celebrationType = "anniversary";
-      occasionCategory = "anniversary";
-      var kwA = combined.match(ANNIVERSARY_KEYWORD_RE);
-      var emA = combined.match(ANNIVERSARY_EMOJI_RE);
-      matchedKeyword = kwA ? kwA[0] : (emA ? emA[0] : "anniversary");
     } else if (MILESTONE_KEYWORD_RE.test(combined) || MILESTONE_EMOJI_RE.test(combined)) {
       celebrationType = "milestone";
       occasionCategory = "everyday";

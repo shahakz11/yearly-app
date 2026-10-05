@@ -104,10 +104,10 @@ const engineCode = `/**
   var VALENTINES_EMOJI_RE = /[\\u{1F496}\\u{1F498}\\u{1F49D}\\u{1F48B}\\u{1F339}]/u;
 
   var MOTHERS_DAY_KEYWORD_RE = /\\b(mother'?s?\\s*day|mom'?s?\\s*day|mothers\\s*day)\\b|יום\\s*האם|יום\\s*המשפחה/iu;
-  var MOTHERS_DAY_EMOJI_RE = /[\\u{1F469}\\u{1F490}\\u{1F970}]/u;
+  var MOTHERS_DAY_EMOJI_RE = /[\\u{1F931}]/u;
 
   var FATHERS_DAY_KEYWORD_RE = /\\b(father'?s?\\s*day|dad'?s?\\s*day|fathers\\s*day)\\b|יום\\s*האב/iu;
-  var FATHERS_DAY_EMOJI_RE = /[\\u{1F468}\\u{1F454}\\u{1F451}]/u;
+  var FATHERS_DAY_EMOJI_RE = /[\\u{1F454}]/u;
 
   var THANKSGIVING_KEYWORD_RE = /\\b(thanksgiving(?: day)?|turkey day|friendsgiving)\\b|חג\\s*ההודיה/iu;
   var THANKSGIVING_EMOJI_RE = /[\\u{1F983}\\u{1F342}\\u{1F37D}]/u;
@@ -271,7 +271,8 @@ const engineCode = `/**
 
   function classifyEvent(title, notes) {
     var safeTitle = (title || "").replace(ZERO_WIDTH_RE, "").trim();
-    var safeNotes = (notes || "").replace(ZERO_WIDTH_RE, "").trim();
+    var cleanedNotes = cleanExistingNotes(notes || "");
+    var safeNotes = cleanedNotes.replace(ZERO_WIDTH_RE, "").trim();
     var combined = (safeTitle + " " + safeNotes).trim();
 
     if (!combined) {
@@ -288,7 +289,19 @@ const engineCode = `/**
     var baseConfidence = 0.90;
     var occasionCategory = "everyday";
 
-    if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
+    if (BIRTHDAY_KEYWORD_RE.test(safeTitle) || BIRTHDAY_EMOJI_RE.test(safeTitle) || BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
+      celebrationType = "birthday";
+      occasionCategory = "birthday";
+      var kwB = combined.match(BIRTHDAY_KEYWORD_RE);
+      var emB = combined.match(BIRTHDAY_EMOJI_RE);
+      matchedKeyword = kwB ? kwB[0] : (emB ? emB[0] : "birthday");
+    } else if (ANNIVERSARY_KEYWORD_RE.test(safeTitle) || ANNIVERSARY_EMOJI_RE.test(safeTitle) || ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
+      celebrationType = "anniversary";
+      occasionCategory = "anniversary";
+      var kwA = combined.match(ANNIVERSARY_KEYWORD_RE);
+      var emA = combined.match(ANNIVERSARY_EMOJI_RE);
+      matchedKeyword = kwA ? kwA[0] : (emA ? emA[0] : "anniversary");
+    } else if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
       celebrationType = "valentines";
       occasionCategory = "love";
       matchedKeyword = "Valentine's Day";
@@ -324,18 +337,6 @@ const engineCode = `/**
       celebrationType = "new_year";
       occasionCategory = "holiday";
       matchedKeyword = "New Year's";
-    } else if (BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
-      celebrationType = "birthday";
-      occasionCategory = "birthday";
-      var kwB = combined.match(BIRTHDAY_KEYWORD_RE);
-      var emB = combined.match(BIRTHDAY_EMOJI_RE);
-      matchedKeyword = kwB ? kwB[0] : (emB ? emB[0] : "birthday");
-    } else if (ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
-      celebrationType = "anniversary";
-      occasionCategory = "anniversary";
-      var kwA = combined.match(ANNIVERSARY_KEYWORD_RE);
-      var emA = combined.match(ANNIVERSARY_EMOJI_RE);
-      matchedKeyword = kwA ? kwA[0] : (emA ? emA[0] : "anniversary");
     } else if (MILESTONE_KEYWORD_RE.test(combined) || MILESTONE_EMOJI_RE.test(combined)) {
       celebrationType = "milestone";
       occasionCategory = "everyday";

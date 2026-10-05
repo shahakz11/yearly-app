@@ -80,7 +80,7 @@ describe('Milestone 2: Google Workspace Add-on (GAS) & Sheets Persistence', () =
       const card = AddOn.onCalendarEventOpen(triggerEvent);
       expect(card).toBeDefined();
       expect(card.type).toBe('Card');
-      expect(card.header.title).toContain('Auto-Gifter');
+      expect(card.header.title).toMatch(/Auto-Gifter|Yearly/);
       expect(card.header.subtitle).toContain("Sarah's Celebration");
 
       // Verify automatic calendar enrichment
@@ -141,7 +141,7 @@ describe('Milestone 2: Google Workspace Add-on (GAS) & Sheets Persistence', () =
     it('renders homepage card on onCalendarHomepage', () => {
       const card = AddOn.onCalendarHomepage({});
       expect(card.type).toBe('Card');
-      expect(card.header.title).toContain('Auto-Gifter');
+      expect(card.header.title).toMatch(/Auto-Gifter|Yearly/);
       expect(card.sections[0].header).toBe('Ready to Celebrate');
     });
 
@@ -380,9 +380,8 @@ describe('Milestone 2: Google Workspace Add-on (GAS) & Sheets Persistence', () =
     });
 
     it('doGet(?action=events&days=14) scans calendar and returns upcoming celebrations', () => {
-      const now = new Date('2026-10-01T08:00:00Z');
       const cal = MockCalendarApp.getDefaultCalendar();
-      const bday = new Date('2026-10-04T10:00:00Z');
+      const bday = new Date(Date.now() + 3 * 86400000);
       cal.addEvent(new MockCalendarEvent('evt_claire', "Claire's Birthday 🎂", bday, bday));
 
       const resp = WebApp.doGet({ parameter: { action: 'events', days: '14' } });

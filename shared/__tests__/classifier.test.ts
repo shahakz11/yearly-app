@@ -224,4 +224,25 @@ describe('Classifier Service (shared/classifier.ts)', () => {
       expect(result.celebrationType).toBe('birthday');
     });
   });
+
+  describe('Enriched Event Idempotency & Catalog Consistency', () => {
+    it("should classify 'Sarah\\'s Birthday' as birthday even when notes contain flower emojis and previous FloristOne links", () => {
+      const notes = [
+        '<!-- autogifter:start -->',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        '🌸 FloristOne Flower Delivery for Sarah 🌸',
+        'Top 5 hand-delivered flower bouquets:\n',
+        '1. <a href="https://www.floristone.com/cart.cfm?dcode=B07">💐 Order Best Day Bouquet ($94.95) at FloristOne</a>',
+        '2. <a href="https://www.floristone.com/cart.cfm?dcode=B08">💐 Order Pink Posh Bouquet ($89.95) at FloristOne</a>',
+        '<!-- autogifter:end -->'
+      ].join('\n');
+
+      const result = classifyEvent("Sarah's Birthday", notes);
+      expect(result.isCelebration).toBe(true);
+      expect(result.celebrationType).toBe('birthday');
+      expect(result.occasionCategory).toBe('birthday');
+      expect(result.recipientName).toBe('Sarah');
+    });
+  });
 });
+

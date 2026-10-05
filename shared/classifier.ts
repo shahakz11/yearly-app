@@ -1,3 +1,5 @@
+import { cleanExistingNotes } from './catalog';
+
 export type CelebrationType =
   | 'birthday'
   | 'anniversary'
@@ -125,10 +127,10 @@ const VALENTINES_KEYWORD_RE = /\b(valentine'?s?\s*day|valentines\s*day|val\s*day
 const VALENTINES_EMOJI_RE = /[\u{1F496}\u{1F498}\u{1F49D}\u{1F48B}\u{1F339}]/u; // 💖, 💘, 💝, 💋, 🌹
 
 const MOTHERS_DAY_KEYWORD_RE = /\b(mother'?s?\s*day|mom'?s?\s*day|mothers\s*day)\b|יום\s*האם|יום\s*המשפחה/iu;
-const MOTHERS_DAY_EMOJI_RE = /[\u{1F469}\u{1F490}\u{1F970}]/u; // 👩, 💐, 🥰
+const MOTHERS_DAY_EMOJI_RE = /[\u{1F931}]/u; // 🤱
 
 const FATHERS_DAY_KEYWORD_RE = /\b(father'?s?\s*day|dad'?s?\s*day|fathers\s*day)\b|יום\s*האב/iu;
-const FATHERS_DAY_EMOJI_RE = /[\u{1F468}\u{1F454}\u{1F451}]/u; // 👨, 👔, 👑
+const FATHERS_DAY_EMOJI_RE = /[\u{1F454}]/u; // 👔
 
 const THANKSGIVING_KEYWORD_RE = /\b(thanksgiving(?: day)?|turkey day|friendsgiving)\b|חג\s*ההודיה/iu;
 const THANKSGIVING_EMOJI_RE = /[\u{1F983}\u{1F342}\u{1F37D}]/u; // 🦃, 🍂, 🍽️
@@ -328,7 +330,8 @@ export function extractRecipientName(text: string): string | null {
  */
 export function classifyEvent(title?: string, notes?: string): ClassificationResult {
   const safeTitle = (title || '').replace(ZERO_WIDTH_RE, '').trim();
-  const safeNotes = (notes || '').replace(ZERO_WIDTH_RE, '').trim();
+  const cleanedNotes = cleanExistingNotes(notes || '');
+  const safeNotes = cleanedNotes.replace(ZERO_WIDTH_RE, '').trim();
   const combined = `${safeTitle} ${safeNotes}`.trim();
 
   if (!combined) {
@@ -346,7 +349,19 @@ export function classifyEvent(title?: string, notes?: string): ClassificationRes
   let baseConfidence = 0.90;
   let occasionCategory = 'everyday';
 
-  if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
+  if (BIRTHDAY_KEYWORD_RE.test(safeTitle) || BIRTHDAY_EMOJI_RE.test(safeTitle) || BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
+    celebrationType = 'birthday';
+    occasionCategory = 'birthday';
+    const kwMatch = combined.match(BIRTHDAY_KEYWORD_RE);
+    const emojiMatch = combined.match(BIRTHDAY_EMOJI_RE);
+    matchedKeyword = kwMatch ? kwMatch[0] : (emojiMatch ? emojiMatch[0] : 'birthday');
+  } else if (ANNIVERSARY_KEYWORD_RE.test(safeTitle) || ANNIVERSARY_EMOJI_RE.test(safeTitle) || ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
+    celebrationType = 'anniversary';
+    occasionCategory = 'anniversary';
+    const kwMatch = combined.match(ANNIVERSARY_KEYWORD_RE);
+    const emojiMatch = combined.match(ANNIVERSARY_EMOJI_RE);
+    matchedKeyword = kwMatch ? kwMatch[0] : (emojiMatch ? emojiMatch[0] : 'anniversary');
+  } else if (VALENTINES_KEYWORD_RE.test(combined) || VALENTINES_EMOJI_RE.test(combined)) {
     celebrationType = 'valentines';
     occasionCategory = 'love';
     matchedKeyword = "Valentine's Day";
@@ -382,18 +397,6 @@ export function classifyEvent(title?: string, notes?: string): ClassificationRes
     celebrationType = 'new_year';
     occasionCategory = 'holiday';
     matchedKeyword = "New Year's";
-  } else if (BIRTHDAY_KEYWORD_RE.test(combined) || BIRTHDAY_EMOJI_RE.test(combined)) {
-    celebrationType = 'birthday';
-    occasionCategory = 'birthday';
-    const kwMatch = combined.match(BIRTHDAY_KEYWORD_RE);
-    const emojiMatch = combined.match(BIRTHDAY_EMOJI_RE);
-    matchedKeyword = kwMatch ? kwMatch[0] : (emojiMatch ? emojiMatch[0] : 'birthday');
-  } else if (ANNIVERSARY_KEYWORD_RE.test(combined) || ANNIVERSARY_EMOJI_RE.test(combined)) {
-    celebrationType = 'anniversary';
-    occasionCategory = 'anniversary';
-    const kwMatch = combined.match(ANNIVERSARY_KEYWORD_RE);
-    const emojiMatch = combined.match(ANNIVERSARY_EMOJI_RE);
-    matchedKeyword = kwMatch ? kwMatch[0] : (emojiMatch ? emojiMatch[0] : 'anniversary');
   } else if (MILESTONE_KEYWORD_RE.test(combined) || MILESTONE_EMOJI_RE.test(combined)) {
     celebrationType = 'milestone';
     occasionCategory = 'everyday';
