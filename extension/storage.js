@@ -439,7 +439,7 @@
         : '7,3';
 
       var separator = gasUrl.indexOf('?') === -1 ? '?' : '&';
-      var fetchUrl = gasUrl + separator + 'action=events&days=' + syncDays + '&reminders=' + encodeURIComponent(remindersParam);
+      var fetchUrl = gasUrl + separator + 'action=sync_all&days=' + syncDays + '&reminders=' + encodeURIComponent(remindersParam);
 
       var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
       var timeoutId = controller ? setTimeout(function () {
@@ -448,7 +448,7 @@
             controller.abort();
           } catch (_) {}
         }
-      }, 15000) : null;
+      }, 45000) : null;
 
       var response = await fetch(fetchUrl, {
         method: 'GET',
@@ -463,7 +463,7 @@
       }
 
       var data = await parseJsonResponse(response);
-      var events = (data && data.events) || (data && data.sync && data.sync.events) || (data && data.celebrations) || (Array.isArray(data) ? data : []);
+      var events = (data && data.sync && data.sync.events) || (data && data.events) || (data && data.celebrations) || (Array.isArray(data) ? data : []);
       if (Array.isArray(events) && events.length > 0) {
         saveCachedCelebrations(events);
       }
@@ -472,8 +472,8 @@
         data: {
           status: 'ok',
           sync: {
-            scanned: data.count || events.length,
-            enriched: events.length,
+            scanned: (data && data.sync && data.sync.scanned) || data.count || events.length,
+            enriched: (data && data.sync && data.sync.enriched) || events.length,
             events: events
           }
         }

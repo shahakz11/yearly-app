@@ -42,7 +42,7 @@
     '.N4MHg',
     'div[jsname][data-eventid]',
     '.g3dbUc',
-    '[data-draggable-id]'
+    'div[role="button"][data-eventchip]'
   ];
 
   var currentObserver = null;
@@ -210,13 +210,15 @@
       }
     });
 
-    if (chip.firstChild) {
-      chip.insertBefore(badge, chip.firstChild);
+    var targetEl = chip.querySelector('.FA1g1e, .tD12ae, .l9uCfc, .I5hhAf, .WBiqje, .ef2AEc, .g3dbUc, .event-title') || chip;
+    if (targetEl.firstChild) {
+      targetEl.insertBefore(badge, targetEl.firstChild);
     } else {
-      chip.appendChild(badge);
+      targetEl.appendChild(badge);
     }
 
     chip.setAttribute('data-autogifter-injected', 'true');
+    targetEl.setAttribute('data-autogifter-title', 'true');
 
     return badge;
   }

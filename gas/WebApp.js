@@ -512,7 +512,7 @@ function syncAllCelebrations(days, reminderDays) {
     } catch (_) {}
 
     // 2. Enriched Description (under batch limit and time budget)
-    if (!item.isAlreadyEnriched && newlyEnrichedCount < 5 && timeElapsed < 4000) {
+    if (!item.isAlreadyEnriched && newlyEnrichedCount < 15 && timeElapsed < 22000) {
       try {
         var occasionCategory = item.classification.occasionCategory || item.classification.celebrationType || 'birthday';
         var desc = core.buildEnrichedEventDescription({

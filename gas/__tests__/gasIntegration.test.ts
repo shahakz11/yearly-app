@@ -39,7 +39,6 @@ describe('Milestone 2: Google Workspace Add-on (GAS) & Sheets Persistence', () =
       const expectedScopes = [
         'https://www.googleapis.com/auth/calendar',
         'https://www.googleapis.com/auth/calendar.events',
-        'https://www.googleapis.com/auth/spreadsheets',
         'https://www.googleapis.com/auth/script.external_request',
         'https://www.googleapis.com/auth/calendar.addons.execute',
         'https://www.googleapis.com/auth/calendar.addons.current.event.read',
