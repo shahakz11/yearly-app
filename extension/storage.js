@@ -127,7 +127,7 @@
       // If chrome.storage is not available, return web localStorage or in-memory
       if (typeof chrome === 'undefined' || !chrome.storage) {
         var merged = Object.assign({}, DEFAULT_SETTINGS, memoryStorage, webLocalData || {});
-        if (!merged.gasWebAppUrl) merged.gasWebAppUrl = DEFAULT_GAS_URL;
+        if (!merged.gasWebAppUrl || merged.gasWebAppUrl.indexOf('AKfycbysnOIH') !== -1) merged.gasWebAppUrl = DEFAULT_GAS_URL;
         if (!Array.isArray(merged.reminders)) merged.reminders = [7, 3];
         resolve(merged);
         return;
@@ -147,10 +147,13 @@
             localData || {},
             syncData || {}
           );
-          if (!result.gasWebAppUrl) {
-            result.gasWebAppUrl = (localData && localData.gasWebAppUrl) ||
-              (webLocalData && webLocalData.gasWebAppUrl) ||
-              DEFAULT_GAS_URL;
+          if (!result.gasWebAppUrl || result.gasWebAppUrl.indexOf('AKfycbysnOIH') !== -1) {
+            result.gasWebAppUrl = DEFAULT_GAS_URL;
+            // Overwrite deprecated URL in storage
+            if (typeof chrome !== 'undefined' && chrome.storage) {
+              if (chrome.storage.local) chrome.storage.local.set({ gasWebAppUrl: DEFAULT_GAS_URL }, function () {});
+              if (chrome.storage.sync) chrome.storage.sync.set({ gasWebAppUrl: DEFAULT_GAS_URL }, function () {});
+            }
           }
           if (!Array.isArray(result.reminders)) {
             result.reminders = [7, 3];
