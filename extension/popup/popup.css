@@ -43,8 +43,11 @@ body {
 }
 
 .header-logo {
-  font-size: 26px;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+  display: block;
 }
 
 .header-titles h1 {

@@ -45,6 +45,11 @@ export class MockCardService {
     SWITCH: 'SWITCH'
   };
 
+  static ImageStyle = {
+    SQUARE: 'SQUARE',
+    CIRCLE: 'CIRCLE'
+  };
+
   static newCardBuilder() {
     return new MockCardBuilder();
   }
@@ -156,6 +161,7 @@ export class MockCardHeader {
   private title = '';
   private subtitle = '';
   private imageUrl = '';
+  private imageStyle = '';
 
   setTitle(t: string) {
     this.title = t;
@@ -172,11 +178,17 @@ export class MockCardHeader {
     return this;
   }
 
+  setImageStyle(style: any) {
+    this.imageStyle = style;
+    return this;
+  }
+
   build() {
     return {
       title: this.title,
       subtitle: this.subtitle,
-      imageUrl: this.imageUrl
+      imageUrl: this.imageUrl,
+      imageStyle: this.imageStyle
     };
   }
 }

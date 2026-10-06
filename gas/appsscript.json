@@ -15,6 +15,7 @@
     "https://floristone.com/",
     "https://media.floristone.com/",
     "https://images.floristone.com/",
+    "https://yearly.click/",
     "https://img.icons8.com/"
   ],
   "oauthScopes": [
@@ -31,8 +32,8 @@
   ],
   "addOns": {
     "common": {
-      "name": "Auto-Gifter",
-      "logoUrl": "https://img.icons8.com/color/48/gift--v1.png",
+      "name": "Yearly",
+      "logoUrl": "https://yearly.click/assets/icon-128.png",
       "layoutProperties": {
         "primaryColor": "#FF3008",
         "secondaryColor": "#006241"

@@ -456,6 +456,24 @@ function onCalendarEventOpen(e) {
 }
 
 /**
+ * Helper to build consistent Yearly card headers with the brand logo.
+ *
+ * @param {string} title
+ * @param {string} subtitle
+ * @return {CardService.CardHeader}
+ */
+function buildCardHeader(title, subtitle) {
+  var header = CardService.newCardHeader()
+    .setTitle(title)
+    .setSubtitle(subtitle)
+    .setImageUrl("https://yearly.click/assets/icon-128.png");
+  if (typeof CardService !== 'undefined' && CardService.ImageStyle && CardService.ImageStyle.CIRCLE && typeof header.setImageStyle === 'function') {
+    header.setImageStyle(CardService.ImageStyle.CIRCLE);
+  }
+  return header;
+}
+
+/**
  * Trigger function for Google Calendar homepage trigger.
  *
  * @param {Object} e
@@ -464,9 +482,7 @@ function onCalendarEventOpen(e) {
 function onCalendarHomepage(e) {
   try {
     var card = CardService.newCardBuilder()
-      .setHeader(CardService.newCardHeader()
-        .setTitle("Yearly 🌸")
-        .setSubtitle("Calendar Gifting Assistant"));
+      .setHeader(buildCardHeader("Yearly 🌸", "Calendar Gifting Assistant"));
 
     var section = CardService.newCardSection()
       .setHeader("Ready to Celebrate");
@@ -520,9 +536,7 @@ function onCalendarHomepage(e) {
       _obs.log('ERROR', 'AddOn:onCalendarHomepage', (err && err.message) || String(err), {}, err);
     }
     var fallbackCard = CardService.newCardBuilder()
-      .setHeader(CardService.newCardHeader()
-        .setTitle("Yearly 🌸")
-        .setSubtitle("Calendar Assistant"));
+      .setHeader(buildCardHeader("Yearly 🌸", "Calendar Assistant"));
     var fallbackSec = CardService.newCardSection();
     fallbackSec.addWidget(CardService.newDecoratedText()
       .setText("Yearly is ready!")
@@ -676,9 +690,7 @@ function onViewHealthLogsCard(e) {
   var logs = (sheets && typeof sheets.getHealthLogs === 'function') ? sheets.getHealthLogs(10) : [];
 
   var card = CardService.newCardBuilder()
-    .setHeader(CardService.newCardHeader()
-      .setTitle("Auto-Gifter 📊")
-      .setSubtitle("System Health & Diagnostic Logs"));
+    .setHeader(buildCardHeader("Yearly 📊", "System Health & Diagnostic Logs"));
 
   var section = CardService.newCardSection()
     .setHeader("Recent Activity (Last 10 Logs)");
@@ -742,9 +754,7 @@ function buildCelebrationCard(event, classification, core, calendarId, eventId, 
   var bestsellers = core.getBestsellers ? core.getBestsellers(occasionCategory, 5) : [];
 
   var card = CardService.newCardBuilder()
-    .setHeader(CardService.newCardHeader()
-      .setTitle("Yearly 🌸")
-      .setSubtitle(recipientName + "'s Celebration"));
+    .setHeader(buildCardHeader("Yearly 🌸", recipientName + "'s Celebration"));
 
   // --- SECTION 1: TOP FLORISTONE BOUQUETS ---
   if (bestsellers.length > 0) {
@@ -890,9 +900,7 @@ function onEnrichCalendarEvent(e) {
 function buildNonCelebrationCard(event, classification) {
   var title = event.getTitle ? event.getTitle() : "Event";
   var card = CardService.newCardBuilder()
-    .setHeader(CardService.newCardHeader()
-      .setTitle("Yearly 🎁")
-      .setSubtitle("No Celebration Detected"));
+    .setHeader(buildCardHeader("Yearly 🎁", "No Celebration Detected"));
 
   var section = CardService.newCardSection();
   section.addWidget(CardService.newDecoratedText()
@@ -911,9 +919,7 @@ function buildNonCelebrationCard(event, classification) {
  */
 function buildEmptyCard(message) {
   var card = CardService.newCardBuilder()
-    .setHeader(CardService.newCardHeader()
-      .setTitle("Yearly 🎁")
-      .setSubtitle("Assistant"));
+    .setHeader(buildCardHeader("Yearly 🎁", "Assistant"));
 
   var section = CardService.newCardSection();
   section.addWidget(CardService.newDecoratedText()
@@ -1173,9 +1179,7 @@ function onSyncAllCelebrations(e) {
 
   // Build a result summary card
   var card = CardService.newCardBuilder()
-    .setHeader(CardService.newCardHeader()
-      .setTitle("Yearly 🌸")
-      .setSubtitle("Calendar Sync Complete"));
+    .setHeader(buildCardHeader("Yearly 🌸", "Calendar Sync Complete"));
 
   var section = CardService.newCardSection()
     .setHeader("Sync Results (Next 30 Days)");

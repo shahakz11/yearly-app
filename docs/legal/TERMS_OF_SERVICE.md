@@ -9,13 +9,13 @@
 
 ## 1. Acceptance of Terms
 
-By installing, accessing, or using the Auto-Gifter Chrome Extension, Google Workspace Add-on, or associated web applications (collectively, the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not install or use the Service.
+By installing, accessing, or using the Auto-Gifter Chrome™ Extension, Google Workspace™ Add-on, or associated web applications (collectively, the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not install or use the Service.
 
 ---
 
 ## 2. Description of the Service
 
-Auto-Gifter is a productivity tool designed to detect celebration milestones in your Google Calendar, provide gift card recommendations and personalized greeting templates, generate WhatsApp links, and record milestone history in your Google Sheets.
+Auto-Gifter is a productivity tool designed to detect celebration milestones in your Google Calendar™, provide gift card recommendations and personalized greeting templates, generate WhatsApp links, and record milestone history in your Google Sheets™.
 
 ---
 
@@ -29,7 +29,7 @@ Auto-Gifter participates in affiliate marketing programs.
 
 ## 4. Third-Party Trademarks and Intellectual Property
 
-- **Trademarks**: Amazon, Starbucks, Target, DoorDash, FloristOne, WhatsApp, Google, Google Calendar, Google Workspace, Chrome, and all related trademarks, service marks, logos, and brand elements are the property of their respective owners.
+- **Trademarks**: Amazon, Starbucks, Target, DoorDash, FloristOne, WhatsApp, Google™, Google Calendar™, Google Workspace™, Google Chrome™, and all related trademarks, service marks, logos, and brand elements are the property of their respective owners.
 - **No Affiliation / Endorsement**: Auto-Gifter is an independent tool and is not endorsed by, directly affiliated with, maintained, authorized, or sponsored by Google LLC, Meta Platforms / WhatsApp, Amazon.com, Inc., Starbucks Corporation, DoorDash, Inc., or Target Corporation.
 
 ---
@@ -39,7 +39,7 @@ Auto-Gifter participates in affiliate marketing programs.
 You agree to use the Service solely for lawful purposes and in compliance with all applicable laws and regulations. You must not:
 1. Attempt to reverse engineer, decompile, or exploit vulnerabilities in the Service.
 2. Use the Service to harvest unauthorized personal data or transmit unsolicited spam via WhatsApp or other communication channels.
-3. Violate Google's Workspace Marketplace or Chrome Web Store policies while using the Service.
+3. Violate Google's™ Workspace Marketplace™ or Chrome Web Store™ policies while using the Service.
 
 ---
 
