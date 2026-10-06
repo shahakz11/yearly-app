@@ -5,6 +5,10 @@
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
   "urlFetchWhitelist": [
     "https://api.whatsapp.com/",
     "https://script.google.com/",
