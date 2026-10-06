@@ -19,7 +19,7 @@
 })(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : this, function () {
   'use strict';
 
-  var DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbysnOIH2O1XRp79qeAhZAwuu9Mw8mH0L2bEldTA_X_9fBppWMaP2LkZx5xhzeJe485T/exec';
+  var DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxj8A8nR6GWPae55H78tCM9g5d_pwzA7zMsdlcGAl6C8zdyjBBLVsV3Cwvy0vhwmtcI/exec';
 
   var DEFAULT_SETTINGS = {
     gasWebAppUrl: DEFAULT_GAS_URL,
@@ -259,6 +259,43 @@
   }
 
   /**
+   * Safely parses JSON response from GAS with clear diagnostics for HTML / auth redirect responses.
+   */
+  async function parseJsonResponse(response) {
+    var text = '';
+    if (typeof response.text === 'function') {
+      text = await response.text();
+    } else if (typeof response.json === 'function') {
+      return await response.json();
+    }
+
+    if (!text || typeof text !== 'string') {
+      throw new Error('Empty response from server');
+    }
+
+    var trimmed = text.trim();
+    if (trimmed.startsWith('<')) {
+      if (
+        trimmed.indexOf('accounts.google.com') !== -1 ||
+        trimmed.indexOf('ServiceLogin') !== -1 ||
+        trimmed.indexOf('הרשאת גישה') !== -1 ||
+        trimmed.indexOf('permission') !== -1 ||
+        trimmed.indexOf('drive-logo') !== -1 ||
+        trimmed.indexOf('request-access') !== -1
+      ) {
+        throw new Error('Google Apps Script permission denied. Please deploy your Apps Script Web App with "Execute as: Me" and "Who has access: Anyone".');
+      }
+      throw new Error('Google Apps Script returned an HTML page instead of JSON. Check your Web App deployment settings.');
+    }
+
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      throw new Error('Invalid JSON response: ' + (trimmed.length > 80 ? trimmed.substring(0, 80) + '...' : trimmed));
+    }
+  }
+
+  /**
    * Test connection to Google Apps Script Web App.
    */
   async function testGasConnection(gasUrl) {
@@ -285,7 +322,7 @@
         return { ok: false, error: 'HTTP status ' + response.status };
       }
 
-      var data = await response.json();
+      var data = await parseJsonResponse(response);
       if (data && (data.status === 'ok' || data.service)) {
         return { ok: true, data: data };
       }
@@ -362,7 +399,7 @@
         throw new Error('HTTP status ' + response.status);
       }
 
-      var data = await response.json();
+      var data = await parseJsonResponse(response);
       var celebrations = data.events || data.celebrations || (Array.isArray(data) ? data : []);
       if (Array.isArray(celebrations)) {
         saveCachedCelebrations(celebrations);
@@ -422,7 +459,7 @@
         throw new Error('HTTP status ' + response.status);
       }
 
-      var data = await response.json();
+      var data = await parseJsonResponse(response);
       var events = (data && data.sync && data.sync.events) || [];
       if (Array.isArray(events) && events.length > 0) {
         saveCachedCelebrations(events);

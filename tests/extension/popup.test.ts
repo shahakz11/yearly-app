@@ -296,4 +296,18 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     const celebrationsList = env.document.getElementById('celebrationsList');
     expect(celebrationsList?.textContent).toContain('Samantha');
   });
+
+  it('handles HTML login / permission denied response gracefully with clear diagnostics', async () => {
+    (global as any).fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: async () => '<html><head><title>Google Drive</title></head><body><div class="header">דרושה לך הרשאת גישה</div></body></html>'
+      })
+    );
+
+    const result = await storage.syncAllCelebrations(30);
+    expect(result.ok).toBe(false);
+    expect(result.error).toContain('Google Apps Script permission denied');
+  });
 });
