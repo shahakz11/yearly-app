@@ -361,7 +361,7 @@
   /**
    * Load celebrations: checks local cache first unless forceRefresh is set.
    */
-  async function loadCelebrations(liveFetcher, forceRefresh) {
+  async function loadCelebrations(liveFetcher) {
     if (typeof liveFetcher === 'function') {
       try {
         var fetched = await liveFetcher();
@@ -376,24 +376,22 @@
       } catch (_) {}
     }
 
-    if (!forceRefresh) {
-      var memCached = getCachedCelebrations();
-      if (memCached && memCached.length > 0) {
-        return {
-          source: 'local',
-          celebrations: memCached,
-          cached: true
-        };
-      }
+    var memCached = getCachedCelebrations();
+    if (memCached && memCached.length > 0) {
+      return {
+        source: 'local',
+        celebrations: memCached,
+        cached: true
+      };
+    }
 
-      var asyncCached = await getCachedCelebrationsAsync();
-      if (asyncCached && asyncCached.length > 0) {
-        return {
-          source: 'local',
-          celebrations: asyncCached,
-          cached: true
-        };
-      }
+    var asyncCached = await getCachedCelebrationsAsync();
+    if (asyncCached && asyncCached.length > 0) {
+      return {
+        source: 'local',
+        celebrations: asyncCached,
+        cached: true
+      };
     }
 
     return {
@@ -518,6 +516,10 @@
       var celebrations = [];
       var seenKeys = {};
 
+      var settings = await getSettings();
+      var activeReminders = Array.isArray(settings.reminders) && settings.reminders.length > 0 ? settings.reminders : [7, 3];
+      var floristAffiliateId = settings.floristAffiliateId || '2026097209';
+
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
         var title = (item.summary || '').trim();
@@ -529,8 +531,10 @@
           var rName = (result.recipientName || result.name || title.replace(/'s.*/i, '')).trim();
           var cType = result.celebrationType || result.type || 'birthday';
           var startDate = '';
+          var isAllDay = true;
           if (item.start) {
             startDate = item.start.date || (item.start.dateTime ? item.start.dateTime.split('T')[0] : '');
+            isAllDay = !item.start.dateTime;
           }
 
           var dedupKey = item.id || (rName + '_' + cType + '_' + startDate);
@@ -557,6 +561,41 @@
             date: startDate || new Date().toISOString().split('T')[0],
             daysUntil: daysUntil
           });
+
+          // Enrich event description & apply reminders directly in Google Calendar
+          if (item.id && core && core.buildEnrichedEventDescription) {
+            try {
+              var reminderOverrides = activeReminders.map(function (d) {
+                var mins = isAllDay ? ((d * 24 - 11) * 60) : (d * 24 * 60);
+                return { method: 'popup', minutes: Math.max(1, mins) };
+              });
+
+              var updatedDescription = core.buildEnrichedEventDescription({
+                recipientName: rName,
+                celebrationType: cType,
+                existingNotes: description,
+                affiliateId: floristAffiliateId
+              });
+
+              var patchUrl = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' + encodeURIComponent(item.id);
+              await fetch(patchUrl, {
+                method: 'PATCH',
+                headers: {
+                  'Authorization': 'Bearer ' + token,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  description: updatedDescription,
+                  reminders: {
+                    useDefault: false,
+                    overrides: reminderOverrides
+                  }
+                })
+              });
+            } catch (patchErr) {
+              console.warn('[Yearly] Event enrich notice:', item.id, patchErr);
+            }
+          }
         }
       }
 

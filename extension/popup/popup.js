@@ -456,9 +456,21 @@
         updateSyncProgress(100, '✨ Sync complete!');
         var enrichedCount = (res.data && res.data.sync && res.data.sync.enriched) || 0;
         var scannedCount = (res.data && res.data.sync && res.data.sync.scanned) || 0;
-        var syncEvents = (res.data && res.data.sync && res.data.sync.events) || [];
         loadedCelebrations = syncEvents;
         renderCelebrationsPage();
+
+        var statusPill = document.getElementById('statusPill');
+        if (statusPill) {
+          if (syncEvents.length > 0) {
+            statusPill.textContent = '● Calendar Ready';
+            statusPill.className = 'status-pill connected';
+            statusPill.title = 'Active calendar events loaded';
+          } else {
+            statusPill.textContent = '● Ready to Sync';
+            statusPill.className = 'status-pill connected';
+            statusPill.title = 'Click Sync to scan your Google Calendar';
+          }
+        }
 
         if (syncFeedback) {
           syncFeedback.className = 'sync-feedback success';
@@ -468,7 +480,6 @@
             syncFeedback.textContent = '✓ Scan complete: No upcoming celebration events found in open Google Calendar tabs.';
           }
         }
-        await refreshCelebrations(undefined, true);
         setTimeout(hideSyncProgress, 2500);
       } else {
         clearInterval(progressInterval);
