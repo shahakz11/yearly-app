@@ -1,8 +1,8 @@
 /**
  * Auto-Gifter Storage & Settings Helper (Pure Client-Side Architecture)
  *
- * Direct Google Calendar OAuth2 integration via chrome.identity with
- * fallback to in-tab DOM scanning. Zero external server dependencies.
+ * Direct Google Calendar OAuth2 integration via chrome.identity (getAuthToken + launchWebAuthFlow)
+ * with fallback to in-tab DOM scanning. Zero external server dependencies.
  */
 (function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -18,6 +18,8 @@
   }
 })(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : this, function () {
   'use strict';
+
+  var OAUTH_CLIENT_ID = '729862306327-an80jd949sgt4j0crmleunlhm024ffd6.apps.googleusercontent.com';
 
   function getCoreEngine() {
     if (typeof AutoGifterCore !== 'undefined') return AutoGifterCore;
@@ -388,29 +390,85 @@
   }
 
   /**
-   * Triggers native Google OAuth authentication via chrome.identity and
-   * fetches events directly from Google Calendar REST API.
+   * Robust Google OAuth token acquisition with fallback from getAuthToken to launchWebAuthFlow
+   */
+  async function getGoogleAuthToken(interactive) {
+    var isInteractive = interactive !== false;
+    var lastErrorMessage = '';
+
+    // 1. Try native getAuthToken
+    if (typeof chrome !== 'undefined' && chrome.identity && chrome.identity.getAuthToken) {
+      var nativeToken = await new Promise(function (resolve) {
+        chrome.identity.getAuthToken({ interactive: isInteractive }, function (authToken) {
+          if (chrome.runtime && chrome.runtime.lastError) {
+            lastErrorMessage = chrome.runtime.lastError.message || '';
+            console.warn('[Yearly] getAuthToken notice:', lastErrorMessage);
+            resolve(null);
+          } else {
+            resolve(authToken);
+          }
+        });
+      });
+
+      if (nativeToken) {
+        return { ok: true, token: nativeToken };
+      }
+    }
+
+    // 2. Try launchWebAuthFlow (universal fallback across dev & production extension IDs)
+    if (typeof chrome !== 'undefined' && chrome.identity && chrome.identity.launchWebAuthFlow && isInteractive) {
+      try {
+        var extId = (chrome.runtime && chrome.runtime.id) || 'lhifmijfheppabhbjphipdeafeklnpnn';
+        var redirectUrl = (chrome.identity.getRedirectURL ? chrome.identity.getRedirectURL() : ('https://' + extId + '.chromiumapp.org/'));
+        var scope = encodeURIComponent('https://www.googleapis.com/auth/calendar.events.readonly');
+        var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
+          'client_id=' + encodeURIComponent(OAUTH_CLIENT_ID) +
+          '&response_type=token' +
+          '&redirect_uri=' + encodeURIComponent(redirectUrl) +
+          '&scope=' + scope +
+          '&prompt=consent';
+
+        var responseUrl = await new Promise(function (resolve) {
+          chrome.identity.launchWebAuthFlow({ url: authUrl, interactive: true }, function (resUrl) {
+            if (chrome.runtime && chrome.runtime.lastError) {
+              lastErrorMessage = chrome.runtime.lastError.message || lastErrorMessage;
+              console.warn('[Yearly] launchWebAuthFlow notice:', lastErrorMessage);
+              resolve(null);
+            } else {
+              resolve(resUrl);
+            }
+          });
+        });
+
+        if (responseUrl) {
+          var hash = responseUrl.split('#')[1] || responseUrl.split('?')[1] || '';
+          var params = new URLSearchParams(hash);
+          var token = params.get('access_token');
+          if (token) {
+            return { ok: true, token: token };
+          }
+        }
+      } catch (err) {
+        console.warn('[Yearly] launchWebAuthFlow exception:', err);
+      }
+    }
+
+    return {
+      ok: false,
+      error: lastErrorMessage ? ('Google authorization: ' + lastErrorMessage) : 'Google Calendar authorization could not be completed.'
+    };
+  }
+
+  /**
+   * Triggers Google OAuth authentication and fetches events directly from Google Calendar REST API.
    */
   async function fetchCalendarEventsViaOAuth(days, interactive) {
-    if (typeof chrome === 'undefined' || !chrome.identity || !chrome.identity.getAuthToken) {
-      return { ok: false, error: 'chrome.identity not available' };
+    var authRes = await getGoogleAuthToken(interactive);
+    if (!authRes.ok || !authRes.token) {
+      return { ok: false, error: authRes.error || 'Google authorization was not completed.' };
     }
 
-    var isInteractive = interactive !== false;
-
-    var token = await new Promise(function (resolve) {
-      chrome.identity.getAuthToken({ interactive: isInteractive }, function (authToken) {
-        if (chrome.runtime && chrome.runtime.lastError) {
-          resolve(null);
-        } else {
-          resolve(authToken);
-        }
-      });
-    });
-
-    if (!token) {
-      return { ok: false, error: 'Google authorization was not completed.' };
-    }
+    var token = authRes.token;
 
     try {
       var syncDays = days || 30;
@@ -432,7 +490,7 @@
       });
 
       if (!response.ok) {
-        if (response.status === 401 && chrome.identity.removeCachedAuthToken) {
+        if (response.status === 401 && chrome.identity && chrome.identity.removeCachedAuthToken) {
           chrome.identity.removeCachedAuthToken({ token: token }, function () {});
         }
         return { ok: false, error: 'Google Calendar API error (HTTP ' + response.status + ')' };
@@ -511,15 +569,20 @@
    */
   async function syncAllCelebrations(days) {
     var syncDays = days || 30;
+    var oauthError = '';
 
     // 1. Primary: Direct Google Calendar API with OAuth
-    if (typeof chrome !== 'undefined' && chrome.identity && chrome.identity.getAuthToken) {
+    if (typeof chrome !== 'undefined' && chrome.identity) {
       try {
         var oauthResult = await fetchCalendarEventsViaOAuth(syncDays, true);
         if (oauthResult && oauthResult.ok) {
           return oauthResult;
+        } else if (oauthResult && oauthResult.error) {
+          oauthError = oauthResult.error;
         }
-      } catch (_) {}
+      } catch (err) {
+        oauthError = err && err.message ? err.message : String(err);
+      }
     }
 
     // 2. Secondary: Query active Google Calendar tabs in Chrome
@@ -579,18 +642,10 @@
       };
     }
 
-    // 4. No events found
-    saveCachedCelebrations([]);
+    // 4. Return clear error diagnostic
     return {
-      ok: true,
-      data: {
-        status: 'ok',
-        sync: {
-          scanned: 0,
-          enriched: 0,
-          events: []
-        }
-      }
+      ok: false,
+      error: oauthError || 'Could not connect to Google Calendar. Please grant Google Calendar permissions or open calendar.google.com in a tab.'
     };
   }
 
@@ -604,6 +659,7 @@
     saveCachedCelebrations: saveCachedCelebrations,
     testGasConnection: testGasConnection,
     loadCelebrations: loadCelebrations,
+    getGoogleAuthToken: getGoogleAuthToken,
     fetchCalendarEventsViaOAuth: fetchCalendarEventsViaOAuth,
     syncAllCelebrations: syncAllCelebrations,
     logGiftSent: logGiftSent,
