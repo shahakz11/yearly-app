@@ -5,10 +5,18 @@
   "description": "Smart dual-surface gifting assistant directly inside Google Calendar",
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "identity"
   ],
+  "oauth2": {
+    "client_id": "729862306327-1dv5iditp4p2h794unngha535ph7g3uv.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.events.readonly"
+    ]
+  },
   "host_permissions": [
-    "https://calendar.google.com/*"
+    "https://calendar.google.com/*",
+    "https://www.googleapis.com/*"
   ],
   "content_scripts": [
     {

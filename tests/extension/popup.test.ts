@@ -297,7 +297,41 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     expect(celebrationsList?.textContent).toContain('Samantha');
   });
 
-  it('syncs celebrations directly from open calendar tab or local cache', async () => {
+  it('fetches real Google Calendar events via chrome.identity OAuth and classifies celebrations', async () => {
+    (global as any).fetch = jest.fn().mockImplementation((url: string) => {
+      if (url.includes('googleapis.com/calendar/v3')) {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: async () => ({
+            items: [
+              {
+                id: 'gcal-bday-1',
+                summary: "Emily's Birthday 🎂",
+                description: 'Party at 7pm',
+                start: { date: '2026-10-25' }
+              },
+              {
+                id: 'gcal-work-2',
+                summary: 'Design Review',
+                start: { dateTime: '2026-10-20T10:00:00Z' }
+              }
+            ]
+          })
+        });
+      }
+      return Promise.resolve({ ok: true, json: async () => ({}) });
+    });
+
+    const res = await storage.fetchCalendarEventsViaOAuth(30, true);
+    expect(res.ok).toBe(true);
+    expect(res.data.sync.events.length).toBe(1);
+    expect(res.data.sync.events[0].recipientName).toBe('Emily');
+    expect(res.data.sync.events[0].celebrationType).toBe('birthday');
+  });
+
+  it('syncs celebrations directly from open calendar tab or local cache when OAuth is unavailable', async () => {
+    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => cb(null);
     env.chrome.tabs._messageHandler = (_tabId: number, _msg: any) => ({
       ok: true,
       celebrations: [

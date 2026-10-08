@@ -1,8 +1,8 @@
 /**
  * Auto-Gifter Storage & Settings Helper (Pure Client-Side Architecture)
  *
- * Manages configuration and celebration caching in chrome.storage.local / chrome.storage.sync.
- * Zero external server dependencies and zero fake/demo data fallback.
+ * Direct Google Calendar OAuth2 integration via chrome.identity with
+ * fallback to in-tab DOM scanning. Zero external server dependencies.
  */
 (function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -18,6 +18,21 @@
   }
 })(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : this, function () {
   'use strict';
+
+  function getCoreEngine() {
+    if (typeof AutoGifterCore !== 'undefined') return AutoGifterCore;
+    if (typeof window !== 'undefined' && window.AutoGifterCore) return window.AutoGifterCore;
+    if (typeof globalThis !== 'undefined' && globalThis.AutoGifterCore) return globalThis.AutoGifterCore;
+    try {
+      return require('./core/CoreEngine.js');
+    } catch (e) {
+      try {
+        return require('../shared/CoreEngine.js');
+      } catch (err) {
+        return null;
+      }
+    }
+  }
 
   var DEFAULT_SETTINGS = {
     affiliateTag: 'autogifter-20',
@@ -332,7 +347,6 @@
 
   /**
    * Load celebrations: checks local cache first.
-   * If cache is empty, returns empty list.
    */
   async function loadCelebrations(liveFetcher) {
     if (typeof liveFetcher === 'function') {
@@ -374,13 +388,141 @@
   }
 
   /**
-   * Pure client-side batch sync: queries active Google Calendar tab,
-   * or loads locally cached celebrations. Returns empty list if none found.
+   * Triggers native Google OAuth authentication via chrome.identity and
+   * fetches events directly from Google Calendar REST API.
+   */
+  async function fetchCalendarEventsViaOAuth(days, interactive) {
+    if (typeof chrome === 'undefined' || !chrome.identity || !chrome.identity.getAuthToken) {
+      return { ok: false, error: 'chrome.identity not available' };
+    }
+
+    var isInteractive = interactive !== false;
+
+    var token = await new Promise(function (resolve) {
+      chrome.identity.getAuthToken({ interactive: isInteractive }, function (authToken) {
+        if (chrome.runtime && chrome.runtime.lastError) {
+          resolve(null);
+        } else {
+          resolve(authToken);
+        }
+      });
+    });
+
+    if (!token) {
+      return { ok: false, error: 'Google authorization was not completed.' };
+    }
+
+    try {
+      var syncDays = days || 30;
+      var now = new Date();
+      var timeMin = now.toISOString();
+      var maxDate = new Date(now.getTime() + (syncDays * 24 * 60 * 60 * 1000));
+      var timeMax = maxDate.toISOString();
+
+      var apiUrl = 'https://www.googleapis.com/calendar/v3/calendars/primary/events?' +
+        'singleEvents=true&orderBy=startTime&maxResults=250' +
+        '&timeMin=' + encodeURIComponent(timeMin) +
+        '&timeMax=' + encodeURIComponent(timeMax);
+
+      var response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        if (response.status === 401 && chrome.identity.removeCachedAuthToken) {
+          chrome.identity.removeCachedAuthToken({ token: token }, function () {});
+        }
+        return { ok: false, error: 'Google Calendar API error (HTTP ' + response.status + ')' };
+      }
+
+      var data = await response.json();
+      var items = (data && data.items) || [];
+      var core = getCoreEngine();
+      var celebrations = [];
+      var seenKeys = {};
+
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        var title = (item.summary || '').trim();
+        var description = (item.description || '').trim();
+        if (!title) continue;
+
+        var result = core ? core.classifyEvent(title, description) : { isCelebration: /birthday|anniversary|milestone|🎂|💍|🎉|🎈/i.test(title) };
+        if (result && result.isCelebration) {
+          var rName = (result.recipientName || result.name || title.replace(/'s.*/i, '')).trim();
+          var cType = result.celebrationType || result.type || 'birthday';
+          var dedupKey = rName + '_' + cType;
+          if (seenKeys[dedupKey]) continue;
+          seenKeys[dedupKey] = true;
+
+          var startDate = '';
+          if (item.start) {
+            startDate = item.start.date || (item.start.dateTime ? item.start.dateTime.split('T')[0] : '');
+          }
+
+          var daysUntil = 0;
+          if (startDate) {
+            var targetDate = new Date(startDate);
+            var diffMs = targetDate.getTime() - now.getTime();
+            daysUntil = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+          }
+
+          var catalog = (core && (core.LEGACY_BRANDS || (core.getCatalog ? core.getCatalog() : []))) || [];
+          var suggestedBrand = catalog.length > 0 ? catalog[0].id : 'starbucks';
+
+          celebrations.push({
+            id: item.id || ('gcal-' + i),
+            recipientName: rName || 'Friend',
+            celebrationType: cType,
+            rawTitle: title,
+            suggestedBrandId: suggestedBrand,
+            suggestedAmount: 25,
+            date: startDate || new Date().toISOString().split('T')[0],
+            daysUntil: daysUntil
+          });
+        }
+      }
+
+      saveCachedCelebrations(celebrations);
+      return {
+        ok: true,
+        data: {
+          status: 'ok',
+          sync: {
+            scanned: items.length,
+            enriched: celebrations.length,
+            events: celebrations
+          }
+        }
+      };
+    } catch (err) {
+      return { ok: false, error: err && err.message ? err.message : String(err) };
+    }
+  }
+
+  /**
+   * Pure client-side batch sync:
+   * 1. Triggers direct Google Calendar API OAuth sync via chrome.identity
+   * 2. Fallback to active Google Calendar tab DOM scan
+   * 3. Fallback to cached celebrations
    */
   async function syncAllCelebrations(days) {
     var syncDays = days || 30;
 
-    // 1. Try querying active Google Calendar tabs in Chrome
+    // 1. Primary: Direct Google Calendar API with OAuth
+    if (typeof chrome !== 'undefined' && chrome.identity && chrome.identity.getAuthToken) {
+      try {
+        var oauthResult = await fetchCalendarEventsViaOAuth(syncDays, true);
+        if (oauthResult && oauthResult.ok) {
+          return oauthResult;
+        }
+      } catch (_) {}
+    }
+
+    // 2. Secondary: Query active Google Calendar tabs in Chrome
     if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
       try {
         var tabs = await new Promise(function (resolve) {
@@ -401,7 +543,7 @@
             });
           });
 
-          if (scanResponse && scanResponse.ok && Array.isArray(scanResponse.celebrations)) {
+          if (scanResponse && scanResponse.ok && Array.isArray(scanResponse.celebrations) && scanResponse.celebrations.length > 0) {
             var events = scanResponse.celebrations;
             saveCachedCelebrations(events);
             return {
@@ -420,7 +562,7 @@
       } catch (_) {}
     }
 
-    // 2. Check local cached celebrations
+    // 3. Tertiary: Check local cached celebrations
     var cached = await getCachedCelebrationsAsync();
     if (Array.isArray(cached) && cached.length > 0) {
       return {
@@ -437,7 +579,7 @@
       };
     }
 
-    // 3. No events found
+    // 4. No events found
     saveCachedCelebrations([]);
     return {
       ok: true,
@@ -462,6 +604,7 @@
     saveCachedCelebrations: saveCachedCelebrations,
     testGasConnection: testGasConnection,
     loadCelebrations: loadCelebrations,
+    fetchCalendarEventsViaOAuth: fetchCalendarEventsViaOAuth,
     syncAllCelebrations: syncAllCelebrations,
     logGiftSent: logGiftSent,
     getCelebrationHistory: getCelebrationHistory,

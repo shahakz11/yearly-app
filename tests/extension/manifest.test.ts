@@ -22,15 +22,23 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
     expect(typeof manifest.description).toBe('string');
   });
 
-  it('requests the "storage" and "tabs" permissions for settings and in-browser sync', () => {
+  it('requests "storage", "tabs", and "identity" permissions for OAuth and sync', () => {
     expect(Array.isArray(manifest.permissions)).toBe(true);
     expect(manifest.permissions).toContain('storage');
     expect(manifest.permissions).toContain('tabs');
+    expect(manifest.permissions).toContain('identity');
   });
 
-  it('declares required host permissions for Google Calendar DOM inspection', () => {
+  it('declares OAuth2 configuration with client_id and calendar scope', () => {
+    expect(manifest.oauth2).toBeDefined();
+    expect(manifest.oauth2.client_id).toContain('729862306327');
+    expect(manifest.oauth2.scopes).toContain('https://www.googleapis.com/auth/calendar.events.readonly');
+  });
+
+  it('declares required host permissions for Google Calendar and Google APIs', () => {
     expect(Array.isArray(manifest.host_permissions)).toBe(true);
     expect(manifest.host_permissions).toContain('https://calendar.google.com/*');
+    expect(manifest.host_permissions).toContain('https://www.googleapis.com/*');
   });
 
   it('configures content scripts for calendar.google.com with core engine and styling', () => {

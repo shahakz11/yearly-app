@@ -431,6 +431,20 @@ export function setupMockEnvironment(): {
       _mockTabs: [{ id: 1, url: 'https://calendar.google.com/calendar/u/0/r' }],
       _messageHandler: null
     },
+    identity: {
+      getAuthToken: (options: any, cb: Function) => {
+        if (mockChrome.identity._authError) {
+          mockChrome.runtime.lastError = mockChrome.identity._authError;
+          if (cb) cb(null);
+          return;
+        }
+        mockChrome.runtime.lastError = null;
+        const token = mockChrome.identity._mockToken || 'mock-valid-google-token';
+        if (cb) cb(token);
+      },
+      _mockToken: 'mock-valid-google-token',
+      _authError: null
+    },
     runtime: {
       lastError: null,
       onMessage: {
