@@ -236,4 +236,26 @@ describe('Content Script & Calendar DOM Injection (extension/content/content.js)
     expect(disclosureEl).toBeDefined();
     expect(disclosureEl?.textContent).toContain('affiliate');
   });
+
+  it('scans DOM celebrations into structured items and responds to scan_calendar message', () => {
+    const { birthdayChip, anniversaryChip } = createCalendarGrid();
+    const items = content.scanCelebrationEvents(env.document.body);
+    expect(items.length).toBe(2);
+    expect(items[0].recipientName).toBe('Sarah');
+    expect(items[1].celebrationType).toBe('anniversary');
+
+    let responseData: any = null;
+    content.handleRuntimeMessage(
+      { action: 'scan_calendar' },
+      {},
+      (res: any) => {
+        responseData = res;
+      }
+    );
+
+    expect(responseData).not.toBeNull();
+    expect(responseData.ok).toBe(true);
+    expect(responseData.count).toBe(2);
+    expect(responseData.celebrations.length).toBe(2);
+  });
 });

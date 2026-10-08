@@ -22,16 +22,15 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
     expect(typeof manifest.description).toBe('string');
   });
 
-  it('requests the "storage" permission for settings and sync', () => {
+  it('requests the "storage" and "tabs" permissions for settings and in-browser sync', () => {
     expect(Array.isArray(manifest.permissions)).toBe(true);
     expect(manifest.permissions).toContain('storage');
+    expect(manifest.permissions).toContain('tabs');
   });
 
-  it('declares required host permissions for Google Calendar and GAS redirects', () => {
+  it('declares required host permissions for Google Calendar DOM inspection', () => {
     expect(Array.isArray(manifest.host_permissions)).toBe(true);
     expect(manifest.host_permissions).toContain('https://calendar.google.com/*');
-    expect(manifest.host_permissions).toContain('https://script.google.com/*');
-    expect(manifest.host_permissions).toContain('https://script.googleusercontent.com/*');
   });
 
   it('configures content scripts for calendar.google.com with core engine and styling', () => {

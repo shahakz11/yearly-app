@@ -297,17 +297,49 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     expect(celebrationsList?.textContent).toContain('Samantha');
   });
 
-  it('handles HTML login / permission denied response gracefully with clear diagnostics', async () => {
-    (global as any).fetch = jest.fn().mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        status: 200,
-        text: async () => '<html><head><title>Google Drive</title></head><body><div class="header">דרושה לך הרשאת גישה</div></body></html>'
-      })
-    );
+  it('syncs celebrations directly from open calendar tab or local cache', async () => {
+    env.chrome.tabs._messageHandler = (_tabId: number, _msg: any) => ({
+      ok: true,
+      celebrations: [
+        {
+          id: 'tab-evt-101',
+          recipientName: 'David',
+          celebrationType: 'birthday',
+          date: '2026-10-20',
+          daysUntil: 8
+        }
+      ]
+    });
 
     const result = await storage.syncAllCelebrations(30);
-    expect(result.ok).toBe(false);
-    expect(result.error).toContain('Google Apps Script permission denied');
+    expect(result.ok).toBe(true);
+    expect(result.data.sync.events.length).toBe(1);
+    expect(result.data.sync.events[0].recipientName).toBe('David');
+  });
+
+  it('records sent gifts locally in storage without external server dependencies', async () => {
+    const giftRecord = {
+      recipientName: 'Sarah',
+      celebrationType: 'birthday',
+      brandChosen: 'starbucks',
+      amount: 25,
+      greetingUsed: 'Happy Birthday Sarah!'
+    };
+
+    const logRes = await storage.logGiftSent(giftRecord);
+    expect(logRes.ok).toBe(true);
+    expect(logRes.record.recipientName).toBe('Sarah');
+
+    const history = await storage.getCelebrationHistory();
+    expect(history.length).toBeGreaterThan(0);
+    expect(history[0].recipientName).toBe('Sarah');
+  });
+
+  it('parseJsonResponse diagnoses Google permission/auth HTML pages', async () => {
+    const mockResponse = {
+      text: async () => '<html><head><title>Google Drive</title></head><body><div class="header">דרושה לך הרשאת גישה</div></body></html>'
+    };
+
+    await expect(storage.parseJsonResponse(mockResponse)).rejects.toThrow('Google Apps Script permission denied');
   });
 });

@@ -413,10 +413,39 @@ export function setupMockEnvironment(): {
     tabs: {
       create: ({ url }: { url: string }) => {
         openedUrls.push(url);
-      }
+      },
+      query: (queryInfo: any, cb: Function) => {
+        const tabs = (mockChrome.tabs._mockTabs || [{ id: 1, url: 'https://calendar.google.com/calendar/u/0/r' }]);
+        if (cb) cb(tabs);
+        return Promise.resolve(tabs);
+      },
+      sendMessage: (tabId: number, message: any, cb?: Function) => {
+        if (mockChrome.tabs._messageHandler) {
+          const res = mockChrome.tabs._messageHandler(tabId, message);
+          if (cb) cb(res);
+          return Promise.resolve(res);
+        }
+        if (cb) cb({ ok: true, celebrations: [] });
+        return Promise.resolve({ ok: true, celebrations: [] });
+      },
+      _mockTabs: [{ id: 1, url: 'https://calendar.google.com/calendar/u/0/r' }],
+      _messageHandler: null
     },
     runtime: {
-      lastError: null
+      lastError: null,
+      onMessage: {
+        _listeners: [] as Function[],
+        addListener: (fn: Function) => {
+          mockChrome.runtime.onMessage._listeners.push(fn);
+        },
+        removeListener: (fn: Function) => {
+          const idx = mockChrome.runtime.onMessage._listeners.indexOf(fn);
+          if (idx !== -1) mockChrome.runtime.onMessage._listeners.splice(idx, 1);
+        },
+        _trigger: (message: any, sender: any, sendResponse: Function) => {
+          mockChrome.runtime.onMessage._listeners.forEach((fn: Function) => fn(message, sender, sendResponse));
+        }
+      }
     }
   };
 

@@ -500,7 +500,70 @@
     }
 
     scanAndInjectBadges(target);
+    scanCelebrationEvents(target);
     return currentObserver;
+  }
+
+  function scanCelebrationEvents(rootElement) {
+    var root = rootElement || (typeof document !== 'undefined' ? document.body : null);
+    if (!root) return [];
+
+    var selectorStr = EVENT_CHIP_SELECTORS.join(', ');
+    var chips = root.querySelectorAll(selectorStr);
+    var core = getCoreEngine();
+    var celebrations = [];
+    var seenKeys = {};
+
+    for (var i = 0; i < chips.length; i++) {
+      var chip = chips[i];
+      var title = extractTitleFromChip(chip);
+      if (!title) continue;
+
+      var result = core.classifyEvent(title);
+      if (result && result.isCelebration) {
+        var eventId = chip.getAttribute('data-eventid') || ('dom-evt-' + i);
+        var rName = result.recipientName || result.name || 'Friend';
+        var cType = result.celebrationType || result.type || 'birthday';
+        var dedupKey = rName + '_' + cType;
+        if (seenKeys[dedupKey]) continue;
+        seenKeys[dedupKey] = true;
+
+        var catalog = (core.LEGACY_BRANDS || (core.getCatalog ? core.getCatalog() : []));
+        var suggestedBrand = catalog.length > 0 ? catalog[0].id : 'starbucks';
+
+        celebrations.push({
+          id: eventId,
+          recipientName: rName,
+          celebrationType: cType,
+          rawTitle: title,
+          suggestedBrandId: suggestedBrand,
+          suggestedAmount: 25,
+          date: new Date().toISOString().split('T')[0],
+          daysUntil: 0
+        });
+      }
+    }
+
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local && celebrations.length > 0) {
+      chrome.storage.local.set({ autogifter_cached_celebrations: celebrations }, function () {});
+    }
+
+    return celebrations;
+  }
+
+  function handleRuntimeMessage(request, sender, sendResponse) {
+    if (request && request.action === 'scan_calendar') {
+      scanAndInjectBadges();
+      var detected = scanCelebrationEvents();
+      if (typeof sendResponse === 'function') {
+        sendResponse({ ok: true, celebrations: detected, count: detected.length });
+      }
+      return true;
+    }
+  }
+
+  if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage && chrome.runtime.onMessage.addListener) {
+    chrome.runtime.onMessage.addListener(handleRuntimeMessage);
   }
 
   if (typeof document !== 'undefined') {
@@ -517,6 +580,8 @@
     extractTitleFromChip: extractTitleFromChip,
     injectBadge: injectBadge,
     scanAndInjectBadges: scanAndInjectBadges,
+    scanCelebrationEvents: scanCelebrationEvents,
+    handleRuntimeMessage: handleRuntimeMessage,
     openGiftModal: openGiftModal,
     closeGiftModal: closeGiftModal,
     initCalendarObserver: initCalendarObserver

@@ -4,12 +4,11 @@
   "version": "1.0.0",
   "description": "Smart dual-surface gifting assistant directly inside Google Calendar",
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
-    "https://calendar.google.com/*",
-    "https://script.google.com/*",
-    "https://script.googleusercontent.com/*"
+    "https://calendar.google.com/*"
   ],
   "content_scripts": [
     {

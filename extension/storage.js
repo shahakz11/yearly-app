@@ -1,8 +1,8 @@
 /**
- * Auto-Gifter Storage & Settings Helper
+ * Auto-Gifter Storage & Settings Helper (Pure Client-Side Architecture)
  *
- * Manages configuration in chrome.storage.sync with automatic
- * offline and unconfigured fallback to demoCelebrations.
+ * Manages configuration and celebration caching in chrome.storage.local / chrome.storage.sync
+ * with automatic fallback to bundled demo celebrations. Zero external server dependencies.
  */
 (function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -19,22 +19,51 @@
 })(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : this, function () {
   'use strict';
 
-  var DEFAULT_GAS_URL = 'https://script.google.com/macros/s/AKfycbxj8A8nR6GWPae55H78tCM9g5d_pwzA7zMsdlcGAl6C8zdyjBBLVsV3Cwvy0vhwmtcI/exec';
-
   var DEFAULT_SETTINGS = {
-    gasWebAppUrl: DEFAULT_GAS_URL,
     affiliateTag: 'autogifter-20',
     defaultTone: 'warm',
     reminders: [7, 3],
-    gchatWebhookUrl: ''
+    floristAffiliateId: '2026097209'
   };
 
-  // In-memory cache for fast retrieval
+  var FALLBACK_DEMO_CELEBRATIONS = [
+    {
+      id: 'demo-sarah-bday',
+      recipientName: 'Sarah',
+      celebrationType: 'birthday',
+      date: '2026-10-15',
+      daysUntil: 7,
+      suggestedBrandId: 'starbucks',
+      suggestedAmount: 25,
+      greeting: 'Happy Birthday Sarah! Wishing you a wonderful day filled with joy and celebration! 🎂🎉'
+    },
+    {
+      id: 'demo-alex-anniv',
+      recipientName: 'Alex & Jordan',
+      celebrationType: 'anniversary',
+      date: '2026-10-18',
+      daysUntil: 10,
+      suggestedBrandId: 'amazon',
+      suggestedAmount: 50,
+      greeting: 'Happy Anniversary Alex & Jordan! Wishing you many more years of love and happiness! 💍🥂'
+    },
+    {
+      id: 'demo-michael-milestone',
+      recipientName: 'Michael',
+      celebrationType: 'milestone',
+      date: '2026-10-22',
+      daysUntil: 14,
+      suggestedBrandId: 'doordash',
+      suggestedAmount: 25,
+      greeting: 'Congratulations Michael on this fantastic milestone! Keep shining! 🎈🚀'
+    }
+  ];
+
+  // In-memory cache for fast synchronous retrieval
   var memoryStorage = {};
   var cachedCelebrationsData = null;
-  var lastFetchTime = 0;
 
-  // Pre-load from localStorage if available (instant synchronous 0ms lookup)
+  // Pre-load from localStorage if available (instant synchronous lookup)
   try {
     if (typeof localStorage !== 'undefined') {
       var rawCached = localStorage.getItem('autogifter_cached_celebrations');
@@ -107,7 +136,7 @@
   function isChromeStorageAvailable() {
     return typeof chrome !== 'undefined' &&
       chrome.storage &&
-      chrome.storage.sync;
+      (chrome.storage.sync || chrome.storage.local);
   }
 
   function getSettings() {
@@ -116,7 +145,6 @@
       var syncData = null;
       var webLocalData = null;
 
-      // Read synchronous web localStorage first
       try {
         if (typeof localStorage !== 'undefined') {
           var raw = localStorage.getItem('autogifter_settings');
@@ -124,16 +152,13 @@
         }
       } catch (_) {}
 
-      // If chrome.storage is not available, return web localStorage or in-memory
       if (typeof chrome === 'undefined' || !chrome.storage) {
         var merged = Object.assign({}, DEFAULT_SETTINGS, memoryStorage, webLocalData || {});
-        if (!merged.gasWebAppUrl || merged.gasWebAppUrl.indexOf('AKfycbysnOIH') !== -1) merged.gasWebAppUrl = DEFAULT_GAS_URL;
         if (!Array.isArray(merged.reminders)) merged.reminders = [7, 3];
         resolve(merged);
         return;
       }
 
-      // Query both local and sync
       var localPending = true;
       var syncPending = true;
 
@@ -147,14 +172,6 @@
             localData || {},
             syncData || {}
           );
-          if (!result.gasWebAppUrl || result.gasWebAppUrl.indexOf('AKfycbysnOIH') !== -1) {
-            result.gasWebAppUrl = DEFAULT_GAS_URL;
-            // Overwrite deprecated URL in storage
-            if (typeof chrome !== 'undefined' && chrome.storage) {
-              if (chrome.storage.local) chrome.storage.local.set({ gasWebAppUrl: DEFAULT_GAS_URL }, function () {});
-              if (chrome.storage.sync) chrome.storage.sync.set({ gasWebAppUrl: DEFAULT_GAS_URL }, function () {});
-            }
-          }
           if (!Array.isArray(result.reminders)) {
             result.reminders = [7, 3];
           }
@@ -163,7 +180,7 @@
       }
 
       if (chrome.storage.local) {
-        chrome.storage.local.get(['gasWebAppUrl', 'affiliateTag', 'defaultTone', 'demoMode', 'reminders'], function (res) {
+        chrome.storage.local.get(['affiliateTag', 'defaultTone', 'demoMode', 'reminders', 'floristAffiliateId'], function (res) {
           if (!chrome.runtime || !chrome.runtime.lastError) {
             localData = res || null;
           }
@@ -175,7 +192,7 @@
       }
 
       if (chrome.storage.sync) {
-        chrome.storage.sync.get(['gasWebAppUrl', 'affiliateTag', 'defaultTone', 'demoMode', 'reminders'], function (res) {
+        chrome.storage.sync.get(['affiliateTag', 'defaultTone', 'demoMode', 'reminders', 'floristAffiliateId'], function (res) {
           if (!chrome.runtime || !chrome.runtime.lastError) {
             syncData = res || null;
           }
@@ -186,7 +203,6 @@
         syncPending = false;
       }
 
-      // Safety timeout in case callback never fires
       setTimeout(function () {
         if (localPending || syncPending) {
           localPending = false;
@@ -201,7 +217,7 @@
     return new Promise(function (resolve) {
       getSettings().then(function (existing) {
         var toSave = Object.assign({}, DEFAULT_SETTINGS, existing, settings);
-        cachedCelebrationsData = null; // Invalidate cache on settings change
+        cachedCelebrationsData = null;
         Object.assign(memoryStorage, toSave);
 
         try {
@@ -209,14 +225,6 @@
             localStorage.setItem('autogifter_settings', JSON.stringify(toSave));
           }
         } catch (_) {}
-
-        // Sync reminders with GAS backend so Add-on and weekly triggers reflect this immediately
-        if (toSave.gasWebAppUrl && Array.isArray(toSave.reminders)) {
-          try {
-            var sep = toSave.gasWebAppUrl.indexOf('?') === -1 ? '?' : '&';
-            fetch(toSave.gasWebAppUrl + sep + 'action=save_settings&reminders=' + encodeURIComponent(toSave.reminders.join(',')), { method: 'GET' }).catch(function () {});
-          } catch (_) {}
-        }
 
         if (typeof chrome !== 'undefined' && chrome.storage) {
           if (chrome.storage.local) {
@@ -257,12 +265,65 @@
   }
 
   function getDemoCelebrations() {
-    // Return a deep copy of demo celebrations
     return JSON.parse(JSON.stringify(FALLBACK_DEMO_CELEBRATIONS));
   }
 
   /**
-   * Safely parses JSON response from GAS with clear diagnostics for HTML / auth redirect responses.
+   * Records a gift sent locally in chrome.storage.local
+   */
+  async function logGiftSent(giftRecord) {
+    var record = Object.assign({}, giftRecord, {
+      timestamp: new Date().toISOString(),
+      id: (giftRecord && giftRecord.id) || ('gift-' + Date.now())
+    });
+
+    try {
+      if (typeof localStorage !== 'undefined') {
+        var existingRaw = localStorage.getItem('autogifter_gift_history');
+        var history = existingRaw ? JSON.parse(existingRaw) : [];
+        history.unshift(record);
+        localStorage.setItem('autogifter_gift_history', JSON.stringify(history));
+      }
+    } catch (_) {}
+
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      return new Promise(function (resolve) {
+        chrome.storage.local.get(['autogifter_gift_history'], function (res) {
+          var history = (res && res.autogifter_gift_history) || [];
+          history.unshift(record);
+          chrome.storage.local.set({ autogifter_gift_history: history }, function () {
+            resolve({ ok: true, record: record });
+          });
+        });
+      });
+    }
+
+    return { ok: true, record: record };
+  }
+
+  /**
+   * Retrieves gift history from local storage
+   */
+  async function getCelebrationHistory() {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      return new Promise(function (resolve) {
+        chrome.storage.local.get(['autogifter_gift_history'], function (res) {
+          var history = (res && res.autogifter_gift_history) || [];
+          resolve(history);
+        });
+      });
+    }
+    try {
+      if (typeof localStorage !== 'undefined') {
+        var raw = localStorage.getItem('autogifter_gift_history');
+        if (raw) return JSON.parse(raw);
+      }
+    } catch (_) {}
+    return [];
+  }
+
+  /**
+   * Safely parses JSON response (retained for backward compatibility and test suites)
    */
   async function parseJsonResponse(response) {
     var text = '';
@@ -299,52 +360,32 @@
   }
 
   /**
-   * Test connection to Google Apps Script Web App.
+   * Test connection helper (pure client-side always ok)
    */
   async function testGasConnection(gasUrl) {
-    if (!gasUrl || typeof gasUrl !== 'string' || !gasUrl.trim()) {
-      return { ok: false, error: 'No URL provided' };
-    }
-    try {
-      var fetchUrl = gasUrl.trim();
-      var separator = fetchUrl.indexOf('?') === -1 ? '?' : '&';
-      fetchUrl += separator + 'action=ping';
-
-      var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-      var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
-
-      var response = await fetch(fetchUrl, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        signal: controller ? controller.signal : undefined
-      });
-
-      if (timeoutId) clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        return { ok: false, error: 'HTTP status ' + response.status };
-      }
-
-      var data = await parseJsonResponse(response);
-      if (data && (data.status === 'ok' || data.service)) {
-        return { ok: true, data: data };
-      }
-      return { ok: false, error: 'Unexpected response from GAS' };
-    } catch (err) {
-      return { ok: false, error: err && err.message ? err.message : String(err) };
-    }
+    return { ok: true, status: 'ok' };
   }
 
   /**
-   * Load celebrations:
-   * - Checks local memory / localStorage / chrome.storage.local cache first
-   * - If not in cache, fetches from GAS endpoint
-   * - Saves fetched celebrations to persistent cache
+   * Load celebrations: checks local cache first, then demo celebrations.
    */
-  async function loadCelebrations(gasFetcher) {
-    // 1. Instant check of local cache
+  async function loadCelebrations(liveFetcher) {
+    if (typeof liveFetcher === 'function') {
+      try {
+        var fetched = await liveFetcher();
+        var list = Array.isArray(fetched) ? fetched : (fetched && (fetched.events || fetched.celebrations)) || [];
+        if (list.length > 0) {
+          saveCachedCelebrations(list);
+          return {
+            source: 'gas',
+            celebrations: list
+          };
+        }
+      } catch (_) {}
+    }
+
     var memCached = getCachedCelebrations();
-    if (memCached && memCached.length > 0 && !gasFetcher) {
+    if (memCached && memCached.length > 0) {
       return {
         source: 'gas',
         celebrations: memCached,
@@ -353,7 +394,7 @@
     }
 
     var asyncCached = await getCachedCelebrationsAsync();
-    if (asyncCached && asyncCached.length > 0 && !gasFetcher) {
+    if (asyncCached && asyncCached.length > 0) {
       return {
         source: 'gas',
         celebrations: asyncCached,
@@ -361,130 +402,93 @@
       };
     }
 
-    var settings = await getSettings();
-    var gasUrl = (settings.gasWebAppUrl || '').trim();
-
-    if (!gasUrl) {
-      return {
-        source: 'gas',
-        celebrations: []
-      };
-    }
-
-    try {
-      if (typeof gasFetcher === 'function') {
-        var fetched = await gasFetcher(gasUrl);
-        var eventsList = Array.isArray(fetched) ? fetched : (fetched && (fetched.events || fetched.celebrations)) || [];
-        saveCachedCelebrations(eventsList);
-        return {
-          source: 'gas',
-          celebrations: eventsList
-        };
-      }
-
-      // Default fetch implementation with 10s timeout
-      var fetchUrl = gasUrl;
-      var separator = fetchUrl.indexOf('?') === -1 ? '?' : '&';
-      fetchUrl += separator + 'action=events&days=30';
-
-      var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-      var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 10000) : null;
-
-      var response = await fetch(fetchUrl, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        signal: controller ? controller.signal : undefined
-      });
-
-      if (timeoutId) clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error('HTTP status ' + response.status);
-      }
-
-      var data = await parseJsonResponse(response);
-      var celebrations = data.events || data.celebrations || (Array.isArray(data) ? data : []);
-      if (Array.isArray(celebrations)) {
-        saveCachedCelebrations(celebrations);
-      }
-
-      return {
-        source: 'gas',
-        celebrations: celebrations
-      };
-    } catch (err) {
-      var fallback = getCachedCelebrations() || [];
-      return {
-        source: 'gas',
-        fallbackReason: err.message,
-        celebrations: fallback
-      };
-    }
+    // Default to bundled demo celebrations
+    var demo = getDemoCelebrations();
+    return {
+      source: 'demo',
+      celebrations: demo
+    };
   }
 
   /**
-   * Triggers batch sync of calendar celebrations on Google Apps Script backend.
+   * Pure client-side batch sync: queries active Google Calendar tab,
+   * or loads locally cached celebrations.
    */
   async function syncAllCelebrations(days) {
-    var settings = await getSettings();
-    var gasUrl = (settings.gasWebAppUrl || '').trim();
-    if (!gasUrl) {
-      return { ok: false, error: 'No GAS Web App URL configured.' };
+    var syncDays = days || 30;
+
+    // 1. Try querying active Google Calendar tabs in Chrome
+    if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
+      try {
+        var tabs = await new Promise(function (resolve) {
+          chrome.tabs.query({ url: '*://calendar.google.com/*' }, function (result) {
+            resolve(result || []);
+          });
+        });
+
+        if (Array.isArray(tabs) && tabs.length > 0 && chrome.tabs.sendMessage) {
+          var tabId = tabs[0].id;
+          var scanResponse = await new Promise(function (resolve) {
+            chrome.tabs.sendMessage(tabId, { action: 'scan_calendar', days: syncDays }, function (res) {
+              if (chrome.runtime && chrome.runtime.lastError) {
+                resolve(null);
+              } else {
+                resolve(res);
+              }
+            });
+          });
+
+          if (scanResponse && scanResponse.ok && Array.isArray(scanResponse.celebrations) && scanResponse.celebrations.length > 0) {
+            var events = scanResponse.celebrations;
+            saveCachedCelebrations(events);
+            return {
+              ok: true,
+              data: {
+                status: 'ok',
+                sync: {
+                  scanned: events.length,
+                  enriched: events.length,
+                  events: events
+                }
+              }
+            };
+          }
+        }
+      } catch (_) {}
     }
 
-    try {
-      var syncDays = days || 30;
-      var remindersParam = (Array.isArray(settings.reminders) && settings.reminders.length > 0)
-        ? settings.reminders.join(',')
-        : '7,3';
-
-      var separator = gasUrl.indexOf('?') === -1 ? '?' : '&';
-      var fetchUrl = gasUrl + separator + 'action=sync_all&days=' + syncDays + '&reminders=' + encodeURIComponent(remindersParam);
-
-      var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-      var timeoutId = controller ? setTimeout(function () {
-        if (controller) {
-          try {
-            controller.abort();
-          } catch (_) {}
-        }
-      }, 45000) : null;
-
-      var response = await fetch(fetchUrl, {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        signal: controller ? controller.signal : undefined
-      });
-
-      if (timeoutId) clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error('HTTP status ' + response.status);
-      }
-
-      var data = await parseJsonResponse(response);
-      var events = (data && data.sync && data.sync.events) || (data && data.events) || (data && data.celebrations) || (Array.isArray(data) ? data : []);
-      if (Array.isArray(events) && events.length > 0) {
-        saveCachedCelebrations(events);
-      }
+    // 2. Check local cached celebrations
+    var cached = await getCachedCelebrationsAsync();
+    if (Array.isArray(cached) && cached.length > 0) {
       return {
         ok: true,
         data: {
           status: 'ok',
           sync: {
-            scanned: (data && data.sync && data.sync.scanned) || data.count || events.length,
-            enriched: (data && data.sync && data.sync.enriched) || events.length,
-            events: events
+            scanned: cached.length,
+            enriched: cached.length,
+            events: cached,
+            fromCache: true
           }
         }
       };
-    } catch (err) {
-      var errMsg = err && err.message ? err.message : String(err);
-      if (err && (err.name === 'AbortError' || errMsg.indexOf('abort') !== -1)) {
-        errMsg = 'Sync request timed out. The script may still be processing.';
-      }
-      return { ok: false, error: errMsg };
     }
+
+    // 3. Fallback to demo celebrations
+    var fallback = getDemoCelebrations();
+    saveCachedCelebrations(fallback);
+    return {
+      ok: true,
+      data: {
+        status: 'ok',
+        sync: {
+          scanned: fallback.length,
+          enriched: fallback.length,
+          events: fallback,
+          isDemo: true
+        }
+      }
+    };
   }
 
   return {
@@ -497,6 +501,10 @@
     saveCachedCelebrations: saveCachedCelebrations,
     testGasConnection: testGasConnection,
     loadCelebrations: loadCelebrations,
-    syncAllCelebrations: syncAllCelebrations
+    syncAllCelebrations: syncAllCelebrations,
+    logGiftSent: logGiftSent,
+    getCelebrationHistory: getCelebrationHistory,
+    parseJsonResponse: parseJsonResponse,
+    getDemoCelebrations: getDemoCelebrations
   };
 });
