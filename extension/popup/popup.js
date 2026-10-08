@@ -457,13 +457,16 @@
         var enrichedCount = (res.data && res.data.sync && res.data.sync.enriched) || 0;
         var scannedCount = (res.data && res.data.sync && res.data.sync.scanned) || 0;
         var syncEvents = (res.data && res.data.sync && res.data.sync.events) || [];
-        if (Array.isArray(syncEvents) && syncEvents.length > 0) {
-          loadedCelebrations = syncEvents;
-          renderCelebrationsPage();
-        }
+        loadedCelebrations = syncEvents;
+        renderCelebrationsPage();
+
         if (syncFeedback) {
           syncFeedback.className = 'sync-feedback success';
-          syncFeedback.textContent = '✓ Synced! ' + enrichedCount + ' celebration(s) enriched out of ' + scannedCount + ' events.';
+          if (enrichedCount > 0) {
+            syncFeedback.textContent = '✓ Synced! ' + enrichedCount + ' celebration(s) found in Google Calendar.';
+          } else {
+            syncFeedback.textContent = '✓ Scan complete: No upcoming celebration events found in open Google Calendar tabs.';
+          }
         }
         await refreshCelebrations(undefined, true);
         setTimeout(hideSyncProgress, 2500);
@@ -472,7 +475,7 @@
         hideSyncProgress();
         if (syncFeedback) {
           syncFeedback.className = 'sync-feedback error';
-          syncFeedback.textContent = 'Sync issue: ' + (res.error || 'Check GAS configuration in settings');
+          syncFeedback.textContent = 'Sync issue: ' + (res.error || 'Make sure Google Calendar is open in a tab.');
         }
       }
     } catch (err) {

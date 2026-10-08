@@ -1,8 +1,8 @@
 /**
  * Auto-Gifter Storage & Settings Helper (Pure Client-Side Architecture)
  *
- * Manages configuration and celebration caching in chrome.storage.local / chrome.storage.sync
- * with automatic fallback to bundled demo celebrations. Zero external server dependencies.
+ * Manages configuration and celebration caching in chrome.storage.local / chrome.storage.sync.
+ * Zero external server dependencies and zero fake/demo data fallback.
  */
 (function (root, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
@@ -25,39 +25,6 @@
     reminders: [7, 3],
     floristAffiliateId: '2026097209'
   };
-
-  var FALLBACK_DEMO_CELEBRATIONS = [
-    {
-      id: 'demo-sarah-bday',
-      recipientName: 'Sarah',
-      celebrationType: 'birthday',
-      date: '2026-10-15',
-      daysUntil: 7,
-      suggestedBrandId: 'starbucks',
-      suggestedAmount: 25,
-      greeting: 'Happy Birthday Sarah! Wishing you a wonderful day filled with joy and celebration! 🎂🎉'
-    },
-    {
-      id: 'demo-alex-anniv',
-      recipientName: 'Alex & Jordan',
-      celebrationType: 'anniversary',
-      date: '2026-10-18',
-      daysUntil: 10,
-      suggestedBrandId: 'amazon',
-      suggestedAmount: 50,
-      greeting: 'Happy Anniversary Alex & Jordan! Wishing you many more years of love and happiness! 💍🥂'
-    },
-    {
-      id: 'demo-michael-milestone',
-      recipientName: 'Michael',
-      celebrationType: 'milestone',
-      date: '2026-10-22',
-      daysUntil: 14,
-      suggestedBrandId: 'doordash',
-      suggestedAmount: 25,
-      greeting: 'Congratulations Michael on this fantastic milestone! Keep shining! 🎈🚀'
-    }
-  ];
 
   // In-memory cache for fast synchronous retrieval
   var memoryStorage = {};
@@ -119,16 +86,16 @@
   }
 
   function saveCachedCelebrations(events) {
-    if (!Array.isArray(events)) return;
-    cachedCelebrationsData = events;
+    var toSave = Array.isArray(events) ? events : [];
+    cachedCelebrationsData = toSave;
     try {
       if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('autogifter_cached_celebrations', JSON.stringify(events));
+        localStorage.setItem('autogifter_cached_celebrations', JSON.stringify(toSave));
       }
     } catch (_) {}
     try {
       if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-        chrome.storage.local.set({ 'autogifter_cached_celebrations': events }, function () {});
+        chrome.storage.local.set({ 'autogifter_cached_celebrations': toSave }, function () {});
       }
     } catch (_) {}
   }
@@ -249,6 +216,7 @@
       try {
         if (typeof localStorage !== 'undefined') {
           localStorage.removeItem('autogifter_settings');
+          localStorage.removeItem('autogifter_cached_celebrations');
         }
       } catch (_) {}
       if (typeof chrome !== 'undefined' && chrome.storage) {
@@ -262,10 +230,6 @@
       }
       resolve();
     });
-  }
-
-  function getDemoCelebrations() {
-    return JSON.parse(JSON.stringify(FALLBACK_DEMO_CELEBRATIONS));
   }
 
   /**
@@ -367,7 +331,8 @@
   }
 
   /**
-   * Load celebrations: checks local cache first, then demo celebrations.
+   * Load celebrations: checks local cache first.
+   * If cache is empty, returns empty list.
    */
   async function loadCelebrations(liveFetcher) {
     if (typeof liveFetcher === 'function') {
@@ -387,7 +352,7 @@
     var memCached = getCachedCelebrations();
     if (memCached && memCached.length > 0) {
       return {
-        source: 'gas',
+        source: 'local',
         celebrations: memCached,
         cached: true
       };
@@ -396,23 +361,21 @@
     var asyncCached = await getCachedCelebrationsAsync();
     if (asyncCached && asyncCached.length > 0) {
       return {
-        source: 'gas',
+        source: 'local',
         celebrations: asyncCached,
         cached: true
       };
     }
 
-    // Default to bundled demo celebrations
-    var demo = getDemoCelebrations();
     return {
-      source: 'demo',
-      celebrations: demo
+      source: 'local',
+      celebrations: []
     };
   }
 
   /**
    * Pure client-side batch sync: queries active Google Calendar tab,
-   * or loads locally cached celebrations.
+   * or loads locally cached celebrations. Returns empty list if none found.
    */
   async function syncAllCelebrations(days) {
     var syncDays = days || 30;
@@ -438,7 +401,7 @@
             });
           });
 
-          if (scanResponse && scanResponse.ok && Array.isArray(scanResponse.celebrations) && scanResponse.celebrations.length > 0) {
+          if (scanResponse && scanResponse.ok && Array.isArray(scanResponse.celebrations)) {
             var events = scanResponse.celebrations;
             saveCachedCelebrations(events);
             return {
@@ -474,18 +437,16 @@
       };
     }
 
-    // 3. Fallback to demo celebrations
-    var fallback = getDemoCelebrations();
-    saveCachedCelebrations(fallback);
+    // 3. No events found
+    saveCachedCelebrations([]);
     return {
       ok: true,
       data: {
         status: 'ok',
         sync: {
-          scanned: fallback.length,
-          enriched: fallback.length,
-          events: fallback,
-          isDemo: true
+          scanned: 0,
+          enriched: 0,
+          events: []
         }
       }
     };
@@ -504,7 +465,6 @@
     syncAllCelebrations: syncAllCelebrations,
     logGiftSent: logGiftSent,
     getCelebrationHistory: getCelebrationHistory,
-    parseJsonResponse: parseJsonResponse,
-    getDemoCelebrations: getDemoCelebrations
+    parseJsonResponse: parseJsonResponse
   };
 });
