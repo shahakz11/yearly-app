@@ -359,9 +359,9 @@
   }
 
   /**
-   * Load celebrations: checks local cache first.
+   * Load celebrations: checks local cache first unless forceRefresh is set.
    */
-  async function loadCelebrations(liveFetcher) {
+  async function loadCelebrations(liveFetcher, forceRefresh) {
     if (typeof liveFetcher === 'function') {
       try {
         var fetched = await liveFetcher();
@@ -376,22 +376,24 @@
       } catch (_) {}
     }
 
-    var memCached = getCachedCelebrations();
-    if (memCached && memCached.length > 0) {
-      return {
-        source: 'local',
-        celebrations: memCached,
-        cached: true
-      };
-    }
+    if (!forceRefresh) {
+      var memCached = getCachedCelebrations();
+      if (memCached && memCached.length > 0) {
+        return {
+          source: 'local',
+          celebrations: memCached,
+          cached: true
+        };
+      }
 
-    var asyncCached = await getCachedCelebrationsAsync();
-    if (asyncCached && asyncCached.length > 0) {
-      return {
-        source: 'local',
-        celebrations: asyncCached,
-        cached: true
-      };
+      var asyncCached = await getCachedCelebrationsAsync();
+      if (asyncCached && asyncCached.length > 0) {
+        return {
+          source: 'local',
+          celebrations: asyncCached,
+          cached: true
+        };
+      }
     }
 
     return {
@@ -485,7 +487,9 @@
     try {
       var syncDays = days || 30;
       var now = new Date();
-      var timeMin = now.toISOString();
+      // Cover today's events across all time zones
+      var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 0, 0, 0);
+      var timeMin = startOfToday.toISOString();
       var maxDate = new Date(now.getTime() + (syncDays * 24 * 60 * 60 * 1000));
       var timeMax = maxDate.toISOString();
 
@@ -524,14 +528,14 @@
         if (result && result.isCelebration) {
           var rName = (result.recipientName || result.name || title.replace(/'s.*/i, '')).trim();
           var cType = result.celebrationType || result.type || 'birthday';
-          var dedupKey = rName + '_' + cType;
-          if (seenKeys[dedupKey]) continue;
-          seenKeys[dedupKey] = true;
-
           var startDate = '';
           if (item.start) {
             startDate = item.start.date || (item.start.dateTime ? item.start.dateTime.split('T')[0] : '');
           }
+
+          var dedupKey = item.id || (rName + '_' + cType + '_' + startDate);
+          if (seenKeys[dedupKey]) continue;
+          seenKeys[dedupKey] = true;
 
           var daysUntil = 0;
           if (startDate) {
@@ -555,6 +559,10 @@
           });
         }
       }
+
+      celebrations.sort(function (a, b) {
+        return a.daysUntil - b.daysUntil;
+      });
 
       saveCachedCelebrations(celebrations);
       return {
