@@ -19,7 +19,18 @@
 })(typeof globalThis !== 'undefined' ? globalThis : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : this, function () {
   'use strict';
 
-  var OAUTH_CLIENT_ID = '729862306327-an80jd949sgt4j0crmleunlhm024ffd6.apps.googleusercontent.com';
+  var OAUTH_CLIENT_MAP = {
+    'bgdgkpagkiklhpphioaoncmiajeglfeg': '729862306327-jfbak715o5bep9nhsd19uiqt3135raqf.apps.googleusercontent.com',
+    'lhifmijfheppabhbjphipdeafeklnpnn': '729862306327-an80jd949sgt4j0crmleunlhm024ffd6.apps.googleusercontent.com'
+  };
+
+  function getOAuthClientId() {
+    var runtimeId = (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id) ? chrome.runtime.id : '';
+    if (runtimeId && OAUTH_CLIENT_MAP[runtimeId]) {
+      return OAUTH_CLIENT_MAP[runtimeId];
+    }
+    return '729862306327-jfbak715o5bep9nhsd19uiqt3135raqf.apps.googleusercontent.com';
+  }
 
   function getCoreEngine() {
     if (typeof AutoGifterCore !== 'undefined') return AutoGifterCore;
@@ -421,8 +432,9 @@
         var extId = (chrome.runtime && chrome.runtime.id) || 'lhifmijfheppabhbjphipdeafeklnpnn';
         var redirectUrl = (chrome.identity.getRedirectURL ? chrome.identity.getRedirectURL() : ('https://' + extId + '.chromiumapp.org/'));
         var scope = encodeURIComponent('https://www.googleapis.com/auth/calendar.events.readonly');
+        var clientId = getOAuthClientId();
         var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
-          'client_id=' + encodeURIComponent(OAUTH_CLIENT_ID) +
+          'client_id=' + encodeURIComponent(clientId) +
           '&response_type=token' +
           '&redirect_uri=' + encodeURIComponent(redirectUrl) +
           '&scope=' + scope +
