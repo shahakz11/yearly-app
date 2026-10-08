@@ -23,6 +23,10 @@
   Evaluate florist dropship APIs and web-based claim link portal for physical deliveries.
 
 ### 📋 TO DO
+- **[ ] [ID: #12] [P: High] [A: Unassigned] [E: Growth] [T: Content] Produce 3 AI Viral Short-Form Video Ads**
+  Generate Video 1 ("The Tuesday Trap"), Video 2 ("The Sibling Savior"), and Video 3 ("Derek's Secret Charge") using ElevenLabs, simulated chat overlay, and Kling/Runway B-roll.
+- **[ ] [ID: #13] [P: Medium] [A: Unassigned] [E: Growth] [T: Distribution] Launch Paid & Organic Video Campaign on TikTok/Reels**
+  Deploy 9:16 vertical videos to TikTok Ads, IG Reels, and YouTube Shorts driving traffic to `yearly.click`.
 
 ### 🚧 IN PROGRESS
 
