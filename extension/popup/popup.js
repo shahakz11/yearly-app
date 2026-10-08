@@ -454,8 +454,9 @@
 
       if (res.ok) {
         updateSyncProgress(100, '✨ Sync complete!');
-        var enrichedCount = (res.data && res.data.sync && res.data.sync.enriched) || 0;
-        var scannedCount = (res.data && res.data.sync && res.data.sync.scanned) || 0;
+        var syncEvents = (res.data && res.data.sync && res.data.sync.events) || [];
+        var enrichedCount = (res.data && res.data.sync && res.data.sync.enriched) || syncEvents.length;
+        var scannedCount = (res.data && res.data.sync && res.data.sync.scanned) || syncEvents.length;
         loadedCelebrations = syncEvents;
         renderCelebrationsPage();
 
