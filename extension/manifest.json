@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Yearly",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Smart dual-surface gifting assistant directly inside Google Calendar",
   "permissions": [
     "storage",
@@ -15,8 +15,7 @@
   "oauth2": {
     "client_id": "729862306327-an80jd949sgt4j0crmleunlhm024ffd6.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/calendar.events",
-      "https://www.googleapis.com/auth/calendar.events.readonly"
+      "https://www.googleapis.com/auth/calendar.events"
     ]
   },
   "host_permissions": [

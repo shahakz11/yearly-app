@@ -431,7 +431,7 @@
       try {
         var extId = (chrome.runtime && chrome.runtime.id) || 'lhifmijfheppabhbjphipdeafeklnpnn';
         var redirectUrl = (chrome.identity.getRedirectURL ? chrome.identity.getRedirectURL() : ('https://' + extId + '.chromiumapp.org/'));
-        var scope = encodeURIComponent('https://www.googleapis.com/auth/calendar.events.readonly');
+        var scope = encodeURIComponent('https://www.googleapis.com/auth/calendar.events');
         var clientId = getOAuthClientId();
         var authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' +
           'client_id=' + encodeURIComponent(clientId) +

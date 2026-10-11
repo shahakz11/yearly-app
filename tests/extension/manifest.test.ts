@@ -32,7 +32,7 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
   it('declares OAuth2 configuration with client_id and calendar scope', () => {
     expect(manifest.oauth2).toBeDefined();
     expect(manifest.oauth2.client_id).toContain('729862306327');
-    expect(manifest.oauth2.scopes).toContain('https://www.googleapis.com/auth/calendar.events.readonly');
+    expect(manifest.oauth2.scopes).toContain('https://www.googleapis.com/auth/calendar.events');
   });
 
   it('declares required host permissions for Google Calendar and Google APIs', () => {
