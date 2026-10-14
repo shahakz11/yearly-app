@@ -604,6 +604,7 @@
       });
 
       saveCachedCelebrations(celebrations);
+      setAuthState('authorized', { yearly_last_sync: Date.now() });
       return {
         ok: true,
         data: {
@@ -618,6 +619,73 @@
     } catch (err) {
       return { ok: false, error: err && err.message ? err.message : String(err) };
     }
+  }
+
+  /**
+   * Checks whether the user has authorized Google Calendar access.
+   * Performs silent token check without opening any popup/dialog.
+   */
+  async function checkAuthorizationStatus() {
+    if (typeof chrome !== 'undefined' && chrome.identity && chrome.identity.getAuthToken) {
+      try {
+        var silentRes = await getGoogleAuthToken(false);
+        if (silentRes && silentRes.ok && silentRes.token) {
+          return { authorized: true, token: silentRes.token };
+        }
+      } catch (_) {}
+    }
+
+    var localStatus = null;
+    try {
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        var res = await new Promise(function (resolve) {
+          chrome.storage.local.get(['yearly_auth_status'], function (data) {
+            resolve(data || {});
+          });
+        });
+        localStatus = res.yearly_auth_status;
+      } else if (typeof localStorage !== 'undefined') {
+        localStatus = localStorage.getItem('yearly_auth_status');
+      }
+    } catch (_) {}
+
+    if (localStatus === 'authorized') {
+      return { authorized: true, token: null };
+    }
+
+    return { authorized: false, token: null };
+  }
+
+  async function setAuthState(status, extraData) {
+    var payload = Object.assign({ yearly_auth_status: status }, extraData || {});
+    try {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('yearly_auth_status', status);
+      }
+    } catch (_) {}
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      return new Promise(function (resolve) {
+        chrome.storage.local.set(payload, resolve);
+      });
+    }
+  }
+
+  async function getAuthState() {
+    try {
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+        return new Promise(function (resolve) {
+          chrome.storage.local.get([
+            'yearly_auth_status',
+            'yearly_auto_sync_on_grant',
+            'yearly_just_synced',
+            'yearly_auth_pending'
+          ], function (data) {
+            resolve(data || {});
+          });
+        });
+      }
+    } catch (_) {}
+    return {};
   }
 
   /**
@@ -719,6 +787,9 @@
     testGasConnection: testGasConnection,
     loadCelebrations: loadCelebrations,
     getGoogleAuthToken: getGoogleAuthToken,
+    checkAuthorizationStatus: checkAuthorizationStatus,
+    setAuthState: setAuthState,
+    getAuthState: getAuthState,
     fetchCalendarEventsViaOAuth: fetchCalendarEventsViaOAuth,
     syncAllCelebrations: syncAllCelebrations,
     logGiftSent: logGiftSent,

@@ -74,14 +74,18 @@
         "@id": "https://yearly.click/#app",
         "name": "Yearly for Google Calendar",
         "applicationCategory": "LifestyleApplication",
-        "operatingSystem": "Google Chrome / Web Browser",
+        "operatingSystem": "Google Workspace / Google Chrome",
         "offers": {
           "@type": "Offer",
           "price": "0.00",
           "priceCurrency": "USD"
         },
-        "description": "Google Calendar Chrome extension that detects birthdays and anniversaries, providing one-click curated FloristOne bouquet gifting and automated notifications.",
-        "image": "https://yearly.click/assets/icon-512.png"
+        "description": "Google Calendar assistant available as a Chrome Extension and Google Workspace Marketplace Add-on that detects birthdays and anniversaries, providing one-click curated FloristOne bouquet gifting and automated notifications.",
+        "image": "https://yearly.click/assets/icon-512.png",
+        "installUrl": [
+          "https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn",
+          "https://workspace.google.com/marketplace/app/yearly/729862306327"
+        ]
       }
     ]
   }
@@ -160,17 +164,21 @@
         <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-600">
           <a href="#how-it-works" class="hover:text-rose-600 transition">How It Works</a>
           <a href="#bouquets" class="hover:text-rose-600 transition">Curated Bouquets</a>
-          <a href="#chrome-extension" class="hover:text-rose-600 transition">Chrome Extension</a>
+          <a href="#integrations" class="hover:text-rose-600 transition">Integrations</a>
           <a href="support.html" class="hover:text-rose-600 transition">Support &amp; FAQ</a>
           <a href="privacy.html" class="hover:text-rose-600 transition">Privacy</a>
           <a href="terms.html" class="hover:text-rose-600 transition">Terms</a>
         </nav>
 
         <!-- CTA & Mobile Toggle -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+            class="hidden md:inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl transition border border-slate-300/80">
+            <span>Workspace Add-on</span>
+          </a>
           <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
-            class="hidden sm:inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-2 rounded-xl shadow-sm transition">
-            Add to Chrome
+            class="hidden sm:inline-flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl shadow-sm transition">
+            <span>Add to Chrome</span>
           </a>
           <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation"
             class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
@@ -188,16 +196,20 @@
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">How It Works</a>
       <a href="#bouquets"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Curated Bouquets</a>
-      <a href="#chrome-extension"
-        class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Chrome Extension</a>
+      <a href="#integrations"
+        class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Integrations (Extension &amp; Add-on)</a>
       <a href="support.html"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Support &amp; FAQ</a>
       <a href="privacy.html"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Privacy Policy</a>
       <a href="terms.html"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Terms of Service</a>
-      <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
-        class="block w-full text-center bg-rose-600 hover:bg-rose-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm transition">Add to Chrome</a>
+      <div class="pt-2 space-y-2">
+        <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
+          class="block w-full text-center bg-rose-600 hover:bg-rose-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm transition">Add to Chrome (Free)</a>
+        <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+          class="block w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-4 py-2.5 rounded-xl border border-slate-300 transition">Get Google Workspace Add-on</a>
+      </div>
     </div>
   </header>
 
@@ -210,8 +222,8 @@
         <!-- Left Column: Copy & Value Proposition (7 cols on lg) -->
         <div class="lg:col-span-7 space-y-6">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 shadow-2xs">
-            <span>🎁</span> Google Chrome™ Extension
+            class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 shadow-2xs">
+            <span>🎁</span> Google Calendar™ Assistant • Chrome Extension &amp; Workspace Add-on
           </div>
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12]">
             Never miss a milestone.<br>
@@ -219,31 +231,31 @@
               one click.</span>
           </h1>
           <p class="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
-            Yearly integrates directly into Google Calendar™ via Google Chrome, intelligently detects birthdays and
-            anniversaries from your schedule, and presents hand-crafted florist bouquet recommendations and
-            personalized greetings (currently available across the US and Canada).
+            Yearly integrates directly into Google Calendar™ via our Chrome Extension and native Google Workspace Marketplace Add-on. It intelligently detects birthdays and anniversaries from your schedule, presenting hand-crafted florist bouquet recommendations and personalized greetings.
           </p>
 
-          <!-- Dual CTAs -->
-          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <!-- Dual Install CTAs -->
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
             <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-base font-semibold px-7 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition">
-              <span>Add to Chrome (Free)</span>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
-                </path>
+              class="inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white text-base font-semibold px-6 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.372 0 0 5.373 0 12c0 6.628 5.372 12 12 12 6.627 0 12-5.372 12-12 0-6.627-5.373-12-12-12zm-1.071 4.708a7.29 7.29 0 0 1 2.142 0l4.316 7.476a7.288 7.288 0 0 1-5.387 7.108l-4.316-7.476a7.303 7.303 0 0 1 3.245-7.108zm-6.221 3.592a7.296 7.296 0 0 1 4.292-3.238l4.316 7.476a7.29 7.29 0 0 1-3.245 7.108L5.755 12.17a7.284 7.284 0 0 1-1.047-3.87zm14.584 7.4a7.297 7.297 0 0 1-4.292 3.238l-4.316-7.476a7.29 7.29 0 0 1 3.245-7.108l4.316 7.476a7.288 7.288 0 0 1 1.047 3.87z"/>
               </svg>
+              <span>Add to Chrome</span>
             </a>
-            <a href="#bouquets"
-              class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-base font-medium px-6 py-3.5 rounded-2xl shadow-xs transition">
-              Explore Bouquets
+            <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 text-base font-semibold px-6 py-3.5 rounded-2xl shadow-xs transition">
+              <svg class="w-5 h-5 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/>
+              </svg>
+              <span>Google Workspace Add-on</span>
             </a>
           </div>
 
           <!-- Trust Badges -->
           <div class="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-500 font-medium">
             <div class="flex items-center gap-2">
-              <span class="text-emerald-600 font-bold">✓</span> 1-Click Chrome Install
+              <span class="text-emerald-600 font-bold">✓</span> Chrome &amp; Workspace Add-on
             </div>
             <div class="flex items-center gap-2">
               <span class="text-emerald-600 font-bold">✓</span> 100% Private &amp; Local
@@ -509,16 +521,16 @@
     </div>
   </section>
 
-  <!-- Section: Chrome Extension Deep Dive (#chrome-extension) -->
-  <section id="chrome-extension" class="py-16 md:py-24 bg-white border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Section: Integrations & Platforms (#integrations / #chrome-extension) -->
+  <section id="integrations" class="py-16 md:py-24 bg-white border-t border-slate-100">
+    <div id="chrome-extension" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3">Native Calendar Integration</h2>
         <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Supercharge Google Calendar™ with Thoughtful Automation
         </p>
         <p class="mt-4 text-base text-slate-600">
-          Everything happens inside Google Calendar's native interface via the Yearly Chrome Extension.
+          Available as a lightweight <strong>Google Chrome Extension</strong> and a native <strong>Google Workspace Add-on</strong> right inside Google Calendar.
         </p>
       </div>
 
@@ -531,7 +543,7 @@
           </div>
           <h3 class="font-bold text-slate-900 text-base">Native Sidebar Card</h3>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Renders right inside Google Calendar™ in your Chrome browser. Zero extra tabs or apps required.
+            Renders right inside Google Calendar™ in your browser or Workspace sidebar. Zero extra tabs or external apps required.
           </p>
         </div>
 
@@ -555,8 +567,7 @@
           </div>
           <h3 class="font-bold text-slate-900 text-base">Personalized Greetings</h3>
           <p class="text-xs text-slate-600 leading-relaxed">
-            Generates warm, heartfelt greetings personalized with the celebrant's name, ready to copy or send via
-            WhatsApp.
+            Generates warm, heartfelt greetings personalized with the celebrant's name, ready to copy or send in one click.
           </p>
         </div>
 
@@ -570,6 +581,53 @@
           <p class="text-xs text-slate-600 leading-relaxed">
             Automatically schedules custom popup alarms and reminder notifications before upcoming milestones directly on your Calendar.
           </p>
+        </div>
+      </div>
+
+      <!-- Surface Comparison / Platform Selector Cards -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Chrome Extension Card -->
+        <div class="p-6 sm:p-8 rounded-3xl border border-rose-200 bg-rose-50/40 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700">
+              Chrome Web Store
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Yearly Chrome Extension</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Injects smart badges and interactive modals straight into the calendar web interface on Chrome. Fast, local-first, zero server latency.
+            </p>
+          </div>
+          <div class="pt-2">
+            <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-sm transition">
+              <span>Add to Chrome (Free)</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Google Workspace Add-on Card -->
+        <div class="p-6 sm:p-8 rounded-3xl border border-indigo-200 bg-indigo-50/40 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">
+              Google Workspace Marketplace
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Yearly Workspace Add-on</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Officially approved Google Workspace Add-on that docks in the right-hand companion sidebar across Google Calendar on any modern browser.
+            </p>
+          </div>
+          <div class="pt-2">
+            <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm shadow-sm transition">
+              <span>Install Workspace Add-on</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -615,19 +673,26 @@
       </p>
       <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
         <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-white hover:bg-rose-50 text-rose-600 font-bold px-8 py-4 rounded-2xl shadow-lg transition text-base">
-          <span>Add to Chrome (Free)</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          class="inline-flex items-center gap-2 bg-white hover:bg-rose-50 text-rose-600 font-bold px-7 py-3.5 rounded-2xl shadow-lg transition text-base">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.372 0 0 5.373 0 12c0 6.628 5.372 12 12 12 6.627 0 12-5.372 12-12 0-6.627-5.373-12-12-12zm-1.071 4.708a7.29 7.29 0 0 1 2.142 0l4.316 7.476a7.288 7.288 0 0 1-5.387 7.108l-4.316-7.476a7.303 7.303 0 0 1 3.245-7.108zm-6.221 3.592a7.296 7.296 0 0 1 4.292-3.238l4.316 7.476a7.29 7.29 0 0 1-3.245 7.108L5.755 12.17a7.284 7.284 0 0 1-1.047-3.87zm14.584 7.4a7.297 7.297 0 0 1-4.292 3.238l-4.316-7.476a7.29 7.29 0 0 1 3.245-7.108l4.316 7.476a7.288 7.288 0 0 1 1.047 3.87z"/>
           </svg>
+          <span>Add to Chrome (Free)</span>
+        </a>
+        <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-indigo-900/80 hover:bg-indigo-900 text-white font-bold px-7 py-3.5 rounded-2xl border border-white/30 shadow-lg transition text-base">
+          <svg class="w-5 h-5 text-indigo-300" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/>
+          </svg>
+          <span>Google Workspace Add-on</span>
         </a>
         <a href="support.html"
-          class="inline-flex items-center gap-2 bg-rose-800/60 hover:bg-rose-800/80 text-white font-medium px-6 py-4 rounded-2xl border border-white/20 transition text-base">
+          class="inline-flex items-center gap-2 bg-rose-800/60 hover:bg-rose-800/80 text-white font-medium px-5 py-3.5 rounded-2xl border border-white/20 transition text-sm">
           Support &amp; FAQ
         </a>
       </div>
       <p class="text-xs text-rose-200 pt-2">
-        Free to install • Available on Chrome Web Store • Instant activation
+        Free to install • Available on Chrome Web Store &amp; Google Workspace Marketplace • Instant activation
       </p>
     </div>
   </section>
@@ -658,7 +723,8 @@
             <li><a href="index.html" class="hover:text-white transition">Home</a></li>
             <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
             <li><a href="#bouquets" class="hover:text-white transition">Curated Bouquets</a></li>
-            <li><a href="#chrome-extension" class="hover:text-white transition">Chrome Extension</a></li>
+            <li><a href="#integrations" class="hover:text-white transition">Chrome Extension</a></li>
+            <li><a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Workspace Add-on</a></li>
             <li><a href="#install" class="hover:text-white transition">Installation</a></li>
           </ul>
         </div>

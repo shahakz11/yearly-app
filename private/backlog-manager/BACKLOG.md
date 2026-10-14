@@ -31,6 +31,8 @@
 ### 🚧 IN PROGRESS
 
 ### ✅ DONE
+- **[x] [ID: #14] [P: High] [A: Agent] [E: Extension] [T: UX] Permission Required Screen & Seamless Auto-Sync Resume (v1.0.3)**
+  Added dedicated Google Workspace Add-on styled "Permission required" screen ("This add-on requires additional permissions to access your data." with "Authorize access" CTA). Solved the Chrome popup blur-close friction by persisting auth state across window transitions, automatically triggering synchronization immediately when the extension is reopened, and triggering in-calendar notifications. Updated extension name to "Yearly: Google Calendar Birthday Reminders & Flower Delivery", added short_name "Yearly", bumped version to 1.0.3, and packaged `yearly-extension-v1.0.3.zip`.
 - **[x] [ID: #11] [P: High] [A: Agent] [E: Workspace] [T: Feature] Calendar Batch Sync & Mobile Hyperlink Format**
   Added "⚡ Sync & Enrich All Celebrations" batch scanning across Google Workspace Add-on and Chrome Extension. Enriched descriptions now format with HTML `<a href="...">` and standalone HTTPS FloristOne cart links for 100% mobile clickable compatibility, plus clean note replacement removing legacy gift card text.
 - **[x] [ID: #8] [P: High] [A: Agent] [E: Affiliate] [T: Integration] FloristOne Direct-to-Cart Engine**

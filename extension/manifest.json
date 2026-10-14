@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Yearly",
-  "version": "1.0.2",
+  "name": "Yearly: Google Calendar Birthday Reminders & Flower Delivery",
+  "short_name": "Yearly",
+  "version": "1.0.3",
   "description": "Smart dual-surface gifting assistant directly inside Google Calendar",
   "permissions": [
     "storage",

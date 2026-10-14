@@ -1,0 +1,3895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yearly - iMessage Video Creative Studio & Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="assets-base64.js"></script>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --panel-bg: #12151e;
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      /* iOS iMessage Dark Theme Exact Colors */
+      --imsg-black: #000000;
+      --imsg-header: rgba(24, 24, 26, 0.95);
+      --imsg-blue: #007aff;
+      --imsg-gray-bubble: #26252a;
+      --imsg-input-bg: #1c1c1e;
+      --imsg-text-white: #ffffff;
+      --imsg-text-gray: #8e8e93;
+      --imsg-border: rgba(255, 255, 255, 0.12);
+      --imsg-group-purple: #bf5af2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #fff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* 3-Column Studio Layout */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 360px 420px 380px;
+      gap: 24px;
+      width: 100%;
+      max-width: 1240px;
+      align-items: start;
+    }
+
+    @media (max-width: 1180px) {
+      .studio-layout {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+      }
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .panel h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .input-field, .textarea-field, select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus, .textarea-field:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    .textarea-field {
+      resize: vertical;
+      min-height: 56px;
+    }
+
+    /* Template Bar & Buttons */
+    .template-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--panel-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-sm:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .btn-sm.success {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+    }
+
+    .btn-sm.success:hover {
+      background: rgba(34, 197, 94, 0.25);
+    }
+
+    .btn-sm.danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    .btn-sm.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #3b82f6;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+    }
+
+    .pill-switch {
+      display: flex;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid var(--panel-border);
+    }
+
+    .pill-switch button {
+      flex: 1;
+      padding: 7px 10px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pill-switch button.active {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Groq & AI Box */
+    .groq-box {
+      background: linear-gradient(145deg, rgba(234, 88, 12, 0.1), rgba(234, 88, 12, 0.02));
+      border: 1px solid rgba(234, 88, 12, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .groq-box h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fb923c;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-img-box {
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.02));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ai-img-box h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #c084fc;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .groq-btn {
+      width: 100%;
+      background: #ea580c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .groq-btn:hover { background: #c2410c; }
+    .groq-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .ai-gen-btn {
+      width: 100%;
+      background: #9333ea;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .ai-gen-btn:hover { background: #7e22ce; }
+    .ai-gen-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Asset Grid */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 6px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .asset-card {
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #000;
+      position: relative;
+      aspect-ratio: 1;
+      transition: all 0.2s;
+    }
+
+    .asset-card.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+    }
+
+    .asset-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .asset-card .label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.75);
+      font-size: 9px;
+      padding: 2px;
+      text-align: center;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Message Sequence List */
+    .msg-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+
+    .msg-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .msg-type-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .msg-type-tag.receive { background: var(--imsg-gray-bubble); color: #fff; }
+    .msg-type-tag.send { background: var(--imsg-blue); color: #fff; }
+    .msg-type-tag.draft { background: #ca8a04; color: #000; }
+    .msg-type-tag.notif { background: var(--accent); color: #000; }
+    .msg-type-tag.payoff { background: #ec4899; color: #fff; }
+    .msg-type-tag.time { background: #444; color: #bbb; }
+
+    .msg-delete-btn {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* ======================================================== */
+    /* EXACT PIXEL-PERFECT iMESSAGE IPHONE SCREEN              */
+    /* ======================================================== */
+    .phone-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .iphone-device {
+      width: 375px;
+      height: 680px;
+      background: var(--imsg-black);
+      border-radius: 46px;
+      border: 10px solid #1f2127;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Safe Zone & Social Overlays */
+    .safezone-toolbar {
+      width: 100%;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+    }
+
+    .social-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .social-overlay.active {
+      display: block;
+    }
+
+    /* Reels UI Mockup */
+    .reels-guide-top {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255,255,255,0.85);
+      font-size: 15px;
+      font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      border-bottom: 1px dashed rgba(239, 68, 68, 0.5);
+      padding-bottom: 8px;
+    }
+    .reels-guide-top .badge-cut {
+      background: rgba(239, 68, 68, 0.25);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fca5a5;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .reels-guide-side {
+      position: absolute;
+      right: 12px;
+      bottom: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.9);
+      font-size: 11px;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      border-left: 1px dashed rgba(239, 68, 68, 0.4);
+      padding-left: 6px;
+    }
+    .reels-action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .reels-guide-bottom {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 60px;
+      color: #fff;
+      font-size: 11px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      border-top: 1px dashed rgba(239, 68, 68, 0.5);
+      padding-top: 6px;
+    }
+
+    /* TikTok UI Mockup */
+    .tiktok-guide-top {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+      border-bottom: 1px dashed rgba(59, 130, 246, 0.5);
+      padding-bottom: 8px;
+    }
+
+    /* Safe Zone Mode on device */
+    .iphone-device.reels-safe-mode {
+      padding-top: 52px;
+      background: radial-gradient(circle at 50% 25%, #151821 0%, #050608 100%);
+    }
+    .iphone-device.reels-safe-mode .island {
+      top: 60px;
+    }
+    .iphone-device.reels-safe-mode .notification-banner {
+      top: 94px;
+    }
+
+    /* Dynamic Island */
+    .island {
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 105px;
+      height: 25px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .island-camera {
+      width: 9px;
+      height: 9px;
+      background: #0c1220;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .island-sensor {
+      width: 9px;
+      height: 9px;
+      background: #09090b;
+      border-radius: 50%;
+    }
+
+    /* iOS Status Bar */
+    .ios-status-bar {
+      height: 42px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 24px 6px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      z-index: 90;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-left .breadcrumb {
+      color: var(--imsg-text-gray);
+      font-size: 11px;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .battery-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 13px;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-radius: 4px;
+      padding: 1px;
+      position: relative;
+    }
+
+    .battery-level {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 1.5px;
+    }
+
+    .battery-pill::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 1.5px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 0 1px 1px 0;
+    }
+
+    /* iMessage Navigation Header */
+    .imsg-header {
+      background: var(--imsg-header);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid var(--imsg-border);
+      padding: 4px 14px 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 80;
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--imsg-blue);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .contact-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 3px;
+    }
+
+    .avatar-img-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Group Chat Stacked Avatars */
+    .group-avatar-stack {
+      width: 44px;
+      height: 40px;
+      position: relative;
+    }
+
+    .group-avatar-stack .av1 {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1.5px solid #000;
+      object-fit: cover;
+    }
+
+    .group-avatar-stack .av2 {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border: 1.5px solid #000;
+      object-fit: cover;
+    }
+
+    .avatar-initials-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .contact-name-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .contact-name-capsule .chevron {
+      font-size: 9px;
+      color: var(--imsg-text-gray);
+    }
+
+    .header-subtext {
+      font-size: 9px;
+      color: var(--imsg-text-gray);
+      margin-top: 1px;
+    }
+
+    /* Message Thread Canvas / Body */
+    .imessage-thread {
+      flex: 1;
+      padding: 12px 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      background: #000000;
+    }
+
+    .timestamp-divider {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--imsg-text-gray);
+      margin: 4px 0;
+    }
+
+    /* Native Bubble Styling */
+    .bubble-wrapper {
+      display: flex;
+      flex-direction: column;
+      max-width: 78%;
+      animation: bubblePop 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .bubble-wrapper.receive {
+      align-self: flex-start;
+      align-items: flex-start;
+    }
+
+    .bubble-wrapper.send {
+      align-self: flex-end;
+      align-items: flex-end;
+    }
+
+    .group-sender-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--imsg-group-purple);
+      margin-left: 10px;
+      margin-bottom: 2px;
+    }
+
+    .imsg-bubble {
+      padding: 8px 12px;
+      font-size: 14px;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      word-break: break-word;
+      position: relative;
+    }
+
+    .imsg-bubble.receive {
+      background: var(--imsg-gray-bubble);
+      color: var(--imsg-text-white);
+      border-radius: 18px 18px 18px 4px;
+    }
+
+    .imsg-bubble.send {
+      background: var(--imsg-blue);
+      color: var(--imsg-text-white);
+      border-radius: 18px 18px 4px 18px;
+    }
+
+    .read-receipt {
+      font-size: 10px;
+      color: var(--imsg-text-gray);
+      margin-top: 2px;
+      margin-right: 4px;
+    }
+
+    /* Typing Dots Indicator */
+    .imsg-typing {
+      display: none;
+      align-self: flex-start;
+      background: var(--imsg-gray-bubble);
+      padding: 10px 14px;
+      border-radius: 18px 18px 18px 4px;
+      gap: 4px;
+      align-items: center;
+      width: fit-content;
+      margin-top: 2px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--imsg-text-gray);
+      border-radius: 50%;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+      40% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    @keyframes bubblePop {
+      0% { opacity: 0; transform: scale(0.85) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Calendar Push Notification Overlay */
+    .notification-banner {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      right: 10px;
+      background: rgba(28, 28, 32, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      border-radius: 20px;
+      padding: 12px 14px;
+      z-index: 150;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(34, 197, 94, 0.2);
+      transform: translateY(-250%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .notification-banner.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .notif-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .notif-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .notif-body {
+      font-size: 11px;
+      color: #cbd5e1;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .notif-action-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 8px;
+      font-weight: 800;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.1s;
+    }
+
+    /* Bottom Input Bar with Real-time Typing */
+    .imsg-input-bar {
+      background: rgba(24, 24, 26, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 0.5px solid var(--imsg-border);
+      padding: 8px 12px 24px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 80;
+    }
+
+    .input-plus-btn {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--imsg-text-gray);
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .input-pill {
+      flex: 1;
+      height: 34px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 17px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .input-pill-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-pill-text.placeholder {
+      color: #636366;
+    }
+
+    .blinking-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 16px;
+      background: var(--imsg-blue);
+      margin-left: 2px;
+      animation: cursorBlink 1s infinite;
+    }
+
+    @keyframes cursorBlink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .input-mic {
+      color: var(--imsg-text-gray);
+      font-size: 13px;
+    }
+
+    /* Payoff Screen (Hero Image) */
+    .payoff-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .payoff-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .payoff-img-preview {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      box-shadow: 0 0 35px var(--accent-glow);
+      margin-bottom: 16px;
+    }
+
+    /* Studio Controls & Action Bar */
+    .controls-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn.primary:hover { background: #16a34a; }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .btn.secondary:hover { background: rgba(255, 255, 255, 0.14); }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      border: 1px solid var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Top Studio Navigation Tabs */
+    .studio-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      background: rgba(18, 21, 30, 0.85);
+      padding: 6px;
+      border-radius: 16px;
+      border: 1px solid var(--panel-border);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-tab {
+      padding: 10px 20px;
+      border-radius: 11px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-tab.active {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .tab-content {
+      width: 100%;
+      display: none;
+      animation: fadeInTab 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Thumbnail Studio Layout */
+    .thumbnail-studio-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 24px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 960px) {
+      .thumbnail-studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .thumb-preview-card {
+      background: #000;
+      border: 1px solid var(--panel-border);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      position: sticky;
+      top: 24px;
+    }
+
+    .thumb-canvas-container {
+      max-width: 360px;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: center;
+      background: #000;
+    }
+
+    #thumbCanvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .badge-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .badge-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      color: #cbd5e1;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .badge-chip:hover, .badge-chip.active {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .color-chips {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .color-chip {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .color-chip:hover, .color-chip.active {
+      transform: scale(1.12);
+      border-color: #fff;
+      box-shadow: 0 0 12px rgba(255,255,255,0.3);
+    }
+
+    /* Copywriting Studio Layout */
+    .copy-studio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .copy-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .copy-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .copy-card-header h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-box {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      font-family: inherit;
+      min-height: 110px;
+      margin-bottom: 12px;
+    }
+
+    .copy-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .copy-btn.copied {
+      background: #16a34a;
+      color: #fff;
+      border-color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">✨ Yearly Marketing Creative Suite v3.5</div>
+    <h1>iMessage Creative & Content Suite</h1>
+    <p class="subtitle">Video Generator, Viral Thumbnail Creator & Multi-Platform AI Copywriting for Yearly (yearly.click)</p>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="studio-nav">
+    <button class="nav-tab active" id="tabBtnVideo" onclick="switchStudioTab('video')">
+      <span>🎬 1. Video Studio</span>
+    </button>
+    <button class="nav-tab" id="tabBtnThumb" onclick="switchStudioTab('thumb')">
+      <span>🖼️ 2. Thumbnail & Cover Studio</span>
+    </button>
+    <button class="nav-tab" id="tabBtnCopy" onclick="switchStudioTab('copy')">
+      <span>📝 3. AI Titles & Descriptions</span>
+    </button>
+  </nav>
+
+  <!-- TAB 1: VIDEO AD STUDIO -->
+  <div class="tab-content active" id="tabContentVideo">
+    <div class="studio-layout">
+
+      <!-- LEFT PANEL: GROQ AI GENERATOR, TEMPLATE PERSISTENCE & CHAT CONFIG -->
+      <div class="panel">
+        <h2><span>🤖 AI Script Generator (Groq)</span></h2>
+
+        <div class="groq-box">
+          <h3>⚡ Natural Language to Script</h3>
+          <textarea id="groqPrompt" class="textarea-field" placeholder="Describe the scene: e.g. Wife dropping subtle hints about anniversary, husband panics, Yearly notification saves him with 1-click roses..."></textarea>
+          <button class="groq-btn" id="groqGenerateBtn" onclick="generateScriptWithGroq()">
+            <span>✨ Generate Script with Groq AI</span>
+          </button>
+        </div>
+
+        <!-- AI Image & Avatar Generator Box -->
+        <h2><span>🎨 AI Photorealistic Image & Avatar Studio</span></h2>
+        <div class="ai-img-box">
+          <h3><span>📸 Photorealistic Image Generator</span></h3>
+          <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+            <select id="aiImgType" style="font-size: 11px; padding: 6px;">
+              <option value="payoff">💐 Generate Realistic Bouquet / Payoff</option>
+              <option value="avatar">👤 Generate Realistic Avatar Profile</option>
+            </select>
+          </div>
+          <textarea id="aiImgPrompt" class="textarea-field" style="min-height: 48px; font-size: 12px;" placeholder="e.g. Stunning real delivery of 50 luxury red roses in crystal vase on marble kitchen counter"></textarea>
+          
+          <div style="font-size: 10px; color: #a855f7; margin-top: 4px;">📸 Instant Real Photo Presets:</div>
+          <div class="badge-chips" style="margin-top: 4px; margin-bottom: 6px;">
+            <span class="badge-chip" onclick="setAiPromptPreset('50 deep red roses in crystal vase on modern kitchen counter, natural morning sunlight, 85mm lens, authentic photography')">🌹 50 Roses in Vase</span>
+            <span class="badge-chip" onclick="setAiPromptPreset('Delighted woman at front door receiving a large wrapped bouquet of flowers from courier, genuine surprise, real DSLR photo')">🚪 Doorstep Delivery</span>
+            <span class="badge-chip" onclick="setAiPromptPreset('Relieved happy young couple hugging in living room holding a massive anniversary flower bouquet, authentic real life portrait')">🥰 Relieved Couple Hug</span>
+            <span class="badge-chip" onclick="setAiPromptPreset('Luxurious pastel peonies, garden roses and eucalyptus wedding anniversary bouquet in natural light, real photo')">🌸 Luxury Peonies</span>
+          </div>
+
+          <div style="display: flex; gap: 6px; margin-top: 6px;">
+            <button class="ai-gen-btn" id="aiImgGenBtn" onclick="generateImageWithAI()">
+              <span>📸 Generate Realistic Photo</span>
+            </button>
+            <label class="btn-sm" style="margin-top: 6px; cursor: pointer; text-align: center; justify-content: center; display: flex; align-items: center;">
+              📁 Upload
+              <input type="file" id="localImgUpload" accept="image/*" style="display: none;" onchange="handleLocalImageUpload(event)">
+            </label>
+          </div>
+          <div id="aiImgStatus" style="font-size: 11px; color: #c084fc; margin-top: 4px; min-height: 14px;"></div>
+        </div>
+
+        <h2><span>⚙️ Chat Setup & Templates</span></h2>
+
+        <!-- Presets Selector & Template Persistence -->
+        <div class="form-group">
+          <label>Active Template <span id="templateSavedBadge" style="font-size: 10px; color: var(--accent);">● Saved</span></label>
+          <select id="presetSelect" onchange="applyPreset(this.value)">
+            <option value="1">1. The Tuesday Trap (Personal - Wifey)</option>
+            <option value="2">2. The Sibling Savior (Group Chat - Family)</option>
+            <option value="3">3. Derek's Secret Charge (Personal - Plot Twist)</option>
+            <option value="custom">✏️ Custom Blank Template</option>
+          </select>
+          
+          <!-- Template Management Toolbar -->
+          <div class="template-bar">
+            <button class="btn-sm success" onclick="saveCurrentTemplate()">💾 Save Changes</button>
+            <button class="btn-sm" onclick="saveAsNewTemplate()">➕ Save as New</button>
+            <button class="btn-sm danger" id="deleteTemplateBtn" onclick="deleteCurrentTemplate()" style="display: none;">🗑️ Delete</button>
+            <button class="btn-sm" onclick="exportTemplatesJson()">📤 Export JSON</button>
+            <label class="btn-sm" style="cursor: pointer;">
+              📥 Import JSON
+              <input type="file" id="importJsonInput" accept=".json" style="display: none;" onchange="importTemplatesJson(event)">
+            </label>
+          </div>
+        </div>
+
+        <!-- Personal vs Group Mode -->
+        <div class="form-group">
+          <label>Chat Type</label>
+          <div class="pill-switch">
+            <button id="typePersonalBtn" class="active" onclick="setChatType('personal')">👤 Personal (1-on-1)</button>
+            <button id="typeGroupBtn" onclick="setChatType('group')">👨‍👩‍👧‍👦 Group Chat</button>
+          </div>
+        </div>
+
+        <!-- Chat Title & Subtitle -->
+        <div class="form-group">
+          <label>Contact / Group Name</label>
+          <input type="text" id="cfgContactName" class="input-field" value="Wifey ❤️" oninput="updateLiveHeader()">
+        </div>
+
+        <div class="form-group">
+          <label>Subtitle / Status Text</label>
+          <input type="text" id="cfgStatusText" class="input-field" value="iMessage" oninput="updateLiveHeader()">
+        </div>
+
+        <!-- Avatar Picker -->
+        <div class="form-group">
+          <label>Choose Avatar Asset</label>
+          <div class="asset-grid" id="avatarGrid"></div>
+        </div>
+
+      </div>
+
+      <!-- CENTER COLUMN: PIXEL-PERFECT iMESSAGE IPHONE STAGE -->
+      <div class="phone-center">
+        <div class="iphone-device" id="iphoneDevice">
+          
+          <!-- Dynamic Island -->
+          <div class="island">
+            <div class="island-camera"></div>
+            <div class="island-sensor"></div>
+          </div>
+
+          <!-- iOS Status Bar -->
+          <div class="ios-status-bar">
+            <div class="status-left">
+              <span id="uiClock">20:14</span>
+              <span class="breadcrumb">
+                <span>◀</span> <span id="uiBreadcrumb">Puzzles</span>
+              </span>
+            </div>
+            <div class="status-right">
+              <span>5G</span>
+              <div class="battery-pill">
+                <div class="battery-level"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- iMessage Navigation Header -->
+          <div class="imsg-header">
+            <div class="nav-btn">‹</div>
+            
+            <div class="contact-center">
+              <div class="avatar-wrapper" id="uiAvatarContainer">
+                <img id="uiAvatarImg" class="avatar-img-circle" src="avatar-wifey.jpg" alt="Avatar">
+              </div>
+              <div class="contact-name-capsule">
+                <span id="uiContactName">Wifey ❤️</span>
+                <span class="chevron">›</span>
+              </div>
+              <div class="header-subtext" id="uiSubtext">iMessage</div>
+            </div>
+
+            <div class="nav-btn" style="font-size: 14px;">📹</div>
+          </div>
+
+          <!-- Chat Conversation Thread -->
+          <div class="imessage-thread" id="uiThread">
+            <!-- Dynamic bubbles injected during playback -->
+          </div>
+
+          <!-- Typing Indicator -->
+          <div class="imsg-typing" id="uiTyping">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+
+          <!-- Push Notification Alert -->
+          <div class="notification-banner" id="uiNotifBanner">
+            <div class="notif-header">
+              <span>📅</span>
+              <span>GOOGLE CALENDAR • YEARLY</span>
+            </div>
+            <div class="notif-title" id="uiNotifTitle">💍 Wifey's 3rd Anniversary Tuesday!</div>
+            <div class="notif-body" id="uiNotifBody">Send 50 Luxury Long-Stem Red Roses. Delivery scheduled for 10:00 AM.</div>
+            <button class="notif-action-btn" id="uiNotifBtn" onclick="onNotificationTap()">
+              ⚡ 1-Click Send 50 Red Roses ($49)
+            </button>
+          </div>
+
+          <!-- Bottom iMessage Input Bar with Character-by-Character Typing -->
+          <div class="imsg-input-bar">
+            <div class="input-plus-btn">+</div>
+            <div class="input-pill">
+              <div class="input-pill-text" id="uiInputDraftContainer">
+                <span id="uiInputDraftText" class="placeholder">iMessage</span>
+                <span class="blinking-cursor" id="uiCursor" style="display: none;"></span>
+              </div>
+              <div class="input-mic">🎙️</div>
+            </div>
+          </div>
+
+          <!-- Payoff Screen Overlay -->
+          <div class="payoff-overlay" id="uiPayoffOverlay">
+            <img id="uiPayoffImg" src="realistic-roses-delivery.jpg" class="payoff-img-preview" alt="Roses Reveal">
+            <h3 id="uiPayoffTitle" style="font-size: 18px; font-weight: 800; margin-bottom: 6px;">Saved at the Buzzer 🚀</h3>
+            <p id="uiPayoffBody" style="font-size: 12px; color: #94a3b8; margin-bottom: 16px;">1-Click Google Calendar gifting. Never miss a milestone.</p>
+            <a id="uiPayoffBtn" href="https://yearly.click" target="_blank" style="background: var(--accent); color: #000; padding: 10px 20px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none;">Install Yearly Free</a>
+          </div>
+
+          <!-- Social Media App Overlay Simulators (Reels / TikTok) -->
+          <div class="social-overlay" id="socialOverlayLayer">
+            <!-- Instagram Reels Overlay -->
+            <div id="reelsOverlayContent" style="display: none; height: 100%; position: relative;">
+              <div class="reels-guide-top">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="font-size: 16px;">‹</span>
+                  <span>Reels</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span class="badge-cut">⚠️ Reels Top Header UI</span>
+                  <span>📷</span>
+                </div>
+              </div>
+
+              <div class="reels-guide-side">
+                <div class="reels-action-item"><span>❤️</span><span>48.2K</span></div>
+                <div class="reels-action-item"><span>💬</span><span>1,420</span></div>
+                <div class="reels-action-item"><span>✈️</span><span>12.5K</span></div>
+                <div class="reels-action-item"><span>🔖</span><span>Share</span></div>
+                <div class="reels-action-item"><span>•••</span></div>
+              </div>
+
+              <div class="reels-guide-bottom">
+                <div style="font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px;">
+                  <span>@yearly.click</span>
+                  <span style="border: 1px solid rgba(255,255,255,0.6); padding: 1px 6px; border-radius: 4px; font-size: 9px;">Follow</span>
+                </div>
+                <div style="color: rgba(255,255,255,0.9); font-size: 10px; margin-bottom: 4px;">Never be Derek... 1-click Google Calendar gifts 💐 #yearly #lifehack</div>
+                <div style="font-size: 9px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 4px;">
+                  <span>♫</span> <span>Original audio - Yearly Calendar Assistant</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TikTok Overlay -->
+            <div id="tiktokOverlayContent" style="display: none; height: 100%; position: relative;">
+              <div class="tiktok-guide-top">
+                <span style="color: rgba(255,255,255,0.5);">LIVE</span>
+                <span style="color: rgba(255,255,255,0.6);">Following</span>
+                <span style="border-bottom: 2px solid #fff; padding-bottom: 2px;">For You</span>
+                <span style="position: absolute; right: 16px;">🔍</span>
+              </div>
+
+              <div class="reels-guide-side" style="bottom: 80px;">
+                <div class="reels-action-item">
+                  <div style="width: 28px; height: 28px; border-radius: 50%; background: #22c55e; display: flex; align-items: center; justify-content: center; font-size: 14px;">📅</div>
+                </div>
+                <div class="reels-action-item"><span>❤️</span><span>89.4K</span></div>
+                <div class="reels-action-item"><span>💬</span><span>2,810</span></div>
+                <div class="reels-action-item"><span>⭐</span><span>4,120</span></div>
+                <div class="reels-action-item"><span>↗️</span><span>Share</span></div>
+              </div>
+
+              <div class="reels-guide-bottom">
+                <div style="font-weight: 700; margin-bottom: 2px;">@yearly.click</div>
+                <div style="color: rgba(255,255,255,0.9); font-size: 10px; margin-bottom: 4px;">How Google Calendar saved this guy at 8:14 PM 😭 #yearly</div>
+                <div style="font-size: 9px; color: rgba(255,255,255,0.7);">♫ Original Sound - yearly.click</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Playback & Export Toolbar -->
+        <div class="controls-bar">
+          <button class="btn primary" id="playBtn" onclick="togglePlay()">▶ Play Video</button>
+          <button class="btn secondary" onclick="restartVideo()">🔄 Replay</button>
+        </div>
+
+        <div style="margin-top: 10px; width: 100%; display: flex; gap: 8px;">
+          <select id="exportFormat" style="width: 155px; padding: 7px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--panel-border); border-radius: 8px; font-size: 12px;">
+            <option value="mp4">🎬 9:16 Video (MP4)</option>
+            <option value="png">📸 High-Res PNG</option>
+          </select>
+          <button class="btn secondary" style="background: #2563eb; color: #fff;" onclick="exportCreative()">⬇️ Download Creative</button>
+        </div>
+
+        <!-- Reels / TikTok Safe Zone & Guide Toolbar -->
+        <div class="safezone-toolbar">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; font-weight: 700; color: #fff;">📱 Social Video Safe Zone:</span>
+            <span id="safeZoneStatusLabel" style="font-size: 10px; color: var(--accent); font-weight: 600;">🛡️ Reels/Shorts Safe Active</span>
+          </div>
+          <div class="pill-switch">
+            <button id="btnSafeZoneReels" class="active" onclick="setSafeZoneMode('reels')">🛡️ Reels / Shorts Safe (Padded)</button>
+            <button id="btnSafeZoneFull" onclick="setSafeZoneMode('full')">🔲 Full Bleed</button>
+          </div>
+          
+          <div style="display: flex; gap: 6px; margin-top: 4px; align-items: center; justify-content: space-between;">
+            <span style="font-size: 10px; color: var(--text-muted);">Preview App UI:</span>
+            <div style="display: flex; gap: 4px;">
+              <button class="btn-sm" id="guideReelsBtn" onclick="toggleOverlayGuide('reels')">👁️ Reels</button>
+              <button class="btn-sm" id="guideTiktokBtn" onclick="toggleOverlayGuide('tiktok')">👁️ TikTok</button>
+              <button class="btn-sm" id="guideClearBtn" onclick="toggleOverlayGuide('none')" style="color: #ef4444;">✕ Off</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="exportStatus" style="font-size: 11px; color: var(--accent); text-align: center; min-height: 16px; margin-top: 6px;"></div>
+
+      </div>
+
+      <!-- RIGHT PANEL: SEQUENCE & PAYOFF EDITOR -->
+      <div class="panel">
+        <h2>
+          <span>⏱️ Message Timeline</span>
+          <button class="btn-sm" onclick="addNewMessage()">+ Add Step</button>
+        </h2>
+
+        <div id="messagesListContainer">
+          <!-- Message list rows -->
+        </div>
+
+        <!-- Payoff Reveal Config -->
+        <h2 style="margin-top: 16px;"><span>🏆 End Payoff & Bouquet Reveal</span></h2>
+
+        <div class="form-group">
+          <label>Payoff Headline</label>
+          <input type="text" id="cfgPayoffTitle" class="input-field" value="Saved at the Buzzer 🚀" oninput="updateLivePayoff()">
+        </div>
+
+        <div class="form-group">
+          <label>Payoff Subtitle</label>
+          <textarea id="cfgPayoffBody" class="textarea-field" oninput="updateLivePayoff()">1-Click Google Calendar gifting. Never miss a milestone.</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Payoff Button Text</label>
+          <input type="text" id="cfgPayoffBtn" class="input-field" value="Install Yearly Free" oninput="updateLivePayoff()">
+        </div>
+
+        <div class="form-group">
+          <label>Select Bouquet / Hero Image</label>
+          <div class="asset-grid" id="payoffGrid"></div>
+        </div>
+
+        <!-- Google Calendar Notification Editor -->
+        <h2 style="margin-top: 16px;"><span>📅 Google Calendar Notification</span></h2>
+        
+        <div class="form-group">
+          <label>Notification Title</label>
+          <input type="text" id="cfgNotifTitle" class="input-field" value="💍 Wifey's 3rd Anniversary Tuesday!" oninput="updateLiveNotif()">
+        </div>
+
+        <div class="form-group">
+          <label>Notification Description</label>
+          <textarea id="cfgNotifBody" class="textarea-field" oninput="updateLiveNotif()">Send 50 Luxury Long-Stem Red Roses. Delivery scheduled for 10:00 AM.</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>1-Click CTA Button Text</label>
+          <input type="text" id="cfgNotifBtn" class="input-field" value="⚡ 1-Click Send 50 Red Roses ($49)" oninput="updateLiveNotif()">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 2: THUMBNAIL & COVER GENERATOR STUDIO -->
+  <div class="tab-content" id="tabContentThumb">
+    <div class="thumbnail-studio-grid">
+      
+      <!-- Left: Thumbnail Controls -->
+      <div class="panel">
+        <h2><span>⚙️ Thumbnail & Cover Customizer</span></h2>
+        
+        <div class="form-group">
+          <label>Base Visual Layout Frame</label>
+          <select id="thumbBaseFrame" onchange="renderThumbnailCanvas()">
+            <option value="climax">💬 Panic / Climax Chat Frame</option>
+            <option value="alert">📅 Google Calendar 1-Click Alert Focus</option>
+            <option value="payoff">💐 Hero Bouquet & Payoff Screen</option>
+            <option value="split">⚡ Split (Chat Panic Top + Flower Solution Bottom)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Viral Hook Badge Headline</label>
+          <input type="text" id="thumbHookText" class="input-field" value="HE FORGOT AGAIN 💀" oninput="renderThumbnailCanvas()">
+          
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">⚡ Quick Viral Presets:</div>
+          <div class="badge-chips">
+            <span class="badge-chip active" onclick="setHookPreset('HE FORGOT AGAIN 💀', this)">HE FORGOT AGAIN 💀</span>
+            <span class="badge-chip" onclick="setHookPreset('SAVED AT THE BUZZER 🚀', this)">SAVED AT THE BUZZER 🚀</span>
+            <span class="badge-chip" onclick="setHookPreset('BEST ANNIVERSARY HACK 💍', this)">BEST ANNIVERSARY HACK 💍</span>
+            <span class="badge-chip" onclick="setHookPreset('POV: IT\'S 8:14 PM 😱', this)">POV: IT'S 8:14 PM 😱</span>
+            <span class="badge-chip" onclick="setHookPreset('SAVED MY RELATIONSHIP 🌸', this)">SAVED MY RELATIONSHIP 🌸</span>
+            <span class="badge-chip" onclick="setHookPreset('NEVER FORGET HER BIRTHDAY 💐', this)">NEVER FORGET HER BIRTHDAY 💐</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Badge Color Theme</label>
+          <div class="color-chips">
+            <div class="color-chip active" style="background: #ef4444;" title="Viral Red" onclick="setHookColor('#ef4444', '#ffffff', this)"></div>
+            <div class="color-chip" style="background: #eab308;" title="High-CTR Yellow" onclick="setHookColor('#eab308', '#000000', this)"></div>
+            <div class="color-chip" style="background: #22c55e;" title="Emerald Green" onclick="setHookColor('#22c55e', '#000000', this)"></div>
+            <div class="color-chip" style="background: #a855f7;" title="Electric Purple" onclick="setHookColor('#a855f7', '#ffffff', this)"></div>
+            <div class="color-chip" style="background: #0f172a; border-color: rgba(255,255,255,0.3);" title="Carbon Dark" onclick="setHookColor('#0f172a', '#ffffff', this)"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Badge Position on Cover</label>
+          <div class="pill-switch">
+            <button id="posTopBtn" class="active" onclick="setHookPosition('top')">Top Hook</button>
+            <button id="posCenterBtn" onclick="setHookPosition('center')">Center Impact</button>
+            <button id="posBottomBtn" onclick="setHookPosition('bottom')">Lower Third</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Cover Aspect Ratio</label>
+          <div class="pill-switch">
+            <button id="ratio916Btn" class="active" onclick="setThumbRatio('9:16')">9:16 (Reels/TikTok)</button>
+            <button id="ratio11Btn" onclick="setThumbRatio('1:1')">1:1 (Square Ad)</button>
+            <button id="ratio169Btn" onclick="setThumbRatio('16:9')">16:9 (YouTube)</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 18px;">
+          <button class="btn primary" onclick="downloadActiveThumbnail()">
+            📸 Download High-Res Thumbnail PNG
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Right: Live Thumbnail Canvas Preview -->
+      <div class="thumb-preview-card">
+        <div style="font-size: 13px; font-weight: 700; color: #94a3b8; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+          <span>👁️ Live Cover Thumbnail Preview</span>
+          <span id="thumbDimensionsLabel" style="font-size: 11px; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; color: #fff;">1080 × 1920</span>
+        </div>
+        <div class="thumb-canvas-container" id="thumbCanvasContainer">
+          <canvas id="thumbCanvas" width="1080" height="1920"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB 3: AI TITLE, HOOK & DESCRIPTION GENERATOR -->
+  <div class="tab-content" id="tabContentCopy">
+    <div style="max-width: 1240px; margin: 0 auto 20px auto; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px;">🚀 Multi-Platform AI Copywriting Generator</h2>
+          <p style="font-size: 12px; color: var(--text-muted);">Generates viral TikTok/Reels captions, SEO YouTube Shorts metadata, and high-converting Meta/TikTok Ad copy tuned for Yearly.</p>
+        </div>
+        <button class="groq-btn" id="genCopyBtn" style="padding: 10px 20px; width: auto;" onclick="generateCopywritingWithGroq()">
+          <span>✨ Generate All Copy with Groq AI</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="copy-studio-grid">
+      
+      <!-- CARD 1: TIKTOK & REELS -->
+      <div class="copy-card">
+        <div class="copy-card-header">
+          <h3><span>📱 TikTok & Instagram Reels</span></h3>
+          <button class="copy-btn" id="btnCopyTikTok" onclick="copyCardContent('tiktok')">📋 Copy Caption</button>
+        </div>
+        <div style="font-size: 11px; font-weight: 700; color: #fb923c; margin-bottom: 4px;">⚡ 3 Viral Hooks:</div>
+        <div class="copy-box" id="copyTikTokHooks">1. POV: It's 8:14 PM and you forgot your anniversary... 💀
+2. If your partner forgets every date, send them this ASAP 😭
+3. Google Calendar just saved this guy's relationship in 1 click 🚀</div>
+
+        <div style="font-size: 11px; font-weight: 700; color: #4ade80; margin-bottom: 4px;">💬 Full Relatable Caption:</div>
+        <div class="copy-box" id="copyTikTokCaption">Saved at the buzzer 🚀 Never be that guy who forgets the anniversary. Yearly plugs straight into Google Calendar and lets you send 50 luxury roses in 1 click without ever opening a flower site.
+
+👉 Link in bio to install Yearly free! #yearly #relationshipgoals #anniversarysurprise #lastminutegift #husbandhack #floristone #couplehumor</div>
+      </div>
+
+      <!-- CARD 2: YOUTUBE SHORTS -->
+      <div class="copy-card">
+        <div class="copy-card-header">
+          <h3><span>▶️ YouTube Shorts SEO Package</span></h3>
+          <button class="copy-btn" id="btnCopyYT" onclick="copyCardContent('yt')">📋 Copy Package</button>
+        </div>
+        <div style="font-size: 11px; font-weight: 700; color: #38bdf8; margin-bottom: 4px;">🎯 3 Clickable SEO Titles:</div>
+        <div class="copy-box" id="copyYTTitles">1. When You Forget Her Anniversary... But Have 1 Secret Hack 💐 #Shorts
+2. Google Calendar Saved This Relationship at 8:14 PM 🚀 #Shorts
+3. Never Sleep On The Couch Again (Google Calendar Hack) 💍 #Shorts</div>
+
+        <div style="font-size: 11px; font-weight: 700; color: #a78bfa; margin-bottom: 4px;">📄 SEO Video Description:</div>
+        <div class="copy-box" id="copyYTDesc">How Yearly saves you from milestone disasters directly inside Google Calendar. 1-click curated flower delivery with FloristOne.
+
+🔗 Install Yearly Free on Chrome: https://yearly.click
+⏰ Never miss birthdays, anniversaries, or special dates again.
+
+#Shorts #Yearly #GoogleCalendar #GiftIdeas #RelationshipHacks #FloristOne</div>
+      </div>
+
+      <!-- CARD 3: PAID ADS (META & TIKTOK ADS) -->
+      <div class="copy-card">
+        <div class="copy-card-header">
+          <h3><span>💰 Paid Ad Creative Copy</span></h3>
+          <button class="copy-btn" id="btnCopyAds" onclick="copyCardContent('ads')">📋 Copy Ad Copy</button>
+        </div>
+        <div style="font-size: 11px; font-weight: 700; color: #f43f5e; margin-bottom: 4px;">📣 Primary Ad Text:</div>
+        <div class="copy-box" id="copyAdPrimary">Forgotten anniversaries shouldn't cost you your relationship. Yearly adds 1-click gift delivery directly to your Google Calendar alerts. When the reminder pops up, send 50 long-stem red roses in under 10 seconds.</div>
+
+        <div style="font-size: 11px; font-weight: 700; color: #fbbf24; margin-bottom: 4px;">🏷️ Ad Headline & CTA:</div>
+        <div class="copy-box" id="copyAdHeadline">Headline: Never Miss An Anniversary Again | 1-Click Calendar Gifts
+Description: FloristOne delivery synced with your Google Calendar.
+CTA Button: Install Free / Get Offer</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // Groq API Configuration
+    const GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE" // TODO: load from env;
+    const GROQ_MODEL = "openai/gpt-oss-20b";
+
+    // Asset Libraries with Expanded Bouquets and Avatars
+    let AVATAR_ASSETS = [
+      { id: 'wifey', label: 'Wifey ❤️', url: 'avatar-wifey.jpg' },
+      { id: 'husband', label: 'Husband 👨', url: 'avatar-husband.jpg' },
+      { id: 'sister', label: 'Sister / Bestie 👱‍♀️', url: 'avatar-sister.jpg' },
+      { id: 'family', label: 'Family 👨‍👩‍👧‍👦', url: 'avatar-family.jpg' },
+      { id: 'parker-ps', label: 'Parker (PS)', url: 'messages ui.jpg' },
+      { id: 'ava', label: 'Ava (Sketch)', url: 'Screenshot 2026-10-07 at 18.36.23.png' }
+    ];
+
+    let PAYOFF_ASSETS = [
+      { id: 'realistic-roses', label: 'Realistic 50 Red Roses 🌹', url: 'realistic-roses-delivery.jpg' },
+      { id: 'realistic-doorstep', label: 'Doorstep Floral Delivery 🚪', url: 'realistic-anniversary-surprise.jpg' },
+      { id: 'realistic-couple', label: 'Happy Couple with Roses 🥰', url: 'realistic-couple-roses.jpg' },
+      { id: 'best-day', label: 'Best Day Bouquet', url: 'bouquet-best-day.jpg' },
+      { id: 'pink-posh', label: 'Pink Posh Bouquet', url: 'bouquet-pink-posh.jpg' },
+      { id: 'high-style', label: 'High Style Bouquet', url: 'bouquet-high-style.jpg' },
+      { id: 'lavender-rose', label: 'Lavender Romance', url: 'bouquet-lavender-rose.jpg' },
+      { id: 'sunset-passion', label: 'Sunset Passion', url: 'bouquet-sunset-passion.jpg' },
+      { id: 'pure-elegance', label: 'Pure Elegance Lilies', url: 'bouquet-pure-elegance.jpg' },
+      { id: 'sweet-sunshine', label: 'Sweet Sunshine', url: 'bouquet-sweet-sunshine.jpg' },
+      { id: 'luxury-roses', label: 'Grand Luxury Roses', url: 'bouquet-luxury-roses.jpg' },
+      { id: 'true-romance', label: 'True Romance Bouquet', url: 'bouquet-true-romance.jpg' },
+      { id: 'orchid', label: 'Orchid Bouquet', url: 'asset-orchid-bouquet.jpg' }
+    ];
+
+    // Presets Database
+    const DEFAULT_PRESETS = {
+      1: {
+        name: "1. The Tuesday Trap (Personal - Wifey)",
+        chatType: 'personal',
+        contactName: 'Wifey ❤️',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-wifey.jpg',
+        payoffUrl: 'realistic-roses-delivery.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Saved at the Buzzer 🚀',
+        payoffBody: '1-Click Google Calendar gifting. Never miss a milestone.',
+        payoffBtn: 'Install Yearly Free',
+        notifTitle: "💍 Wifey's 3rd Anniversary Tuesday!",
+        notifBody: "Send 50 Luxury Long-Stem Red Roses. Delivery scheduled for 10:00 AM.",
+        notifBtn: "⚡ 1-Click Send 50 Red Roses ($49)",
+        messages: [
+          { type: 'time', text: 'Today 19:21', senderName: '', delay: 400 },
+          { type: 'receive', text: "I really don't feel like celebrating this Tuesday.", senderName: '', delay: 1500 },
+          { type: 'draft', text: "what's on Tuesd...", senderName: '', delay: 3000 },
+          { type: 'notif', text: '', senderName: '', delay: 4800 },
+          { type: 'send', text: "Don't worry babe, I got you covered ❤️", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ]
+      },
+      2: {
+        name: "2. The Sibling Savior (Group Chat - Family)",
+        chatType: 'group',
+        contactName: 'Family Chat 👨‍👩‍👧‍👦',
+        statusText: 'Sister, Brother, Mom, Dad (4)',
+        avatarUrl: 'avatar-family.jpg',
+        payoffUrl: 'realistic-anniversary-surprise.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Favorite Child Status Secured 🏆',
+        payoffBody: 'Group gifts handled in 5 seconds without leaving bed.',
+        payoffBtn: 'Get Yearly for Calendar',
+        notifTitle: "🎉 Mom & Dad 30th Anniversary Tomorrow",
+        notifBody: "FloristOne Celebration Orchid & Bouquet Bundle ready.",
+        notifBtn: "⚡ 1-Click Send to Parents' Address",
+        messages: [
+          { type: 'time', text: 'Today 18:30', senderName: '', delay: 400 },
+          { type: 'receive', text: "Mom & Dad's 30th anniversary is TOMORROW!!! 😱", senderName: 'Sister', delay: 1400 },
+          { type: 'receive', text: "I have no time to order anything!! Buried in work! 😭", senderName: 'Sister', delay: 2600 },
+          { type: 'receive', text: "Same! Travelling today, what do we do?! 🏃‍♂️", senderName: 'Brother', delay: 3800 },
+          { type: 'notif', text: '', senderName: '', delay: 5000 },
+          { type: 'send', text: "It's done. Fresh luxury bouquet arriving tomorrow at 10 AM. You guys owe me $20 ☕", senderName: '', delay: 7600 },
+          { type: 'payoff', text: '', senderName: '', delay: 10000 }
+        ]
+      },
+      3: {
+        name: "3. Derek's Secret Charge (Personal - Plot Twist)",
+        chatType: 'personal',
+        contactName: 'Bestie 💅',
+        statusText: 'Online',
+        avatarUrl: 'avatar-sister.jpg',
+        payoffUrl: 'realistic-couple-roses.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'The Plot Twist 🌹',
+        payoffBody: 'Automatic anniversary flowers scheduled right from his calendar.',
+        payoffBtn: 'Install on His Phone 😉',
+        notifTitle: "🌹 FloristOne: 50 Roses Delivered",
+        notifBody: "Delivered to doorstep for Derek's Anniversary surprise.",
+        notifBtn: "⚡ View Delivery Photo",
+        messages: [
+          { type: 'time', text: 'Today 20:13', senderName: '', delay: 400 },
+          { type: 'receive', text: "OMG I knew Derek was cheating... I saw a charge from a flower shop and got nothing 😭", senderName: '', delay: 1600 },
+          { type: 'receive', text: "I confronted him and he looked totally confused 😤", senderName: '', delay: 3200 },
+          { type: 'notif', text: '', senderName: '', delay: 4600 },
+          { type: 'send', text: "Wait... the doorbell just rang. 50 RED ROSES JUST ARRIVED. OOPS Nevermind 😭❤️🌹", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9500 }
+        ]
+      },
+      custom: {
+        name: "✏️ Custom Blank Template",
+        chatType: 'personal',
+        contactName: 'Alex ✨',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-husband.jpg',
+        payoffUrl: 'realistic-roses-delivery.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Hero Moment 🚀',
+        payoffBody: 'Never miss a milestone again.',
+        payoffBtn: 'Install Yearly Free',
+        notifTitle: "🎁 Birthday Milestone Detected",
+        notifBody: "Send fresh celebration flowers in 1 click.",
+        notifBtn: "⚡ 1-Click Send Flowers ($45)",
+        messages: [
+          { type: 'time', text: 'Today 14:00', senderName: '', delay: 400 },
+          { type: 'receive', text: "Are you ready for tonight? 🎉", senderName: '', delay: 1400 },
+          { type: 'notif', text: '', delay: 2800 },
+          { type: 'send', text: "Always ready! Something special is on the way 💐", senderName: '', delay: 5200 },
+          { type: 'payoff', text: '', delay: 7400 }
+        ]
+      }
+    };
+
+    let allPresets = {};
+    let currentPresetId = '1';
+    let state = JSON.parse(JSON.stringify(DEFAULT_PRESETS[1]));
+    let isPlaying = false;
+    let timeouts = [];
+    let typingInterval = null;
+
+    // Toast Notification helper
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Web Audio Synthesizer & MediaStream Destination Node
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const audioDest = audioCtx.createMediaStreamDestination();
+    let audioCarrier = null;
+
+    // Continuous audio carrier ensures MediaRecorder receives continuous audio clock frames
+    function ensureAudioClock() {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      if (audioCarrier) return;
+      try {
+        const silentGain = audioCtx.createGain();
+        silentGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+        osc.connect(silentGain);
+        silentGain.connect(audioDest);
+        osc.start();
+        audioCarrier = osc;
+      } catch (e) {
+        console.warn("Audio carrier setup notice:", e);
+      }
+    }
+
+    function playSound(type) {
+      ensureAudioClock();
+      const now = audioCtx.currentTime;
+
+      if (type === 'key') {
+        // Crisp iOS keyboard tap sound
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200 + Math.random() * 400, now);
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.035);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        gain.connect(audioDest);
+        osc.start(now);
+        osc.stop(now + 0.035);
+
+      } else if (type === 'sent') {
+        // Classic iOS iMessage Sent "Swoosh / Pop"
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(480, now);
+        osc.frequency.exponentialRampToValueAtTime(960, now + 0.14);
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        gain.connect(audioDest);
+        osc.start(now);
+        osc.stop(now + 0.14);
+
+      } else if (type === 'receive') {
+        // Classic iOS Received "Note" 2-Tone Chime (D5 -> A5)
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(587.33, now); // D5
+        gain1.gain.setValueAtTime(0.35, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        gain1.connect(audioDest);
+        osc1.start(now);
+        osc1.stop(now + 0.12);
+
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(880.00, now + 0.08); // A5
+        gain2.gain.setValueAtTime(0.35, now + 0.08);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.28);
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        gain2.connect(audioDest);
+        osc2.start(now + 0.08);
+        osc2.stop(now + 0.28);
+
+      } else if (type === 'pop') {
+        // Calendar Notification Chime
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(950, now);
+        osc.frequency.exponentialRampToValueAtTime(1400, now + 0.18);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        gain.connect(audioDest);
+        osc.start(now);
+        osc.stop(now + 0.22);
+
+      } else if (type === 'success') {
+        // Celebratory Rising Triad Arpeggio (C5 -> E5 -> G5 -> C6)
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const t = now + idx * 0.08;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.3, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          gain.connect(audioDest);
+          osc.start(t);
+          osc.stop(t + 0.3);
+        });
+      }
+    }
+
+    function getAssetSrc(url) {
+      if (typeof ASSETS_BASE64 !== 'undefined' && ASSETS_BASE64[url]) {
+        return ASSETS_BASE64[url];
+      }
+      return url;
+    }
+
+    // ========================================================
+    // TEMPLATE PERSISTENCE & LOCALSTORAGE MANAGEMENT
+    // ========================================================
+    function loadSavedTemplates() {
+      allPresets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+      try {
+        const saved = localStorage.getItem('yearly_custom_templates');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          let needsCleanup = false;
+          const legacyPayoffMap = {
+            'ad-creative-derek-roses.jpg': 'realistic-roses-delivery.jpg',
+            'ad-creative-sibling-savior.jpg': 'realistic-anniversary-surprise.jpg',
+            'ad-creative-tuesday-trap.jpg': 'realistic-couple-roses.jpg'
+          };
+          Object.keys(parsed).forEach(k => {
+            if (['1', '2', '3', 'custom'].includes(k)) {
+              needsCleanup = true;
+              return;
+            }
+            const tpl = parsed[k];
+            if (tpl && typeof tpl === 'object') {
+              if (legacyPayoffMap[tpl.payoffUrl]) {
+                tpl.payoffUrl = legacyPayoffMap[tpl.payoffUrl];
+                needsCleanup = true;
+              }
+              if (!tpl.safeZoneMode) {
+                tpl.safeZoneMode = 'reels';
+              }
+              allPresets[k] = tpl;
+            }
+          });
+          if (needsCleanup) {
+            persistCustomTemplates();
+          }
+        }
+      } catch (e) {
+        console.error("Failed to parse saved templates:", e);
+      }
+      renderPresetSelectOptions();
+    }
+
+    function renderPresetSelectOptions() {
+      const sel = document.getElementById('presetSelect');
+      sel.innerHTML = Object.keys(allPresets).map(k => `
+        <option value="${k}" ${k === currentPresetId ? 'selected' : ''}>${allPresets[k].name || 'Template ' + k}</option>
+      `).join('');
+
+      const isCustom = !['1', '2', '3'].includes(currentPresetId);
+      document.getElementById('deleteTemplateBtn').style.display = isCustom ? 'inline-flex' : 'none';
+    }
+
+    function saveCurrentTemplate() {
+      collectInputsIntoState();
+      allPresets[currentPresetId] = JSON.parse(JSON.stringify(state));
+      allPresets[currentPresetId].name = allPresets[currentPresetId].name || `Template ${currentPresetId}`;
+      persistCustomTemplates();
+      showToast(`✅ Template "${allPresets[currentPresetId].name}" saved!`);
+    }
+
+    function saveAsNewTemplate() {
+      collectInputsIntoState();
+      const name = prompt("Enter a name for this new template:", `${state.contactName} - Creative`);
+      if (!name) return;
+      
+      const newId = 'custom_' + Date.now();
+      const newTemplate = JSON.parse(JSON.stringify(state));
+      newTemplate.name = name;
+      allPresets[newId] = newTemplate;
+      currentPresetId = newId;
+
+      persistCustomTemplates();
+      renderPresetSelectOptions();
+      document.getElementById('presetSelect').value = newId;
+      showToast(`🎉 New template "${name}" created & saved!`);
+    }
+
+    function deleteCurrentTemplate() {
+      if (['1', '2', '3'].includes(currentPresetId)) {
+        alert("Default presets cannot be deleted.");
+        return;
+      }
+      if (!confirm(`Are you sure you want to delete template "${allPresets[currentPresetId].name}"?`)) return;
+
+      delete allPresets[currentPresetId];
+      persistCustomTemplates();
+      currentPresetId = '1';
+      loadSavedTemplates();
+      applyPreset('1');
+      showToast("🗑️ Template deleted.");
+    }
+
+    function persistCustomTemplates() {
+      const customOnly = {};
+      Object.keys(allPresets).forEach(k => {
+        if (!['1', '2', '3'].includes(k)) {
+          customOnly[k] = allPresets[k];
+        }
+      });
+      localStorage.setItem('yearly_custom_templates', JSON.stringify(customOnly));
+    }
+
+    function exportTemplatesJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allPresets, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `yearly-templates-${Date.now()}.json`);
+      a.click();
+      showToast("📤 Templates exported to JSON!");
+    }
+
+    function importTemplatesJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const imported = JSON.parse(e.target.result);
+          Object.assign(allPresets, imported);
+          persistCustomTemplates();
+          renderPresetSelectOptions();
+          showToast("📥 Templates imported successfully!");
+        } catch (err) {
+          alert("Invalid JSON file: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // ========================================================
+    // AI IMAGE GENERATOR & LOCAL UPLOAD ENGINE
+    // ========================================================
+    async function generateImageWithAI() {
+      const prompt = document.getElementById('aiImgPrompt').value.trim();
+      const type = document.getElementById('aiImgType').value;
+      const status = document.getElementById('aiImgStatus');
+      const btn = document.getElementById('aiImgGenBtn');
+
+      if (!prompt) {
+        alert("Please enter an image prompt first!");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ AI Generating Realistic Image...</span>";
+      status.textContent = "Synthesizing authentic DSLR photograph...";
+
+      try {
+        const seed = Math.floor(Math.random() * 999999);
+        
+        // Strict realism directives to prevent cartoon/3D/illustration generation
+        let enhancedPrompt = prompt;
+        if (type === 'avatar') {
+          enhancedPrompt += ", authentic photographic portrait of a real person, natural lighting, shot on 85mm lens, candid photograph, real human face, detailed skin texture, ultra high resolution, NO cartoon, NO 3D render, NO illustration, NO drawing, NO anime, NO CGI";
+        } else {
+          enhancedPrompt += ", real commercial DSLR photograph, 50mm lens, natural bright lighting, real delivered fresh flowers, crisp vivid petals and authentic foliage, candid photography, hyper-realistic, photorealistic, NO cartoon, NO 3D render, NO CGI, NO illustration, NO animation";
+        }
+
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=768&height=768&nologo=true&seed=${seed}&model=flux-realism`;
+
+        // Fetch image & convert to Base64 data URL to prevent canvas taint
+        const resp = await fetch(imageUrl);
+        const blob = await resp.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          const imgId = 'ai_' + Date.now();
+          const imgLabel = 'Realistic: ' + prompt.slice(0, 14) + '...';
+
+          if (type === 'avatar') {
+            AVATAR_ASSETS.unshift({ id: imgId, label: imgLabel, url: base64data });
+            state.avatarUrl = base64data;
+            renderAssetGrids();
+            updateLiveHeader();
+            preloadImage(base64data);
+            showToast("✨ Realistic AI Avatar applied!");
+          } else {
+            PAYOFF_ASSETS.unshift({ id: imgId, label: imgLabel, url: base64data });
+            state.payoffUrl = base64data;
+            renderAssetGrids();
+            updateLivePayoff();
+            preloadImage(base64data);
+            showToast("✨ Realistic Floral Delivery Image applied!");
+          }
+
+          btn.disabled = false;
+          btn.innerHTML = "<span>✨ Generate with AI</span>";
+          status.textContent = "✅ Realistic Photo generated & applied!";
+          setTimeout(() => { status.textContent = ""; }, 3000);
+        };
+        reader.readAsDataURL(blob);
+
+      } catch (err) {
+        console.error("AI Image Generation error:", err);
+        status.textContent = "⚠️ Error: " + err.message;
+        btn.disabled = false;
+        btn.innerHTML = "<span>✨ Generate with AI</span>";
+      }
+    }
+
+    function handleLocalImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const type = document.getElementById('aiImgType').value;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64data = e.target.result;
+        const imgId = 'upload_' + Date.now();
+        const imgLabel = file.name.slice(0, 14);
+
+        if (type === 'avatar') {
+          AVATAR_ASSETS.unshift({ id: imgId, label: imgLabel, url: base64data });
+          state.avatarUrl = base64data;
+          renderAssetGrids();
+          updateLiveHeader();
+          preloadImage(base64data);
+          showToast("📁 Avatar photo uploaded!");
+        } else {
+          PAYOFF_ASSETS.unshift({ id: imgId, label: imgLabel, url: base64data });
+          state.payoffUrl = base64data;
+          renderAssetGrids();
+          updateLivePayoff();
+          preloadImage(base64data);
+          showToast("📁 Hero bouquet photo uploaded!");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ========================================================
+    // SOCIAL SAFE ZONE & OVERLAY PREVIEW ENGINE
+    // ========================================================
+    function setSafeZoneMode(mode) {
+      state.safeZoneMode = mode;
+      const device = document.getElementById('iphoneDevice');
+      const reelsBtn = document.getElementById('btnSafeZoneReels');
+      const fullBtn = document.getElementById('btnSafeZoneFull');
+      const label = document.getElementById('safeZoneStatusLabel');
+
+      if (mode === 'reels') {
+        if (device) device.classList.add('reels-safe-mode');
+        if (reelsBtn) reelsBtn.classList.add('active');
+        if (fullBtn) fullBtn.classList.remove('active');
+        if (label) {
+          label.textContent = "🛡️ Reels/Shorts Safe Active";
+          label.style.color = "var(--accent)";
+        }
+      } else {
+        if (device) device.classList.remove('reels-safe-mode');
+        if (reelsBtn) reelsBtn.classList.remove('active');
+        if (fullBtn) fullBtn.classList.add('active');
+        if (label) {
+          label.textContent = "🔲 Full Bleed Mode";
+          label.style.color = "var(--text-muted)";
+        }
+      }
+      drawCanvasFrame();
+      renderThumbnailCanvas();
+    }
+
+    function toggleOverlayGuide(platform) {
+      const overlayLayer = document.getElementById('socialOverlayLayer');
+      const reelsContent = document.getElementById('reelsOverlayContent');
+      const tiktokContent = document.getElementById('tiktokOverlayContent');
+      const reelsBtn = document.getElementById('guideReelsBtn');
+      const tiktokBtn = document.getElementById('guideTiktokBtn');
+
+      if (!overlayLayer || !reelsContent || !tiktokContent) return;
+
+      if (reelsBtn) reelsBtn.classList.remove('active');
+      if (tiktokBtn) tiktokBtn.classList.remove('active');
+
+      if (platform === 'reels') {
+        overlayLayer.classList.add('active');
+        reelsContent.style.display = 'block';
+        tiktokContent.style.display = 'none';
+        if (reelsBtn) reelsBtn.classList.add('active');
+      } else if (platform === 'tiktok') {
+        overlayLayer.classList.add('active');
+        reelsContent.style.display = 'none';
+        tiktokContent.style.display = 'block';
+        if (tiktokBtn) tiktokBtn.classList.add('active');
+      } else {
+        overlayLayer.classList.remove('active');
+        reelsContent.style.display = 'none';
+        tiktokContent.style.display = 'none';
+      }
+    }
+
+    function setAiPromptPreset(txt) {
+      const promptInput = document.getElementById('aiImgPrompt');
+      if (promptInput) {
+        promptInput.value = txt;
+        showToast("Realistic photo preset loaded!");
+      }
+    }
+
+    // ========================================================
+    // STUDIO INIT & STATE BINDING
+    // ========================================================
+    function init() {
+      loadSavedTemplates();
+      applyPreset('1');
+    }
+
+    function renderAssetGrids() {
+      const avGrid = document.getElementById('avatarGrid');
+      avGrid.innerHTML = AVATAR_ASSETS.map(a => `
+        <div class="asset-card ${state.avatarUrl === a.url ? 'active' : ''}" onclick="selectAvatar('${a.url}')">
+          <img src="${getAssetSrc(a.url)}" alt="${a.label}">
+          <div class="label">${a.label}</div>
+        </div>
+      `).join('');
+
+      const poGrid = document.getElementById('payoffGrid');
+      poGrid.innerHTML = PAYOFF_ASSETS.map(p => `
+        <div class="asset-card ${state.payoffUrl === p.url ? 'active' : ''}" onclick="selectPayoff('${p.url}')">
+          <img src="${getAssetSrc(p.url)}" alt="${p.label}">
+          <div class="label">${p.label}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectAvatar(url) {
+      state.avatarUrl = url;
+      renderAssetGrids();
+      updateLiveHeader();
+      preloadImage(url);
+    }
+
+    function selectPayoff(url) {
+      state.payoffUrl = url;
+      renderAssetGrids();
+      const pImg = document.getElementById('uiPayoffImg');
+      if (pImg) pImg.src = getAssetSrc(url);
+      preloadImage(url);
+    }
+
+    function setChatType(type) {
+      state.chatType = type;
+      const pBtn = document.getElementById('typePersonalBtn');
+      const gBtn = document.getElementById('typeGroupBtn');
+      if (pBtn) pBtn.classList.toggle('active', type === 'personal');
+      if (gBtn) gBtn.classList.toggle('active', type === 'group');
+      updateLiveHeader();
+      renderMessagesEditor();
+    }
+
+    function collectInputsIntoState() {
+      state.contactName = document.getElementById('cfgContactName').value;
+      state.statusText = document.getElementById('cfgStatusText').value;
+      state.notifTitle = document.getElementById('cfgNotifTitle').value;
+      state.notifBody = document.getElementById('cfgNotifBody').value;
+      state.notifBtn = document.getElementById('cfgNotifBtn').value;
+      state.payoffTitle = document.getElementById('cfgPayoffTitle').value;
+      state.payoffBody = document.getElementById('cfgPayoffBody').value;
+      state.payoffBtn = document.getElementById('cfgPayoffBtn').value;
+    }
+
+    function loadStateIntoInputs() {
+      document.getElementById('cfgContactName').value = state.contactName;
+      document.getElementById('cfgStatusText').value = state.statusText;
+      document.getElementById('cfgNotifTitle').value = state.notifTitle;
+      document.getElementById('cfgNotifBody').value = state.notifBody;
+      document.getElementById('cfgNotifBtn').value = state.notifBtn;
+      document.getElementById('cfgPayoffTitle').value = state.payoffTitle || 'Saved at the Buzzer 🚀';
+      document.getElementById('cfgPayoffBody').value = state.payoffBody || '1-Click Google Calendar gifting.';
+      document.getElementById('cfgPayoffBtn').value = state.payoffBtn || 'Install Yearly Free';
+      
+      setSafeZoneMode(state.safeZoneMode || 'reels');
+      setChatType(state.chatType);
+      updateLiveHeader();
+      updateLiveNotif();
+      updateLivePayoff();
+    }
+
+    function updateLiveHeader() {
+      state.contactName = document.getElementById('cfgContactName').value;
+      state.statusText = document.getElementById('cfgStatusText').value;
+
+      document.getElementById('uiContactName').textContent = state.contactName;
+      document.getElementById('uiSubtext').textContent = state.statusText;
+
+      const avContainer = document.getElementById('uiAvatarContainer');
+      if (state.chatType === 'group') {
+        avContainer.innerHTML = `
+          <div class="group-avatar-stack">
+            <img src="${getAssetSrc(state.avatarUrl || 'avatar-family.jpg')}" class="av1" alt="Avatar 1">
+            <img src="${getAssetSrc('avatar-wifey.jpg')}" class="av2" alt="Avatar 2">
+          </div>
+        `;
+      } else if (state.avatarUrl === 'messages ui.jpg') {
+        avContainer.innerHTML = `<div class="avatar-initials-circle">PS</div>`;
+      } else {
+        avContainer.innerHTML = `<img class="avatar-img-circle" src="${getAssetSrc(state.avatarUrl)}" alt="Avatar">`;
+      }
+    }
+
+    function updateLiveNotif() {
+      state.notifTitle = document.getElementById('cfgNotifTitle').value;
+      state.notifBody = document.getElementById('cfgNotifBody').value;
+      state.notifBtn = document.getElementById('cfgNotifBtn').value;
+
+      document.getElementById('uiNotifTitle').textContent = state.notifTitle;
+      document.getElementById('uiNotifBody').textContent = state.notifBody;
+      document.getElementById('uiNotifBtn').textContent = state.notifBtn;
+    }
+
+    function updateLivePayoff() {
+      state.payoffTitle = document.getElementById('cfgPayoffTitle').value;
+      state.payoffBody = document.getElementById('cfgPayoffBody').value;
+      state.payoffBtn = document.getElementById('cfgPayoffBtn').value;
+
+      document.getElementById('uiPayoffTitle').textContent = state.payoffTitle;
+      document.getElementById('uiPayoffBody').textContent = state.payoffBody;
+      document.getElementById('uiPayoffBtn').textContent = state.payoffBtn;
+      const pImg = document.getElementById('uiPayoffImg');
+      if (pImg) pImg.src = getAssetSrc(state.payoffUrl);
+    }
+
+    let isRecording = false;
+
+    function applyPreset(id) {
+      if (isRecording) return;
+      if (!allPresets[id]) return;
+      currentPresetId = id;
+      state = JSON.parse(JSON.stringify(allPresets[id]));
+      const pSelect = document.getElementById('presetSelect');
+      if (pSelect) pSelect.value = id;
+      
+      const isCustom = !['1', '2', '3'].includes(id);
+      document.getElementById('deleteTemplateBtn').style.display = isCustom ? 'inline-flex' : 'none';
+
+      loadStateIntoInputs();
+      renderAssetGrids();
+      renderMessagesEditor();
+      restartVideo();
+    }
+
+    // Message Sequence Editor
+    function renderMessagesEditor() {
+      const container = document.getElementById('messagesListContainer');
+      container.innerHTML = state.messages.map((m, idx) => `
+        <div class="msg-item">
+          <div class="msg-item-header">
+            <span class="msg-type-tag ${m.type}">${m.type.toUpperCase()}</span>
+            <span style="font-size: 11px; color: var(--text-muted);">${(m.delay / 1000).toFixed(1)}s</span>
+            <button class="msg-delete-btn" onclick="deleteMessage(${idx})">✕</button>
+          </div>
+          
+          <div style="display: flex; gap: 6px; margin-bottom: 6px;">
+            <select style="width: 105px;" onchange="updateMsgType(${idx}, this.value)">
+              <option value="receive" ${m.type === 'receive' ? 'selected' : ''}>Incoming</option>
+              <option value="send" ${m.type === 'send' ? 'selected' : ''}>Outgoing</option>
+              <option value="draft" ${m.type === 'draft' ? 'selected' : ''}>Typing Draft</option>
+              <option value="notif" ${m.type === 'notif' ? 'selected' : ''}>Calendar Alert</option>
+              <option value="payoff" ${m.type === 'payoff' ? 'selected' : ''}>Payoff Reveal</option>
+              <option value="time" ${m.type === 'time' ? 'selected' : ''}>Timestamp</option>
+            </select>
+
+            ${state.chatType === 'group' && m.type === 'receive' ? `
+              <input type="text" placeholder="Sender" value="${m.senderName || ''}" style="width: 80px;" class="input-field" oninput="updateMsgSender(${idx}, this.value)">
+            ` : ''}
+
+            <input type="number" placeholder="Delay" value="${m.delay}" style="width: 75px;" class="input-field" oninput="updateMsgDelay(${idx}, this.value)">
+          </div>
+
+          ${m.type !== 'notif' && m.type !== 'payoff' ? `
+            <input type="text" class="input-field" value="${m.text || ''}" oninput="updateMsgText(${idx}, this.value)">
+          ` : `<div style="font-size: 11px; color: var(--accent);">⚡ Triggers pop-up / payoff screen</div>`}
+        </div>
+      `).join('');
+    }
+
+    function updateMsgType(idx, val) { state.messages[idx].type = val; renderMessagesEditor(); }
+    function updateMsgSender(idx, val) { state.messages[idx].senderName = val; }
+    function updateMsgDelay(idx, val) { state.messages[idx].delay = parseInt(val) || 0; }
+    function updateMsgText(idx, val) { state.messages[idx].text = val; }
+    function deleteMessage(idx) { state.messages.splice(idx, 1); renderMessagesEditor(); }
+    
+    function addNewMessage() {
+      state.messages.push({
+        type: 'receive',
+        text: 'New message ❤️',
+        senderName: state.chatType === 'group' ? 'Sister' : '',
+        delay: (state.messages.length + 1) * 1500
+      });
+      renderMessagesEditor();
+    }
+
+    // Real-Time Draft Typing & Backspace Engine
+    function simulateDraftTyping(fullText, onComplete) {
+      clearInterval(typingInterval);
+      const textSpan = document.getElementById('uiInputDraftText');
+      const cursor = document.getElementById('uiCursor');
+      
+      textSpan.classList.remove('placeholder');
+      textSpan.textContent = '';
+      cursor.style.display = 'inline-block';
+
+      let charIdx = 0;
+      typingInterval = setInterval(() => {
+        if (charIdx < fullText.length) {
+          textSpan.textContent += fullText[charIdx];
+          playSound('key');
+          charIdx++;
+        } else {
+          clearInterval(typingInterval);
+          if (onComplete) onComplete();
+        }
+      }, 75);
+    }
+
+    function simulateDraftBackspace(onComplete) {
+      clearInterval(typingInterval);
+      const textSpan = document.getElementById('uiInputDraftText');
+      
+      typingInterval = setInterval(() => {
+        if (textSpan.textContent.length > 0) {
+          textSpan.textContent = textSpan.textContent.slice(0, -1);
+          playSound('key');
+        } else {
+          clearInterval(typingInterval);
+          textSpan.classList.add('placeholder');
+          textSpan.textContent = 'iMessage';
+          document.getElementById('uiCursor').style.display = 'none';
+          if (onComplete) onComplete();
+        }
+      }, 35);
+    }
+
+    // Playback Engine
+    function clearTimeouts() {
+      timeouts.forEach(t => clearTimeout(t));
+      timeouts = [];
+      clearInterval(typingInterval);
+      document.getElementById('uiThread').innerHTML = '';
+      document.getElementById('uiTyping').style.display = 'none';
+      document.getElementById('uiNotifBanner').classList.remove('active');
+      document.getElementById('uiPayoffOverlay').classList.remove('active');
+      
+      const textSpan = document.getElementById('uiInputDraftText');
+      textSpan.classList.add('placeholder');
+      textSpan.textContent = 'iMessage';
+      document.getElementById('uiCursor').style.display = 'none';
+
+      const btn = document.getElementById('uiNotifBtn');
+      btn.style.transform = 'none';
+      btn.style.background = 'var(--accent)';
+      btn.textContent = state.notifBtn;
+    }
+
+    function togglePlay() {
+      if (isRecording) return;
+      if (isPlaying) {
+        clearTimeouts();
+        isPlaying = false;
+        document.getElementById('playBtn').textContent = '▶ Play Video';
+      } else {
+        restartVideo();
+      }
+    }
+
+    function restartVideo(allowDuringRecording = false) {
+      if (isRecording && !allowDuringRecording) return;
+      clearTimeouts();
+      isPlaying = true;
+      document.getElementById('playBtn').textContent = '⏸ Pause';
+
+      const sorted = [...state.messages].sort((a, b) => a.delay - b.delay);
+
+      sorted.forEach(item => {
+        const t = setTimeout(() => {
+          executeStep(item);
+        }, item.delay);
+        timeouts.push(t);
+      });
+    }
+
+    function executeStep(item) {
+      const thread = document.getElementById('uiThread');
+
+      if (item.type === 'time') {
+        const div = document.createElement('div');
+        div.className = 'timestamp-divider';
+        div.textContent = item.text;
+        thread.appendChild(div);
+      } else if (item.type === 'receive') {
+        document.getElementById('uiTyping').style.display = 'none';
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = 'bubble-wrapper receive';
+
+        if (state.chatType === 'group' && item.senderName) {
+          const sName = document.createElement('div');
+          sName.className = 'group-sender-label';
+          sName.textContent = item.senderName;
+          wrapper.appendChild(sName);
+        }
+
+        const bubble = document.createElement('div');
+        bubble.className = 'imsg-bubble receive';
+        bubble.textContent = item.text;
+        wrapper.appendChild(bubble);
+
+        thread.appendChild(wrapper);
+        playSound('receive');
+      } else if (item.type === 'draft') {
+        simulateDraftTyping(item.text);
+      } else if (item.type === 'notif') {
+        document.getElementById('uiNotifBanner').classList.add('active');
+        playSound('pop');
+        // Auto-tap after 1.6s if user is watching/recording video
+        const notifAutoTap = setTimeout(() => {
+          if (document.getElementById('uiNotifBanner').classList.contains('active')) {
+            onNotificationTap();
+          }
+        }, 1600);
+        timeouts.push(notifAutoTap);
+      } else if (item.type === 'send') {
+        document.getElementById('uiTyping').style.display = 'none';
+        
+        simulateDraftBackspace(() => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'bubble-wrapper send';
+
+          const bubble = document.createElement('div');
+          bubble.className = 'imsg-bubble send';
+          bubble.textContent = item.text;
+          wrapper.appendChild(bubble);
+
+          const receipt = document.createElement('div');
+          receipt.className = 'read-receipt';
+          receipt.textContent = 'Read Just now';
+          wrapper.appendChild(receipt);
+
+          thread.appendChild(wrapper);
+          playSound('sent');
+          thread.scrollTop = thread.scrollHeight;
+        });
+      } else if (item.type === 'payoff') {
+        document.getElementById('uiPayoffOverlay').classList.add('active');
+      }
+
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    function onNotificationTap() {
+      const btn = document.getElementById('uiNotifBtn');
+      btn.style.transform = 'scale(0.95)';
+      btn.style.background = '#16a34a';
+      btn.textContent = '✅ Order Confirmed! (Sent to FloristOne)';
+      playSound('success');
+      const hideT = setTimeout(() => {
+        document.getElementById('uiNotifBanner').classList.remove('active');
+      }, 900);
+      timeouts.push(hideT);
+    }
+
+    // Helper to safely extract JSON from LLM responses
+    function extractJSON(rawText) {
+      if (!rawText) throw new Error("Empty response from AI");
+      let text = rawText.trim();
+      text = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+      const startIdx = text.indexOf('{');
+      const endIdx = text.lastIndexOf('}');
+      if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+        text = text.substring(startIdx, endIdx + 1);
+      }
+      return JSON.parse(text);
+    }
+
+    // Groq AI Integration with Automatic JSON Mode & Fallback
+    async function generateScriptWithGroq() {
+      const promptText = document.getElementById('groqPrompt').value.trim();
+      if (!promptText) {
+        alert("Please enter a scenario description first!");
+        return;
+      }
+
+      const btn = document.getElementById('groqGenerateBtn');
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ Groq AI is generating script...</span>";
+
+      const systemPrompt = `You are an elite short-form viral video ad script writer for 'Yearly' (yearly.click) - a Google Calendar 1-click gift delivery extension that saves people from forgetfulness and relationship disasters ('שכחנות, עצלנות').
+Given a scenario, output a single valid JSON object with EXACTLY this structure:
+{
+  "name": "Template Title",
+  "chatType": "personal" or "group",
+  "contactName": "Friend / Contact Name",
+  "statusText": "iMessage",
+  "avatarUrl": "avatar-husband.jpg",
+  "payoffUrl": "bouquet-pink-posh.jpg",
+  "notifTitle": "📅 Calendar Alert Title",
+  "notifBody": "Description of gift / flowers ready to send",
+  "notifBtn": "⚡ 1-Click Send Flowers ($49)",
+  "payoffTitle": "Saved at the Buzzer 🚀",
+  "payoffBody": "1-Click Google Calendar gifting.",
+  "payoffBtn": "Install Yearly Free",
+  "messages": [
+    { "type": "time", "text": "Today 19:20", "senderName": "", "delay": 400 },
+    { "type": "receive", "text": "Incoming message text", "senderName": "Sender If Group", "delay": 1400 },
+    { "type": "draft", "text": "Panicked reply typing...", "senderName": "", "delay": 2800 },
+    { "type": "notif", "text": "", "senderName": "", "delay": 4200 },
+    { "type": "send", "text": "Heroic final reply ❤️", "senderName": "", "delay": 6800 },
+    { "type": "payoff", "text": "", "senderName": "", "delay": 9000 }
+  ]
+}
+
+Available avatarUrl options: "avatar-husband.jpg", "avatar-wifey.jpg", "avatar-sister.jpg", "avatar-family.jpg", "messages ui.jpg", "Screenshot 2026-10-07 at 18.36.23.png".
+Available payoffUrl options: "ad-creative-derek-roses.jpg", "bouquet-pink-posh.jpg", "bouquet-best-day.jpg", "bouquet-high-style.jpg", "bouquet-luxury-roses.jpg", "asset-orchid-bouquet.jpg".
+Output valid JSON only.`;
+
+      const candidateModels = ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"];
+      let parsed = null;
+      let lastError = null;
+
+      for (const model of candidateModels) {
+        try {
+          const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${GROQ_API_KEY}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model,
+              response_format: { type: "json_object" },
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: promptText }
+              ],
+              max_tokens: 2048,
+              temperature: 0.7
+            })
+          });
+
+          const data = await response.json();
+          if (data.error) throw new Error(data.error.message || "Groq API error");
+          
+          const content = data.choices[0].message.content;
+          parsed = extractJSON(content);
+          if (parsed && parsed.messages && parsed.messages.length > 0) {
+            break;
+          }
+        } catch (err) {
+          console.warn(`Model ${model} failed, trying next...`, err);
+          lastError = err;
+        }
+      }
+
+      try {
+        if (parsed) {
+          if (!parsed.avatarUrl) parsed.avatarUrl = 'avatar-husband.jpg';
+          if (!parsed.payoffUrl) parsed.payoffUrl = 'bouquet-pink-posh.jpg';
+
+          const base = (state && typeof state === 'object') ? state : JSON.parse(JSON.stringify(DEFAULT_PRESETS[1]));
+          state = Object.assign({}, base, parsed);
+          
+          // Save as a new named template automatically
+          const autoId = 'ai_' + Date.now();
+          allPresets[autoId] = JSON.parse(JSON.stringify(state));
+          currentPresetId = autoId;
+          persistCustomTemplates();
+          renderPresetSelectOptions();
+          document.getElementById('presetSelect').value = autoId;
+
+          loadStateIntoInputs();
+          renderAssetGrids();
+          renderMessagesEditor();
+          restartVideo();
+
+          btn.disabled = false;
+          btn.innerHTML = "<span>✅ Script Generated & Playing!</span>";
+          showToast(`✨ Generated template "${state.name || 'AI Script'}"!`);
+          setTimeout(() => {
+            btn.innerHTML = "<span>✨ Generate Script with Groq AI</span>";
+          }, 3000);
+        } else {
+          console.error("Groq generation error:", lastError);
+          alert("Failed to generate with Groq: " + (lastError ? lastError.message : "Unknown error"));
+          btn.disabled = false;
+          btn.innerHTML = "<span>✨ Generate Script with Groq AI</span>";
+        }
+      } catch (applyErr) {
+        console.error("Error applying generated script:", applyErr);
+        alert("Failed to apply script: " + applyErr.message);
+        btn.disabled = false;
+        btn.innerHTML = "<span>✨ Generate Script with Groq AI</span>";
+      }
+    }
+
+    // ========================================================
+    // BULLETPROOF CANVAS 2D VIDEO RECORDER & EXPORT ENGINE
+    // ========================================================
+    let recorderCanvas = document.createElement('canvas');
+    recorderCanvas.width = 750;
+    recorderCanvas.height = 1360;
+    const rCtx = recorderCanvas.getContext('2d');
+
+    // Preloaded image cache for canvas rendering
+    const imgCache = {};
+    function preloadImage(url) {
+      const src = getAssetSrc(url);
+      if (!src || imgCache[url]) return;
+      const img = new Image();
+      img.onload = () => { imgCache[url] = img; };
+      img.src = src;
+    }
+    AVATAR_ASSETS.forEach(a => preloadImage(a.url));
+    PAYOFF_ASSETS.forEach(p => preloadImage(p.url));
+
+    // Render exact iMessage frame to 2D Canvas at scale 2x (750x1360)
+    function drawCanvasFrame() {
+      if (state.avatarUrl && !imgCache[state.avatarUrl]) preloadImage(state.avatarUrl);
+      if (state.payoffUrl && !imgCache[state.payoffUrl]) preloadImage(state.payoffUrl);
+
+      rCtx.fillStyle = '#000000';
+      rCtx.fillRect(0, 0, 750, 1360);
+
+      const topOffset = (state.safeZoneMode === 'reels') ? 110 : 0;
+
+      if (topOffset > 0) {
+        // Aesthetic Obsidian Framing Header for Reels/TikTok Top Safe Zone
+        rCtx.fillStyle = '#090a0f';
+        rCtx.fillRect(0, 0, 750, topOffset);
+        rCtx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+        rCtx.fillRect(0, topOffset - 1, 750, 1);
+      }
+
+      // 1. Status Bar & Apple Dynamic Island (Aligned on the same horizontal row)
+      rCtx.fillStyle = '#ffffff';
+      rCtx.font = 'bold 25px -apple-system, sans-serif';
+      rCtx.fillText('20:14', 36, 66 + topOffset);
+
+      rCtx.fillStyle = '#8e8e93';
+      rCtx.font = '19px -apple-system, sans-serif';
+      rCtx.fillText('◀ Puzzles', 116, 66 + topOffset);
+
+      // Dynamic Island Pill (centered between status bar items)
+      rCtx.fillStyle = '#050507';
+      rCtx.beginPath();
+      rCtx.roundRect(275, 38 + topOffset, 200, 40, 20);
+      rCtx.fill();
+      rCtx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+      rCtx.lineWidth = 1.5;
+      rCtx.stroke();
+
+      // Camera lens dot inside Dynamic Island
+      rCtx.fillStyle = '#111827';
+      rCtx.beginPath();
+      rCtx.arc(310, 58 + topOffset, 8, 0, Math.PI * 2);
+      rCtx.fill();
+      rCtx.fillStyle = '#0f172a';
+      rCtx.beginPath();
+      rCtx.arc(435, 58 + topOffset, 6, 0, Math.PI * 2);
+      rCtx.fill();
+
+      // Battery & Signal
+      rCtx.fillStyle = '#ffffff';
+      rCtx.font = 'bold 21px -apple-system, sans-serif';
+      rCtx.fillText('5G', 604, 66 + topOffset);
+      
+      rCtx.strokeStyle = 'rgba(255,255,255,0.4)';
+      rCtx.lineWidth = 2;
+      rCtx.strokeRect(646, 46 + topOffset, 48, 26);
+      rCtx.fillStyle = '#ffffff';
+      rCtx.fillRect(648, 48 + topOffset, 44, 22);
+      rCtx.fillStyle = '#000000';
+      rCtx.font = 'bold 16px -apple-system, sans-serif';
+      rCtx.fillText('39', 658, 65 + topOffset);
+
+      // 2. Header Bar
+      rCtx.fillStyle = 'rgba(24, 24, 26, 0.95)';
+      rCtx.fillRect(0, 85 + topOffset, 750, 120);
+      rCtx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      rCtx.fillRect(0, 204 + topOffset, 750, 1);
+
+      // Back button
+      rCtx.fillStyle = '#2c2c2e';
+      rCtx.beginPath();
+      rCtx.arc(50, 145 + topOffset, 30, 0, Math.PI * 2);
+      rCtx.fill();
+      rCtx.fillStyle = '#007aff';
+      rCtx.font = 'bold 28px -apple-system, sans-serif';
+      rCtx.fillText('‹', 42, 154 + topOffset);
+
+      // Video button
+      rCtx.fillStyle = '#2c2c2e';
+      rCtx.beginPath();
+      rCtx.arc(700, 145 + topOffset, 30, 0, Math.PI * 2);
+      rCtx.fill();
+      rCtx.fillStyle = '#007aff';
+      rCtx.font = '22px -apple-system, sans-serif';
+      rCtx.fillText('📹', 687, 153 + topOffset);
+
+      // Avatar Center (Group stack vs Single Avatar)
+      if (state.chatType === 'group') {
+        const fImg = imgCache[state.avatarUrl] || imgCache['avatar-family.jpg'];
+        const wImg = imgCache['avatar-wifey.jpg'];
+        if (fImg && fImg.complete) {
+          rCtx.save();
+          rCtx.beginPath();
+          rCtx.arc(360, 122 + topOffset, 28, 0, Math.PI * 2);
+          rCtx.clip();
+          rCtx.drawImage(fImg, 332, 94 + topOffset, 56, 56);
+          rCtx.restore();
+          rCtx.strokeStyle = '#000000';
+          rCtx.lineWidth = 2;
+          rCtx.beginPath();
+          rCtx.arc(360, 122 + topOffset, 28, 0, Math.PI * 2);
+          rCtx.stroke();
+        }
+        if (wImg && wImg.complete) {
+          rCtx.save();
+          rCtx.beginPath();
+          rCtx.arc(390, 132 + topOffset, 24, 0, Math.PI * 2);
+          rCtx.clip();
+          rCtx.drawImage(wImg, 366, 108 + topOffset, 48, 48);
+          rCtx.restore();
+          rCtx.strokeStyle = '#000000';
+          rCtx.lineWidth = 2;
+          rCtx.beginPath();
+          rCtx.arc(390, 132 + topOffset, 24, 0, Math.PI * 2);
+          rCtx.stroke();
+        }
+      } else {
+        const avImg = imgCache[state.avatarUrl];
+        if (avImg && avImg.complete) {
+          rCtx.save();
+          rCtx.beginPath();
+          rCtx.arc(375, 125 + topOffset, 36, 0, Math.PI * 2);
+          rCtx.clip();
+          rCtx.drawImage(avImg, 339, 89 + topOffset, 72, 72);
+          rCtx.restore();
+        } else if (state.avatarUrl === 'messages ui.jpg') {
+          rCtx.fillStyle = '#4f46e5';
+          rCtx.beginPath();
+          rCtx.arc(375, 125 + topOffset, 36, 0, Math.PI * 2);
+          rCtx.fill();
+          rCtx.fillStyle = '#ffffff';
+          rCtx.font = 'bold 24px -apple-system, sans-serif';
+          rCtx.fillText('PS', 360, 134 + topOffset);
+        } else {
+          rCtx.fillStyle = '#3b82f6';
+          rCtx.beginPath();
+          rCtx.arc(375, 125 + topOffset, 36, 0, Math.PI * 2);
+          rCtx.fill();
+        }
+      }
+
+      // Name Capsule Pill
+      rCtx.fillStyle = 'rgba(44, 44, 46, 0.8)';
+      rCtx.beginPath();
+      rCtx.roundRect(260, 168 + topOffset, 230, 30, 15);
+      rCtx.fill();
+      rCtx.fillStyle = '#ffffff';
+      rCtx.font = 'bold 18px -apple-system, sans-serif';
+      rCtx.textAlign = 'center';
+      rCtx.fillText(state.contactName + ' ›', 375, 189 + topOffset);
+      rCtx.textAlign = 'left';
+
+      // 3. Message Thread
+      let yCursor = 268 + topOffset;
+      const threadMsgs = document.getElementById('uiThread').children;
+      for (let i = 0; i < threadMsgs.length; i++) {
+        const el = threadMsgs[i];
+        if (el.classList.contains('timestamp-divider')) {
+          rCtx.fillStyle = '#8e8e93';
+          rCtx.font = '500 20px -apple-system, sans-serif';
+          rCtx.textAlign = 'center';
+          rCtx.fillText(el.textContent, 375, yCursor);
+          rCtx.textAlign = 'left';
+          yCursor += 38;
+        } else if (el.classList.contains('bubble-wrapper')) {
+          const isReceive = el.classList.contains('receive');
+          const bubble = el.querySelector('.imsg-bubble');
+          const senderLabel = el.querySelector('.group-sender-label');
+          const receipt = el.querySelector('.read-receipt');
+
+          if (senderLabel) {
+            rCtx.fillStyle = '#bf5af2';
+            rCtx.font = 'bold 18px -apple-system, sans-serif';
+            rCtx.fillText(senderLabel.textContent, 40, yCursor);
+            yCursor += 24;
+          }
+
+          if (bubble) {
+            const text = bubble.textContent;
+            rCtx.font = '26px -apple-system, sans-serif';
+            const maxW = 500;
+            
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = words[0] || '';
+            for (let w = 1; w < words.length; w++) {
+              let testLine = currentLine + ' ' + words[w];
+              if (rCtx.measureText(testLine).width < maxW) {
+                currentLine = testLine;
+              } else {
+                lines.push(currentLine);
+                currentLine = words[w];
+              }
+            }
+            lines.push(currentLine);
+
+            const bubbleW = Math.min(520, Math.max(...lines.map(l => rCtx.measureText(l).width)) + 36);
+            const bubbleH = lines.length * 34 + 20;
+            const bubbleX = isReceive ? 30 : (720 - bubbleW);
+
+            rCtx.fillStyle = isReceive ? '#26252a' : '#007aff';
+            rCtx.beginPath();
+            rCtx.roundRect(bubbleX, yCursor, bubbleW, bubbleH, 24);
+            rCtx.fill();
+
+            rCtx.fillStyle = '#ffffff';
+            lines.forEach((line, lIdx) => {
+              rCtx.fillText(line, bubbleX + 18, yCursor + 32 + (lIdx * 34));
+            });
+
+            yCursor += bubbleH + 12;
+
+            if (receipt) {
+              rCtx.fillStyle = '#8e8e93';
+              rCtx.font = '18px -apple-system, sans-serif';
+              rCtx.fillText(receipt.textContent, 710 - rCtx.measureText(receipt.textContent).width, yCursor);
+              yCursor += 24;
+            }
+          }
+        }
+      }
+
+      // 4. Typing Indicator if active
+      if (document.getElementById('uiTyping').style.display === 'flex') {
+        rCtx.fillStyle = '#26252a';
+        rCtx.beginPath();
+        rCtx.roundRect(30, yCursor, 90, 48, 24);
+        rCtx.fill();
+        rCtx.fillStyle = '#8e8e93';
+        const t = (Date.now() / 200) % 3;
+        for (let d = 0; d < 3; d++) {
+          const dy = Math.sin(t + d) * 3;
+          rCtx.beginPath();
+          rCtx.arc(55 + d * 18, yCursor + 24 + dy, 5, 0, Math.PI * 2);
+          rCtx.fill();
+        }
+      }
+
+      // 5. Bottom Input Bar with Real-time draft text
+      rCtx.fillStyle = 'rgba(24, 24, 26, 0.96)';
+      rCtx.fillRect(0, 1230, 750, 130);
+      rCtx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      rCtx.fillRect(0, 1230, 750, 1);
+
+      // Plus btn
+      rCtx.fillStyle = '#2c2c2e';
+      rCtx.beginPath();
+      rCtx.arc(50, 1275, 26, 0, Math.PI * 2);
+      rCtx.fill();
+      rCtx.fillStyle = '#8e8e93';
+      rCtx.font = 'bold 30px -apple-system, sans-serif';
+      rCtx.fillText('+', 41, 1285);
+
+      // Input pill
+      rCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      rCtx.lineWidth = 1.5;
+      rCtx.beginPath();
+      rCtx.roundRect(95, 1248, 620, 54, 27);
+      rCtx.stroke();
+
+      const draftText = document.getElementById('uiInputDraftText').textContent;
+      const isPlaceholder = document.getElementById('uiInputDraftText').classList.contains('placeholder');
+      rCtx.fillStyle = isPlaceholder ? '#636366' : '#ffffff';
+      rCtx.font = '24px -apple-system, sans-serif';
+      rCtx.fillText(draftText, 120, 1283);
+
+      if (!isPlaceholder && Math.floor(Date.now() / 500) % 2 === 0) {
+        const textW = rCtx.measureText(draftText).width;
+        rCtx.fillStyle = '#007aff';
+        rCtx.fillRect(122 + textW, 1262, 3, 26);
+      }
+
+      rCtx.font = '22px -apple-system, sans-serif';
+      rCtx.fillText('🎙️', 675, 1283);
+
+      // Home indicator
+      rCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      rCtx.beginPath();
+      rCtx.roundRect(260, 1340, 230, 8, 4);
+      rCtx.fill();
+
+      // 6. Push Notification Banner if Active (Covers header cleanly at y = 85 + topOffset)
+      if (document.getElementById('uiNotifBanner').classList.contains('active')) {
+        const nY = 85 + topOffset;
+        rCtx.save();
+        rCtx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+        rCtx.shadowBlur = 28;
+        rCtx.shadowOffsetY = 10;
+        rCtx.fillStyle = 'rgba(28, 28, 32, 0.98)';
+        rCtx.beginPath();
+        rCtx.roundRect(20, nY, 710, 162, 28);
+        rCtx.fill();
+        rCtx.restore();
+
+        rCtx.strokeStyle = 'rgba(34, 197, 94, 0.55)';
+        rCtx.lineWidth = 2;
+        rCtx.beginPath();
+        rCtx.roundRect(20, nY, 710, 162, 28);
+        rCtx.stroke();
+
+        rCtx.fillStyle = '#22c55e';
+        rCtx.beginPath();
+        rCtx.roundRect(44, nY + 18, 24, 24, 6);
+        rCtx.fill();
+        rCtx.fillStyle = '#000000';
+        rCtx.font = 'bold 15px -apple-system, sans-serif';
+        rCtx.fillText('📅', 47, nY + 35);
+
+        rCtx.fillStyle = '#ffffff';
+        rCtx.font = 'bold 17px -apple-system, sans-serif';
+        rCtx.fillText('GOOGLE CALENDAR • YEARLY', 78, nY + 35);
+
+        rCtx.fillStyle = '#71717a';
+        rCtx.font = '16px -apple-system, sans-serif';
+        rCtx.fillText('now', 672, nY + 35);
+
+        rCtx.fillStyle = '#ffffff';
+        rCtx.font = 'bold 21px -apple-system, sans-serif';
+        rCtx.fillText(state.notifTitle, 44, nY + 68);
+
+        rCtx.fillStyle = '#cbd5e1';
+        rCtx.font = '18px -apple-system, sans-serif';
+        rCtx.fillText(state.notifBody, 44, nY + 95);
+
+        const btnEl = document.getElementById('uiNotifBtn');
+        const liveBtnText = (btnEl && btnEl.textContent) ? btnEl.textContent.trim() : state.notifBtn;
+        const isConfirmed = liveBtnText.includes('Confirmed');
+
+        rCtx.fillStyle = isConfirmed ? '#16a34a' : '#22c55e';
+        rCtx.beginPath();
+        rCtx.roundRect(44, nY + 110, 662, 38, 12);
+        rCtx.fill();
+        rCtx.fillStyle = isConfirmed ? '#ffffff' : '#000000';
+        rCtx.font = 'bold 18px -apple-system, sans-serif';
+        rCtx.textAlign = 'center';
+        rCtx.fillText(liveBtnText, 375, nY + 135);
+        rCtx.textAlign = 'left';
+      }
+
+      // 7. Payoff Reveal Screen if Active
+      if (document.getElementById('uiPayoffOverlay').classList.contains('active')) {
+        rCtx.fillStyle = '#000000';
+        rCtx.fillRect(0, 0, 750, 1360);
+
+        const poImg = imgCache[state.payoffUrl];
+        if (poImg && poImg.complete) {
+          rCtx.save();
+          rCtx.beginPath();
+          rCtx.arc(375, 460, 200, 0, Math.PI * 2);
+          rCtx.clip();
+          rCtx.drawImage(poImg, 175, 260, 400, 400);
+          rCtx.restore();
+
+          rCtx.strokeStyle = '#22c55e';
+          rCtx.lineWidth = 6;
+          rCtx.beginPath();
+          rCtx.arc(375, 460, 200, 0, Math.PI * 2);
+          rCtx.stroke();
+        }
+
+        rCtx.fillStyle = '#ffffff';
+        rCtx.font = 'bold 36px -apple-system, sans-serif';
+        rCtx.textAlign = 'center';
+        rCtx.fillText(state.payoffTitle || 'Saved at the Buzzer 🚀', 375, 735);
+
+        // Word-wrap payoffBody cleanly
+        rCtx.fillStyle = '#94a3b8';
+        rCtx.font = '22px -apple-system, sans-serif';
+        const bodyText = state.payoffBody || '1-Click Google Calendar gifting.';
+        const bodyWords = bodyText.split(' ');
+        const bodyLines = [];
+        let curBodyLine = bodyWords[0] || '';
+        for (let w = 1; w < bodyWords.length; w++) {
+          const testL = curBodyLine + ' ' + bodyWords[w];
+          if (rCtx.measureText(testL).width < 620) {
+            curBodyLine = testL;
+          } else {
+            bodyLines.push(curBodyLine);
+            curBodyLine = bodyWords[w];
+          }
+        }
+        bodyLines.push(curBodyLine);
+        bodyLines.forEach((line, idx) => {
+          rCtx.fillText(line, 375, 785 + idx * 32);
+        });
+
+        const btnY = 785 + bodyLines.length * 32 + 30;
+        const pBtnText = state.payoffBtn || 'Install Yearly Free';
+        rCtx.font = 'bold 24px -apple-system, sans-serif';
+        const pBtnW = Math.min(660, Math.max(350, rCtx.measureText(pBtnText).width + 80));
+
+        rCtx.fillStyle = '#22c55e';
+        rCtx.beginPath();
+        rCtx.roundRect(375 - pBtnW / 2, btnY, pBtnW, 62, 31);
+        rCtx.fill();
+        rCtx.fillStyle = '#000000';
+        rCtx.fillText(pBtnText, 375, btnY + 39);
+        rCtx.textAlign = 'left';
+      }
+    }
+
+    // Live Render & Video Stream Capture
+    let animLoopId = null;
+    function startCanvasRenderLoop() {
+      if (animLoopId) cancelAnimationFrame(animLoopId);
+      function loop() {
+        drawCanvasFrame();
+        animLoopId = requestAnimationFrame(loop);
+      }
+      loop();
+    }
+    startCanvasRenderLoop();
+
+    // Preview Modal for Recorded Video with Sound
+    function previewRecordedVideo(url) {
+      let modal = document.getElementById('videoPreviewModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'videoPreviewModal';
+        modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(8px);';
+        modal.innerHTML = `
+          <div style="background: #18181b; border: 1px solid #3f3f46; border-radius: 16px; padding: 20px; max-width: 420px; width: 90%; display: flex; flex-direction: column; align-items: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 12px; align-items: center;">
+              <span style="font-weight: 700; font-size: 15px; color: #fff;">🎬 Recorded Video Preview (With Sound)</span>
+              <button onclick="document.getElementById('videoPreviewModal').remove()" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+            <video id="previewVideoEl" controls autoplay playsinline style="width: 100%; max-height: 520px; border-radius: 12px; background: #000; margin-bottom: 14px;"></video>
+            <div style="display: flex; gap: 10px; width: 100%;">
+              <a id="modalDownloadBtn" href="" download="yearly-imessage-ad.mp4" class="btn primary" style="flex: 1; text-align: center; text-decoration: none;">⬇️ Download Video</a>
+              <button onclick="document.getElementById('videoPreviewModal').remove()" class="btn secondary" style="flex: 1;">Close</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      const vid = document.getElementById('previewVideoEl');
+      vid.src = url;
+      vid.play().catch(e => console.log("Auto-play preview:", e));
+      const dl = document.getElementById('modalDownloadBtn');
+      dl.href = url;
+    }
+
+    // Export Function with guaranteed MP4 output & synchronized audio
+    async function exportCreative() {
+      if (isRecording) return;
+      const format = document.getElementById('exportFormat').value;
+      const status = document.getElementById('exportStatus');
+
+      if (format === 'png') {
+        status.textContent = "📸 Capturing High-Res PNG Snapshot...";
+        drawCanvasFrame();
+        const dataUrl = recorderCanvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.download = `yearly-imessage-ad-${Date.now()}.png`;
+        a.href = dataUrl;
+        a.click();
+        status.textContent = "✅ Snapshot Downloaded Successfully!";
+        return;
+      }
+
+      isRecording = true;
+      status.textContent = "🎥 Recording 9:16 Video with Sound (0% complete)...";
+
+      try {
+        ensureAudioClock();
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+        }
+
+        const videoStream = recorderCanvas.captureStream(30);
+        const audioTracks = audioDest.stream.getAudioTracks();
+        
+        const combinedStream = new MediaStream();
+        videoStream.getVideoTracks().forEach(t => combinedStream.addTrack(t));
+        audioTracks.forEach(t => combinedStream.addTrack(t));
+        
+        let mimeType = 'video/mp4;codecs=avc1.42E01E,mp4a.40.2';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/mp4';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm;codecs=h264,opus';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm;codecs=vp9,opus';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm;codecs=vp8,opus';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'video/webm';
+
+        const recorder = new MediaRecorder(combinedStream, { 
+          mimeType, 
+          videoBitsPerSecond: 8000000,
+          audioBitsPerSecond: 128000
+        });
+        const chunks = [];
+
+        recorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+          isRecording = false;
+          const isMp4 = mimeType.includes('mp4');
+          const blob = new Blob(chunks, { type: isMp4 ? 'video/mp4' : 'video/webm' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.download = `yearly-imessage-ad-${Date.now()}.mp4`;
+          a.href = url;
+          a.click();
+          status.innerHTML = `✅ <b>Video Downloaded!</b> <button class="btn-sm" style="margin-left: 6px; background: #22c55e; color: #000;" onclick="previewRecordedVideo('${url}')">▶️ Play Preview with Sound</button>`;
+        };
+
+        // Start MediaRecorder FIRST, then start clean timeline from 0.0s
+        recorder.start(100);
+        restartVideo(true);
+
+        const maxDelay = state.messages.length > 0 ? Math.max(...state.messages.map(m => m.delay)) : 9000;
+        const maxDuration = maxDelay + 3000;
+        const recordStartTime = performance.now();
+
+        const interval = setInterval(() => {
+          const elapsed = performance.now() - recordStartTime;
+          const pct = Math.min(99, Math.round((elapsed / maxDuration) * 100));
+          status.textContent = `🎥 Recording 9:16 Video with Sound... ${pct}% (${(elapsed/1000).toFixed(1)}s / ${(maxDuration/1000).toFixed(1)}s)`;
+          if (elapsed >= maxDuration) {
+            clearInterval(interval);
+            if (recorder.state === 'recording') {
+              recorder.stop();
+            }
+            status.textContent = "⚙️ Finalizing audio & video file download...";
+          }
+        }, 250);
+
+      } catch (err) {
+        isRecording = false;
+        console.error("Recording error:", err);
+        status.textContent = "⚠️ Video Stream failed, saving PNG snapshot instead.";
+        drawCanvasFrame();
+        const a = document.createElement('a');
+        a.download = `yearly-imessage-ad-${Date.now()}.png`;
+        a.href = recorderCanvas.toDataURL('image/png');
+        a.click();
+      }
+    }
+
+    // ========================================================
+    // STUDIO TABS NAVIGATION
+    // ========================================================
+    function switchStudioTab(tab) {
+      const tabMap = {
+        video: { btn: 'tabBtnVideo', content: 'tabContentVideo' },
+        thumb: { btn: 'tabBtnThumb', content: 'tabContentThumb' },
+        copy: { btn: 'tabBtnCopy', content: 'tabContentCopy' }
+      };
+
+      Object.keys(tabMap).forEach(t => {
+        const btn = document.getElementById(tabMap[t].btn);
+        const content = document.getElementById(tabMap[t].content);
+        if (btn) btn.classList.toggle('active', t === tab);
+        if (content) content.classList.toggle('active', t === tab);
+      });
+
+      if (tab === 'thumb') {
+        setTimeout(renderThumbnailCanvas, 50);
+      }
+    }
+
+    // ========================================================
+    // VIRAL THUMBNAIL & COVER GENERATOR ENGINE
+    // ========================================================
+    let thumbState = {
+      frame: 'climax',
+      hookText: 'HE FORGOT AGAIN 💀',
+      hookBg: '#ef4444',
+      hookColor: '#ffffff',
+      position: 'top',
+      ratio: '9:16'
+    };
+
+    function setHookPreset(text, el) {
+      thumbState.hookText = text;
+      document.getElementById('thumbHookText').value = text;
+      document.querySelectorAll('.badge-chip').forEach(c => c.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderThumbnailCanvas();
+    }
+
+    function setHookColor(bg, text, el) {
+      thumbState.hookBg = bg;
+      thumbState.hookColor = text;
+      document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderThumbnailCanvas();
+    }
+
+    function setHookPosition(pos) {
+      thumbState.position = pos;
+      document.getElementById('posTopBtn').classList.toggle('active', pos === 'top');
+      document.getElementById('posCenterBtn').classList.toggle('active', pos === 'center');
+      document.getElementById('posBottomBtn').classList.toggle('active', pos === 'bottom');
+      renderThumbnailCanvas();
+    }
+
+    function setThumbRatio(ratio) {
+      thumbState.ratio = ratio;
+      document.getElementById('ratio916Btn').classList.toggle('active', ratio === '9:16');
+      document.getElementById('ratio11Btn').classList.toggle('active', ratio === '1:1');
+      document.getElementById('ratio169Btn').classList.toggle('active', ratio === '16:9');
+
+      const canvas = document.getElementById('thumbCanvas');
+      const container = document.getElementById('thumbCanvasContainer');
+      const label = document.getElementById('thumbDimensionsLabel');
+
+      if (ratio === '9:16') {
+        canvas.width = 1080; canvas.height = 1920;
+        container.style.maxWidth = '340px';
+        label.textContent = '1080 × 1920 (9:16)';
+      } else if (ratio === '1:1') {
+        canvas.width = 1080; canvas.height = 1080;
+        container.style.maxWidth = '420px';
+        label.textContent = '1080 × 1080 (1:1)';
+      } else if (ratio === '16:9') {
+        canvas.width = 1920; canvas.height = 1080;
+        container.style.maxWidth = '560px';
+        label.textContent = '1920 × 1080 (16:9)';
+      }
+      renderThumbnailCanvas();
+    }
+
+    function renderThumbnailCanvas() {
+      const canvas = document.getElementById('thumbCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      thumbState.frame = document.getElementById('thumbBaseFrame').value;
+      thumbState.hookText = document.getElementById('thumbHookText').value.trim() || 'SAVED AT THE BUZZER 🚀';
+
+      // Background Base
+      ctx.fillStyle = '#050508';
+      ctx.fillRect(0, 0, W, H);
+
+      // Render base frame based on selected mode
+      if (thumbState.frame === 'climax') {
+        // Draw the 750x1360 recorder canvas scaled to fit the thumbnail
+        drawCanvasFrame();
+        const scale = Math.min(W / 750, H / 1360) * (thumbState.ratio === '16:9' ? 0.9 : 1.0);
+        const dw = 750 * scale;
+        const dh = 1360 * scale;
+        const dx = (W - dw) / 2;
+        const dy = (H - dh) / 2;
+
+        ctx.drawImage(recorderCanvas, dx, dy, dw, dh);
+
+      } else if (thumbState.frame === 'alert') {
+        // High-contrast Google Calendar 1-Click Focus Frame
+        ctx.fillStyle = '#090a0f';
+        ctx.fillRect(0, 0, W, H);
+
+        // Ambient glow
+        const radGlow = ctx.createRadialGradient(W/2, H/2, 50, W/2, H/2, W/2);
+        radGlow.addColorStop(0, 'rgba(34, 197, 94, 0.18)');
+        radGlow.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = radGlow;
+        ctx.fillRect(0, 0, W, H);
+
+        // Notification Card in Center
+        const cardW = Math.min(W * 0.88, 920);
+        const cardH = 340;
+        const cardX = (W - cardW) / 2;
+        const cardY = (H - cardH) / 2;
+
+        ctx.fillStyle = 'rgba(28, 28, 34, 0.98)';
+        ctx.beginPath();
+        ctx.roundRect(cardX, cardY, cardW, cardH, 36);
+        ctx.fill();
+        ctx.strokeStyle = '#22c55e';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        ctx.fillStyle = '#22c55e';
+        ctx.font = 'bold 26px -apple-system, sans-serif';
+        ctx.fillText('📅 GOOGLE CALENDAR • YEARLY ALERT', cardX + 50, cardY + 65);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 36px -apple-system, sans-serif';
+        ctx.fillText(state.notifTitle || '💍 Wifey\'s Anniversary Tuesday!', cardX + 50, cardY + 130);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '24px -apple-system, sans-serif';
+        ctx.fillText(state.notifBody || 'Send 50 Luxury Long-Stem Red Roses.', cardX + 50, cardY + 185);
+
+        // 1-Click Action Button
+        ctx.fillStyle = '#22c55e';
+        ctx.beginPath();
+        ctx.roundRect(cardX + 50, cardY + 225, cardW - 100, 75, 20);
+        ctx.fill();
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 30px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(state.notifBtn || '⚡ 1-Click Send 50 Red Roses ($49)', W/2, cardY + 273);
+        ctx.textAlign = 'left';
+
+      } else if (thumbState.frame === 'payoff') {
+        // Hero Payoff & Bouquet Frame
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, W, H);
+
+        const poImg = imgCache[state.payoffUrl];
+        if (poImg && poImg.complete) {
+          const imgSize = Math.min(W * 0.65, 600);
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(W/2, H * 0.42, imgSize/2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(poImg, (W - imgSize)/2, H * 0.42 - imgSize/2, imgSize, imgSize);
+          ctx.restore();
+
+          ctx.strokeStyle = '#22c55e';
+          ctx.lineWidth = 8;
+          ctx.beginPath();
+          ctx.arc(W/2, H * 0.42, imgSize/2, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 54px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(state.payoffTitle || 'Saved at the Buzzer 🚀', W/2, H * 0.72);
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '30px -apple-system, sans-serif';
+        ctx.fillText(state.payoffBody || '1-Click Google Calendar gifting.', W/2, H * 0.78);
+
+        ctx.fillStyle = '#22c55e';
+        ctx.beginPath();
+        ctx.roundRect(W/2 - 250, H * 0.83, 500, 90, 45);
+        ctx.fill();
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 34px -apple-system, sans-serif';
+        ctx.fillText(state.payoffBtn || 'Install Yearly Free', W/2, H * 0.89);
+        ctx.textAlign = 'left';
+
+      } else if (thumbState.frame === 'split') {
+        // Split Screen (Chat Panic Top, Bouquet Solution Bottom)
+        drawCanvasFrame();
+        // Top Half
+        ctx.drawImage(recorderCanvas, 0, 0, 750, 700, 0, 0, W, H/2);
+
+        // Bottom Half Bouquet
+        ctx.fillStyle = '#0a0a0c';
+        ctx.fillRect(0, H/2, W, H/2);
+
+        const poImg = imgCache[state.payoffUrl];
+        if (poImg && poImg.complete) {
+          const imgSize = Math.min(W * 0.45, 420);
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(W/2, H * 0.72, imgSize/2, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(poImg, (W - imgSize)/2, H * 0.72 - imgSize/2, imgSize, imgSize);
+          ctx.restore();
+
+          ctx.strokeStyle = '#22c55e';
+          ctx.lineWidth = 6;
+          ctx.beginPath();
+          ctx.arc(W/2, H * 0.72, imgSize/2, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Divider
+        ctx.fillStyle = '#22c55e';
+        ctx.fillRect(0, H/2 - 4, W, 8);
+      }
+
+      // 2. Render Viral Hook Badge Overlay
+      const hookText = thumbState.hookText.toUpperCase();
+      ctx.font = '900 48px -apple-system, sans-serif';
+      const textMetrics = ctx.measureText(hookText);
+      const badgeW = Math.min(W * 0.94, textMetrics.width + 80);
+      const badgeH = 100;
+      const badgeX = (W - badgeW) / 2;
+
+      let badgeY = (thumbState.ratio === '9:16') ? 230 : 80;
+      if (thumbState.position === 'center') badgeY = (H - badgeH) / 2;
+      if (thumbState.position === 'bottom') badgeY = (thumbState.ratio === '9:16') ? (H - badgeH - 240) : (H - badgeH - 80);
+
+      // Glow & Shadow
+      ctx.save();
+      ctx.shadowColor = thumbState.hookBg;
+      ctx.shadowBlur = 35;
+      ctx.fillStyle = thumbState.hookBg;
+      ctx.beginPath();
+      ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 28);
+      ctx.fill();
+      ctx.restore();
+
+      // Border
+      ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 28);
+      ctx.stroke();
+
+      // Text
+      ctx.fillStyle = thumbState.hookColor;
+      ctx.font = '900 46px -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(hookText, W/2, badgeY + 66);
+      ctx.textAlign = 'left';
+    }
+
+    function downloadActiveThumbnail() {
+      renderThumbnailCanvas();
+      const canvas = document.getElementById('thumbCanvas');
+      const dataUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.download = `yearly-thumbnail-${thumbState.ratio.replace(':', 'x')}-${Date.now()}.png`;
+      a.href = dataUrl;
+      a.click();
+      showToast("📸 High-Res Thumbnail Downloaded!");
+    }
+
+    // ========================================================
+    // AI TITLE, HOOK & MULTI-PLATFORM COPYWRITING GENERATOR
+    // ========================================================
+    async function generateCopywritingWithGroq() {
+      const btn = document.getElementById('genCopyBtn');
+      btn.disabled = true;
+      btn.innerHTML = "<span>⏳ Generating High-Converting Copy with Groq AI...</span>";
+
+      const scenarioContext = `
+Product: Yearly (yearly.click) - Google Calendar 1-Click flower and gift delivery extension that saves people from missing anniversaries, birthdays, and relationship milestones (FloristOne partner).
+Template: ${state.name}
+Chat Scenario: ${state.contactName} (${state.chatType === 'group' ? 'Group Chat' : 'Personal 1-on-1'})
+Calendar Notification: ${state.notifTitle} - ${state.notifBody}
+Payoff: ${state.payoffTitle} - ${state.payoffBody}
+Message Thread Highlights: ${state.messages.map(m => m.text).filter(Boolean).slice(0, 4).join(' | ')}
+`;
+
+      const prompt = `You are a world-class viral short-form video copywriter & media buyer. Given this scenario, generate complete viral copy for TikTok, YouTube Shorts, and Paid Ads.
+Output a single valid JSON object with EXACTLY this structure:
+{
+  "tiktok": {
+    "hooks": "1. Hook line 1 💀\\n2. Hook line 2 😭\\n3. Hook line 3 🚀",
+    "caption": "Relatable 3-sentence caption with emojis and call to action + 7 hashtags"
+  },
+  "youtube": {
+    "titles": "1. Clickable SEO Title 1 💐 #Shorts\\n2. Clickable SEO Title 2 🚀 #Shorts\\n3. Clickable SEO Title 3 💍 #Shorts",
+    "description": "Engaging video description with benefits, links (https://yearly.click), and tags."
+  },
+  "ads": {
+    "primary": "High-converting AIDA primary ad text focusing on solving forgetfulness in 1 click.",
+    "headline": "Headline: Never Miss Her Anniversary | 1-Click Google Calendar Gifts\\nDescription: Curated FloristOne delivery synced with your calendar.\\nCTA Button: Install Free / Get Offer"
+  }
+}`;
+
+      try {
+        let rawContent = null;
+        const modelsToTry = [GROQ_MODEL, "openai/gpt-oss-120b", "qwen/qwen3.8-27b"];
+
+        for (const model of modelsToTry) {
+          try {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${GROQ_API_KEY}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                model: model,
+                messages: [
+                  { role: "system", content: "You are an elite short-form video copywriter. Always output valid pure JSON." },
+                  { role: "user", content: prompt + "\n\nContext:\n" + scenarioContext }
+                ],
+                response_format: { type: "json_object" },
+                temperature: 0.7,
+                max_tokens: 1200
+              })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              rawContent = data.choices[0].message.content;
+              break;
+            }
+          } catch (mErr) {
+            console.warn(`Model ${model} failed, trying fallback...`, mErr);
+          }
+        }
+
+        if (rawContent) {
+          const parsed = extractJSON(rawContent);
+          applyGeneratedCopy(parsed);
+          showToast("✨ AI Copywriting generated successfully!");
+        } else {
+          generateOfflineCopy();
+        }
+
+      } catch (err) {
+        console.warn("Groq Copywriting Error, using intelligent template engine:", err);
+        generateOfflineCopy();
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "<span>✨ Generate All Copy with Groq AI</span>";
+      }
+    }
+
+    function generateOfflineCopy() {
+      const contact = state.contactName || 'Partner';
+      const parsed = {
+        tiktok: {
+          hooks: `1. POV: It's 8:14 PM and you almost forgot ${contact}'s special day... 💀\n2. If you're forgetful in relationships, watch this immediately 😭\n3. How Google Calendar just saved this guy from sleeping on the couch 🚀`,
+          caption: `Saved at the buzzer 🚀 Never get caught empty-handed again. Yearly integrates directly with Google Calendar so when the milestone pops up, you send fresh flowers in 1 click.\n\n👉 Install Yearly free at yearly.click! #yearly #relationshipgoals #anniversarysurprise #lastminutegift #couplehumor #lifehack #floristone`
+        },
+        youtube: {
+          titles: `1. When You Forget Her Anniversary... But Have 1 Secret Hack 💐 #Shorts\n2. Google Calendar Saved This Relationship at 8:14 PM 🚀 #Shorts\n3. Never Sleep On The Couch Again (Google Calendar Hack) 💍 #Shorts`,
+          description: `How Yearly turns forgetfulness into instant relationship heroics directly inside Google Calendar.\n\n🔗 Install Yearly Free on Chrome: https://yearly.click\n⚡ 1-Click Curated FloristOne flower deliveries scheduled to your calendar events.\n\n#Shorts #Yearly #GoogleCalendar #GiftIdeas #RelationshipHacks #FloristOne`
+        },
+        ads: {
+          primary: `Forgotten anniversaries and birthdays shouldn't cause relationship disasters. Yearly adds 1-click curated gift delivery directly to your Google Calendar alerts. When the notification arrives, tap once to send 50 luxury roses in seconds.`,
+          headline: `Headline: Never Miss ${contact}'s Special Day | 1-Click Calendar Gifts\nDescription: Direct FloristOne delivery synced with your Google Calendar alerts.\nCTA Button: Install Free / Get Offer`
+        }
+      };
+
+      applyGeneratedCopy(parsed);
+      showToast("✨ Smart copy generated!");
+    }
+
+    function applyGeneratedCopy(data) {
+      if (data.tiktok) {
+        document.getElementById('copyTikTokHooks').textContent = data.tiktok.hooks || '';
+        document.getElementById('copyTikTokCaption').textContent = data.tiktok.caption || '';
+      }
+      if (data.youtube) {
+        document.getElementById('copyYTTitles').textContent = data.youtube.titles || '';
+        document.getElementById('copyYTDesc').textContent = data.youtube.description || '';
+      }
+      if (data.ads) {
+        document.getElementById('copyAdPrimary').textContent = data.ads.primary || '';
+        document.getElementById('copyAdHeadline').textContent = data.ads.headline || '';
+      }
+    }
+
+    function copyCardContent(type) {
+      let text = '';
+      let btnId = '';
+
+      if (type === 'tiktok') {
+        text = document.getElementById('copyTikTokCaption').textContent;
+        btnId = 'btnCopyTikTok';
+      } else if (type === 'yt') {
+        const titles = document.getElementById('copyYTTitles').textContent;
+        const desc = document.getElementById('copyYTDesc').textContent;
+        text = `=== YOUTUBE SHORTS TITLES ===\n${titles}\n\n=== DESCRIPTION ===\n${desc}`;
+        btnId = 'btnCopyYT';
+      } else if (type === 'ads') {
+        const prim = document.getElementById('copyAdPrimary').textContent;
+        const head = document.getElementById('copyAdHeadline').textContent;
+        text = `=== PRIMARY TEXT ===\n${prim}\n\n=== HEADLINE & CTA ===\n${head}`;
+        btnId = 'btnCopyAds';
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.classList.add('copied');
+          btn.textContent = '✅ Copied!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.textContent = type === 'tiktok' ? '📋 Copy Caption' : type === 'yt' ? '📋 Copy Package' : '📋 Copy Ad Copy';
+          }, 2000);
+        }
+        showToast("📋 Copied to clipboard!");
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      init();
+      renderThumbnailCanvas();
+    });
+  </script>
+</body>
+</html>

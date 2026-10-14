@@ -396,6 +396,104 @@
         handleSyncAllEvents();
       });
     }
+
+    var authorizeAccessBtn = document.getElementById('authorizeAccessBtn');
+    if (authorizeAccessBtn) {
+      authorizeAccessBtn.addEventListener('click', function () {
+        handleAuthorizeAccess();
+      });
+    }
+  }
+
+  function showPermissionRequiredView() {
+    var permScreen = document.getElementById('permissionRequiredScreen');
+    var celebrationsContainer = document.getElementById('celebrationsContainer');
+    var syncBanner = document.getElementById('syncBanner');
+    var statusPill = document.getElementById('statusPill');
+
+    if (permScreen) permScreen.classList.remove('hidden');
+    if (celebrationsContainer) celebrationsContainer.classList.add('hidden');
+    if (syncBanner) syncBanner.classList.add('hidden');
+
+    if (statusPill) {
+      statusPill.textContent = '● Permission Required';
+      statusPill.className = 'status-pill warning';
+      statusPill.title = 'Calendar permissions needed to detect celebrations';
+    }
+  }
+
+  function showDashboardView() {
+    var permScreen = document.getElementById('permissionRequiredScreen');
+    var celebrationsContainer = document.getElementById('celebrationsContainer');
+    var syncBanner = document.getElementById('syncBanner');
+    var statusPill = document.getElementById('statusPill');
+
+    if (permScreen) permScreen.classList.add('hidden');
+    if (celebrationsContainer) celebrationsContainer.classList.remove('hidden');
+    if (syncBanner) syncBanner.classList.remove('hidden');
+
+    if (statusPill) {
+      statusPill.textContent = '● Calendar Ready';
+      statusPill.className = 'status-pill connected';
+      statusPill.title = 'Google Calendar connected';
+    }
+  }
+
+  async function handleAuthorizeAccess() {
+    var storage = getStorage();
+    var authorizeBtn = document.getElementById('authorizeAccessBtn');
+    var authFeedback = document.getElementById('authFeedback');
+
+    if (authFeedback) {
+      authFeedback.classList.add('hidden');
+      authFeedback.textContent = '';
+    }
+    if (authorizeBtn) {
+      authorizeBtn.disabled = true;
+      authorizeBtn.textContent = '⏳ Authorizing...';
+    }
+
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      chrome.storage.local.set({
+        yearly_auto_sync_on_grant: true,
+        yearly_auth_in_progress: true,
+        yearly_auth_timestamp: Date.now()
+      });
+    }
+
+    try {
+      var authRes = await storage.getGoogleAuthToken(true);
+      if (authRes && authRes.ok && authRes.token) {
+        if (storage.setAuthState) {
+          await storage.setAuthState('authorized');
+        }
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local && typeof chrome.storage.local.remove === 'function') {
+          chrome.storage.local.remove(['yearly_auto_sync_on_grant', 'yearly_auth_in_progress']);
+        }
+        showDashboardView();
+        await handleSyncAllEvents();
+      } else {
+        if (authorizeBtn) {
+          authorizeBtn.disabled = false;
+          authorizeBtn.textContent = 'Authorize access';
+        }
+        if (authFeedback) {
+          authFeedback.className = 'auth-feedback error';
+          authFeedback.textContent = (authRes && authRes.error) || 'Google authorization was not completed. Click Authorize access when ready.';
+          authFeedback.classList.remove('hidden');
+        }
+      }
+    } catch (err) {
+      if (authorizeBtn) {
+        authorizeBtn.disabled = false;
+        authorizeBtn.textContent = 'Authorize access';
+      }
+      if (authFeedback) {
+        authFeedback.className = 'auth-feedback error';
+        authFeedback.textContent = 'Error: ' + (err.message || String(err));
+        authFeedback.classList.remove('hidden');
+      }
+    }
   }
 
   function updateSyncProgress(pct, statusText) {
@@ -506,13 +604,6 @@
   async function init() {
     var storage = getStorage();
 
-    // 1. Instant 0ms synchronous render from cache
-    var fastCached = storage.getCachedCelebrations();
-    if (Array.isArray(fastCached) && fastCached.length > 0) {
-      loadedCelebrations = fastCached;
-      renderCelebrationsPage();
-    }
-
     var settings = await storage.getSettings();
     currentSettings = settings;
 
@@ -534,7 +625,37 @@
     }
 
     setupDrawerEvents();
-    await refreshCelebrations();
+
+    // Check authorization status
+    var authStatus = storage.checkAuthorizationStatus ? await storage.checkAuthorizationStatus() : { authorized: true };
+    var authState = storage.getAuthState ? await storage.getAuthState() : {};
+
+    if (!authStatus.authorized && !authState.yearly_auto_sync_on_grant) {
+      showPermissionRequiredView();
+      return;
+    }
+
+    showDashboardView();
+
+    // 1. Instant 0ms synchronous render from cache
+    var fastCached = storage.getCachedCelebrations();
+    if (Array.isArray(fastCached) && fastCached.length > 0) {
+      loadedCelebrations = fastCached;
+      renderCelebrationsPage();
+    }
+
+    // Auto-sync check: Did the user grant authorization while the popup was closed on blur?
+    if (authState.yearly_auto_sync_on_grant) {
+      if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local && typeof chrome.storage.local.remove === 'function') {
+        chrome.storage.local.remove(['yearly_auto_sync_on_grant', 'yearly_auth_in_progress']);
+      }
+      if (storage.setAuthState) {
+        await storage.setAuthState('authorized');
+      }
+      await handleSyncAllEvents();
+    } else {
+      await refreshCelebrations();
+    }
   }
 
   if (typeof document !== 'undefined') {
@@ -549,6 +670,9 @@
     init: init,
     refreshCelebrations: refreshCelebrations,
     handleSyncAllEvents: handleSyncAllEvents,
+    handleAuthorizeAccess: handleAuthorizeAccess,
+    showPermissionRequiredView: showPermissionRequiredView,
+    showDashboardView: showDashboardView,
     savePopupSettings: savePopupSettings,
     renderCelebrationCard: renderCelebrationCard,
     renderCelebrationsPage: renderCelebrationsPage,

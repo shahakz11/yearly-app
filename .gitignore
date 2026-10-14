@@ -1,9 +1,64 @@
+# Dependencies & Package Managers
 node_modules/
-.DS_Store
-*.log
-.expo/
+.pnp
+.pnp.js
+
+# Build Artifacts & Caches
 dist/
+build/
+.expo/
+.turbo/
+*.tsbuildinfo
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Environment Variables & Secrets
+.env
+.env*.local
+.env.production
+.env.staging
+*.env
+credentials.json
+token.json
+*credentials*.json
+*token*.json
+
+# Google Apps Script & Clasp Deployment Configs
+.clasp.json
+.clasprc.json
+clasp.json
+
+# Private Workspace & Local Task Management
+private/
+
+# Local AI Agents, Workflows & Rule Symlinks
+.agents/
+.gemini/
+.claude/
+
+# Operating System & IDE Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 .idea/
 .vscode/
-__pycache__/
-*.pyc
+*.sublime-project
+*.sublime-workspace
+
+# Large generated base64 asset bundles
+marketing-kit/assets-base64.js
+marketing-kit/video-ad-player.html

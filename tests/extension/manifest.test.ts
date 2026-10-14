@@ -16,9 +16,9 @@ describe('Manifest V3 Compliance (extension/manifest.json)', () => {
   });
 
   it('defines valid name, version, and description', () => {
-    expect(manifest.name).toBe('Yearly');
-    expect(typeof manifest.version).toBe('string');
-    expect(manifest.version.length).toBeGreaterThan(0);
+    expect(manifest.name).toBe('Yearly: Google Calendar Birthday Reminders & Flower Delivery');
+    expect(manifest.short_name).toBe('Yearly');
+    expect(manifest.version).toBe('1.0.3');
     expect(typeof manifest.description).toBe('string');
   });
 
