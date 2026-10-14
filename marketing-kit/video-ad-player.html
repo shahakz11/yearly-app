@@ -1337,6 +1337,13 @@
 
         <div class="groq-box">
           <h3>⚡ Natural Language to Script</h3>
+          <div style="margin-bottom: 8px;">
+            <label style="font-size: 11px; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+              <span>🔑 Groq API Key (Stored Locally in Browser Only)</span>
+              <span id="groqKeyStatus" style="color: #22c55e; font-size: 10px;">● Secured in localStorage</span>
+            </label>
+            <input type="password" id="cfgGroqApiKey" class="input-field" placeholder="gsk_..." style="font-family: monospace; font-size: 11px; padding: 6px 10px;" oninput="saveGroqApiKey(this.value)">
+          </div>
           <textarea id="groqPrompt" class="textarea-field" placeholder="Describe the scene: e.g. Wife dropping subtle hints about anniversary, husband panics, Yearly notification saves him with 1-click roses..."></textarea>
           <button class="groq-btn" id="groqGenerateBtn" onclick="generateScriptWithGroq()">
             <span>✨ Generate Script with Groq AI</span>
@@ -1835,8 +1842,23 @@ CTA Button: Install Free / Get Offer</div>
   <div id="toast" class="toast"></div>
 
   <script>
-    // Groq API Configuration
-    const GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE" // TODO: load from env;
+    // Groq API Configuration - Safely retrieved from browser localStorage (never hardcoded)
+    function getGroqApiKey() {
+      return localStorage.getItem('YEARLY_GROQ_API_KEY') || '';
+    }
+
+    function saveGroqApiKey(key) {
+      if (key && key.trim()) {
+        localStorage.setItem('YEARLY_GROQ_API_KEY', key.trim());
+        const statusEl = document.getElementById('groqKeyStatus');
+        if (statusEl) statusEl.textContent = '● Key saved in browser';
+      } else {
+        localStorage.removeItem('YEARLY_GROQ_API_KEY');
+        const statusEl = document.getElementById('groqKeyStatus');
+        if (statusEl) statusEl.textContent = '○ Key missing';
+      }
+    }
+
     const GROQ_MODEL = "openai/gpt-oss-20b";
 
     // Asset Libraries with Expanded Bouquets and Avatars
@@ -2785,6 +2807,15 @@ CTA Button: Install Free / Get Offer</div>
       }
 
       const btn = document.getElementById('groqGenerateBtn');
+      const groqKey = getGroqApiKey();
+      if (!groqKey) {
+        alert("Please enter your Groq API key in the field above to generate with Groq AI.");
+        btn.disabled = false;
+        btn.innerHTML = "<span>✨ Generate Script with Groq AI</span>";
+        document.getElementById('cfgGroqApiKey')?.focus();
+        return;
+      }
+
       btn.disabled = true;
       btn.innerHTML = "<span>⏳ Groq AI is generating script...</span>";
 
@@ -2826,7 +2857,7 @@ Output valid JSON only.`;
           const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
-              "Authorization": `Bearer ${GROQ_API_KEY}`,
+              "Authorization": `Bearer ${groqKey}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -3768,16 +3799,18 @@ Output a single valid JSON object with EXACTLY this structure:
 
       try {
         let rawContent = null;
+        const groqKey = getGroqApiKey();
         const modelsToTry = [GROQ_MODEL, "openai/gpt-oss-120b", "qwen/qwen3.8-27b"];
 
-        for (const model of modelsToTry) {
-          try {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-              method: "POST",
-              headers: {
-                "Authorization": `Bearer ${GROQ_API_KEY}`,
-                "Content-Type": "application/json"
-              },
+        if (groqKey) {
+          for (const model of modelsToTry) {
+            try {
+              const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                  "Authorization": `Bearer ${groqKey}`,
+                  "Content-Type": "application/json"
+                },
               body: JSON.stringify({
                 model: model,
                 messages: [
@@ -3889,6 +3922,15 @@ Output a single valid JSON object with EXACTLY this structure:
     window.addEventListener('DOMContentLoaded', () => {
       init();
       renderThumbnailCanvas();
+      const savedKey = getGroqApiKey();
+      const keyInput = document.getElementById('cfgGroqApiKey');
+      const statusEl = document.getElementById('groqKeyStatus');
+      if (keyInput && savedKey) {
+        keyInput.value = savedKey;
+      }
+      if (statusEl) {
+        statusEl.textContent = savedKey ? '● Secured in localStorage' : '○ Key missing';
+      }
     });
   </script>
 </body>
