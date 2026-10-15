@@ -504,8 +504,11 @@
       });
 
       if (!response.ok) {
-        if (response.status === 401 && chrome.identity && chrome.identity.removeCachedAuthToken) {
-          chrome.identity.removeCachedAuthToken({ token: token }, function () {});
+        if ((response.status === 401 || response.status === 403)) {
+          if (chrome.identity && chrome.identity.removeCachedAuthToken && token) {
+            chrome.identity.removeCachedAuthToken({ token: token }, function () {});
+          }
+          await setAuthState('unauthorized');
         }
         return { ok: false, error: 'Google Calendar API error (HTTP ' + response.status + ')' };
       }

@@ -403,6 +403,39 @@
         handleAuthorizeAccess();
       });
     }
+
+    var reauthorizeBtn = document.getElementById('reauthorizeBtn');
+    if (reauthorizeBtn) {
+      reauthorizeBtn.addEventListener('click', function () {
+        if (settingsDrawer) settingsDrawer.classList.add('hidden');
+        handleAuthorizeAccess();
+      });
+    }
+
+    var resetAuthBtn = document.getElementById('resetAuthBtn');
+    if (resetAuthBtn) {
+      resetAuthBtn.addEventListener('click', async function () {
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+          await new Promise(function (resolve) {
+            chrome.storage.local.clear(resolve);
+          });
+        }
+        try {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.clear();
+          }
+        } catch (_) {}
+        var storage = getStorage();
+        if (storage.setAuthState) {
+          await storage.setAuthState('unauthorized', { autogifter_cached_celebrations: [], yearly_oauth_token: null });
+        }
+        loadedCelebrations = [];
+        var celebrationsList = document.getElementById('celebrationsList');
+        if (celebrationsList) celebrationsList.innerHTML = '';
+        if (settingsDrawer) settingsDrawer.classList.add('hidden');
+        showPermissionRequiredView();
+      });
+    }
   }
 
   function showPermissionRequiredView() {
@@ -586,6 +619,10 @@
         if (syncFeedback) {
           syncFeedback.className = 'sync-feedback error';
           syncFeedback.textContent = 'Sync issue: ' + (res.error || 'Make sure Google Calendar is open in a tab.');
+        }
+        var errStr = String((res && res.error) || '').toLowerCase();
+        if (errStr.indexOf('401') !== -1 || errStr.indexOf('403') !== -1 || errStr.indexOf('permission') !== -1 || errStr.indexOf('authoriz') !== -1) {
+          showPermissionRequiredView();
         }
       }
     } catch (err) {

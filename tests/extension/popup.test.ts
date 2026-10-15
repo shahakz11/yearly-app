@@ -50,6 +50,12 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     const saveSettingsBtn = env.document.createElement('button');
     saveSettingsBtn.id = 'saveSettingsBtn';
 
+    const reauthorizeBtn = env.document.createElement('button');
+    reauthorizeBtn.id = 'reauthorizeBtn';
+
+    const resetAuthBtn = env.document.createElement('button');
+    resetAuthBtn.id = 'resetAuthBtn';
+
     const connectionFeedback = env.document.createElement('div');
     connectionFeedback.id = 'connectionFeedback';
 
@@ -59,6 +65,8 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     settingsDrawer.appendChild(remind3d);
     settingsDrawer.appendChild(remind1d);
     settingsDrawer.appendChild(saveSettingsBtn);
+    settingsDrawer.appendChild(reauthorizeBtn);
+    settingsDrawer.appendChild(resetAuthBtn);
     settingsDrawer.appendChild(connectionFeedback);
 
     // Main
@@ -571,5 +579,53 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     expect(authFeedback?.classList.contains('hidden')).toBe(false);
     expect(authFeedback?.textContent).toContain('user did not approve access');
     expect(authorizeBtn?.disabled).toBe(false);
+  });
+
+  it('clicking reset data button resets authorization state and displays Permission Required screen', async () => {
+    // Start in authorized state
+    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => cb('mock-valid-token');
+    await env.chrome.storage.local.set({
+      yearly_auth_status: 'authorized',
+      autogifter_cached_celebrations: [{ id: 'evt-1', recipientName: 'Alice', celebrationType: 'birthday' }]
+    });
+
+    await popup.init();
+
+    const permScreen = env.document.getElementById('permissionRequiredScreen');
+    expect(permScreen?.classList.contains('hidden')).toBe(true);
+
+    const resetBtn = env.document.getElementById('resetAuthBtn');
+    resetBtn?.dispatchEvent(new MockEvent('click'));
+
+    await new Promise((r) => setTimeout(r, 50));
+
+    expect(permScreen?.classList.contains('hidden')).toBe(false);
+    const stored = await env.chrome.storage.local.get(['yearly_auth_status']);
+    expect(stored.yearly_auth_status).toBe('unauthorized');
+  });
+
+  it('transitions to Permission Required screen if syncAllEvents encounters an unauthorized / permission error', async () => {
+    // Start in authorized state
+    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => cb('mock-valid-token');
+    await env.chrome.storage.local.set({
+      yearly_auth_status: 'authorized',
+      autogifter_cached_celebrations: []
+    });
+
+    await popup.init();
+
+    // Mock storage.syncAllCelebrations to simulate 401 Unauthorized
+    jest.spyOn(storage, 'syncAllCelebrations').mockResolvedValueOnce({
+      ok: false,
+      error: 'Google Calendar API error (HTTP 401): Unauthorized permissions'
+    });
+
+    const syncBtn = env.document.getElementById('syncAllEventsBtn');
+    syncBtn?.dispatchEvent(new MockEvent('click'));
+
+    await new Promise((r) => setTimeout(r, 50));
+
+    const permScreen = env.document.getElementById('permissionRequiredScreen');
+    expect(permScreen?.classList.contains('hidden')).toBe(false);
   });
 });
