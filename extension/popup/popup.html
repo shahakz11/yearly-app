@@ -50,63 +50,16 @@
         </label>
       </div>
 
-      <div class="drawer-buttons" style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+      <div class="drawer-buttons">
         <button id="saveSettingsBtn" class="btn btn-primary" style="width:100%;">Save Reminder Settings</button>
-        <button id="reauthorizeBtn" class="btn btn-secondary-sync" style="width:100%;">🔑 Authorize Google Calendar Access</button>
-        <button id="resetAuthBtn" class="btn" style="width:100%;background:#f8fafc;color:#64748b;font-size:11px;border:1px solid #cbd5e1;padding:6px;border-radius:6px;cursor:pointer;">🔄 Reset Data & Show Permission Screen</button>
       </div>
 
 
       <div id="connectionFeedback" class="feedback-box"></div>
     </section>
 
-    <!-- Permission Required Screen (Matches Google Workspace Add-on design) -->
-    <section id="permissionRequiredScreen" class="permission-screen hidden">
-      <div class="permission-card">
-        <div class="permission-icon-wrapper">
-          <svg class="permission-icon" viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="24" fill="#E8F0FE" />
-            <path d="M24 14C21.79 14 20 15.79 20 18V21H18C16.9 21 16 21.9 16 23V31C16 32.1 16.9 33 18 33H30C31.1 33 32 32.1 32 31V23C32 21.9 31.1 21 30 21H28V18C28 15.79 26.21 14 24 14ZM24 16C25.1 16 26 16.9 26 18V21H22V18C22 16.9 22.9 16 24 16ZM24 25C25.1 25 26 25.9 26 27C26 27.74 25.6 28.38 25 28.71V30.5C25 31.05 24.55 31.5 24 31.5C23.45 31.5 23 31.05 23 30.5V28.71C22.4 28.38 22 27.74 22 27C22 25.9 22.9 25 24 25Z" fill="#1A73E8"/>
-          </svg>
-        </div>
-        <h2 class="permission-title">Permission required</h2>
-        <p class="permission-desc">This add-on requires additional permissions to access your data.</p>
-        
-        <div class="permission-features">
-          <div class="permission-feature-item">
-            <span class="feature-icon">📅</span>
-            <div class="feature-text">
-              <strong>Google Calendar access</strong>
-              <span>Detect birthdays, anniversaries & celebrations</span>
-            </div>
-          </div>
-          <div class="permission-feature-item">
-            <span class="feature-icon">💐</span>
-            <div class="feature-text">
-              <strong>Gift bouquet suggestions</strong>
-              <span>1-click FloristOne flower & bouquet delivery links</span>
-            </div>
-          </div>
-          <div class="permission-feature-item">
-            <span class="feature-icon">⏰</span>
-            <div class="feature-text">
-              <strong>Celebration reminders</strong>
-              <span>Smart notifications (14d, 7d, 3d, 1d) before events</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="permission-privacy-note">
-          <span>🔒 100% Client-side. Your data stays in your browser.</span>
-        </div>
-
-        <button id="authorizeAccessBtn" class="btn btn-authorize">Authorize access</button>
-        <div id="authFeedback" class="auth-feedback hidden"></div>
-      </div>
-    </section>
-
     <!-- Quick Sync & Actions Bar -->
-    <div id="syncBanner" class="sync-banner">
+    <div class="sync-banner">
       <button id="syncAllEventsBtn" class="btn btn-sync">⚡ Sync & Enrich All Celebrations</button>
       <a id="browseAllFlowersBtn" class="btn btn-browse" href="https://www.floristone.com/index.cfm?source_id=aff&affiliateid=2026097209" target="_blank" rel="noopener noreferrer">💐 Browse All Flowers & Gifts</a>
       

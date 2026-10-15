@@ -81,7 +81,6 @@ export class MockElement {
 
   public type: string = '';
   public checked: boolean = false;
-  public disabled: boolean = false;
   public value: string = '';
   public rows: number = 2;
   public target: string = '';
@@ -383,12 +382,6 @@ export function setupMockEnvironment(): {
           if (cb) cb();
           return Promise.resolve();
         },
-        remove: (keys: any, cb?: Function) => {
-          const keyList = Array.isArray(keys) ? keys : [keys];
-          keyList.forEach((k) => delete storageMap[k]);
-          if (cb) cb();
-          return Promise.resolve();
-        },
         clear: (cb: Function) => {
           Object.keys(storageMap).forEach((k) => delete storageMap[k]);
           if (cb) cb();
@@ -407,12 +400,6 @@ export function setupMockEnvironment(): {
         },
         set: (items: Record<string, any>, cb: Function) => {
           Object.assign(storageMap, items);
-          if (cb) cb();
-          return Promise.resolve();
-        },
-        remove: (keys: any, cb?: Function) => {
-          const keyList = Array.isArray(keys) ? keys : [keys];
-          keyList.forEach((k) => delete storageMap[k]);
           if (cb) cb();
           return Promise.resolve();
         },

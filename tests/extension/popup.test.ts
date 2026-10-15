@@ -50,12 +50,6 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     const saveSettingsBtn = env.document.createElement('button');
     saveSettingsBtn.id = 'saveSettingsBtn';
 
-    const reauthorizeBtn = env.document.createElement('button');
-    reauthorizeBtn.id = 'reauthorizeBtn';
-
-    const resetAuthBtn = env.document.createElement('button');
-    resetAuthBtn.id = 'resetAuthBtn';
-
     const connectionFeedback = env.document.createElement('div');
     connectionFeedback.id = 'connectionFeedback';
 
@@ -65,8 +59,6 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     settingsDrawer.appendChild(remind3d);
     settingsDrawer.appendChild(remind1d);
     settingsDrawer.appendChild(saveSettingsBtn);
-    settingsDrawer.appendChild(reauthorizeBtn);
-    settingsDrawer.appendChild(resetAuthBtn);
     settingsDrawer.appendChild(connectionFeedback);
 
     // Main
@@ -96,57 +88,9 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     celebrationsContainer.appendChild(loadMoreContainer);
     celebrationsContainer.appendChild(emptyState);
 
-    // Permission Required Screen
-    const permissionRequiredScreen = env.document.createElement('section');
-    permissionRequiredScreen.id = 'permissionRequiredScreen';
-    permissionRequiredScreen.className = 'permission-screen hidden';
-
-    const permissionTitle = env.document.createElement('h2');
-    permissionTitle.className = 'permission-title';
-    permissionTitle.textContent = 'Permission required';
-
-    const permissionDesc = env.document.createElement('p');
-    permissionDesc.className = 'permission-desc';
-    permissionDesc.textContent = 'This add-on requires additional permissions to access your data.';
-
-    const authorizeAccessBtn = env.document.createElement('button');
-    authorizeAccessBtn.id = 'authorizeAccessBtn';
-    authorizeAccessBtn.className = 'btn btn-authorize';
-    authorizeAccessBtn.textContent = 'Authorize access';
-
-    const authFeedback = env.document.createElement('div');
-    authFeedback.id = 'authFeedback';
-    authFeedback.className = 'auth-feedback hidden';
-
-    permissionRequiredScreen.appendChild(permissionTitle);
-    permissionRequiredScreen.appendChild(permissionDesc);
-    permissionRequiredScreen.appendChild(authorizeAccessBtn);
-    permissionRequiredScreen.appendChild(authFeedback);
-
-    // Sync Banner
-    const syncBanner = env.document.createElement('div');
-    syncBanner.id = 'syncBanner';
-    syncBanner.className = 'sync-banner';
-
-    const syncAllEventsBtn = env.document.createElement('button');
-    syncAllEventsBtn.id = 'syncAllEventsBtn';
-    syncBanner.appendChild(syncAllEventsBtn);
-
-    const syncProgressContainer = env.document.createElement('div');
-    syncProgressContainer.id = 'syncProgressContainer';
-    syncProgressContainer.className = 'sync-progress-container hidden';
-    syncBanner.appendChild(syncProgressContainer);
-
-    const syncFeedback = env.document.createElement('div');
-    syncFeedback.id = 'syncFeedback';
-    syncFeedback.className = 'sync-feedback hidden';
-    syncBanner.appendChild(syncFeedback);
-
     wrapper.appendChild(statusPill);
     wrapper.appendChild(settingsToggleBtn);
     wrapper.appendChild(settingsDrawer);
-    wrapper.appendChild(permissionRequiredScreen);
-    wrapper.appendChild(syncBanner);
     wrapper.appendChild(celebrationsContainer);
     env.document.body.appendChild(wrapper);
 
@@ -431,201 +375,5 @@ describe('Popup Controller & UI (extension/popup/popup.js)', () => {
     };
 
     await expect(storage.parseJsonResponse(mockResponse)).rejects.toThrow('Google Apps Script permission denied');
-  });
-
-  it('displays "Permission required" screen when user has not authorized Google Calendar access', async () => {
-    // Mock unauthorized identity state
-    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => {
-      env.chrome.runtime.lastError = { message: 'OAuth2 not granted or cancelled' };
-      cb(null);
-    };
-    await env.chrome.storage.local.set({ yearly_auth_status: 'unauthorized', autogifter_cached_celebrations: [] });
-
-    await popup.init();
-
-    const permScreen = env.document.getElementById('permissionRequiredScreen');
-    const celebrationsContainer = env.document.getElementById('celebrationsContainer');
-    const syncBanner = env.document.getElementById('syncBanner');
-    const statusPill = env.document.getElementById('statusPill');
-    const authorizeBtn = env.document.getElementById('authorizeAccessBtn');
-
-    expect(permScreen?.classList.contains('hidden')).toBe(false);
-    expect(celebrationsContainer?.classList.contains('hidden')).toBe(true);
-    expect(syncBanner?.classList.contains('hidden')).toBe(true);
-    expect(statusPill?.textContent).toContain('Permission Required');
-    expect(statusPill?.className).toContain('warning');
-    expect(authorizeBtn?.textContent).toContain('Authorize access');
-  });
-
-  it('clicking "Authorize access" authorizes and triggers celebration sync automatically', async () => {
-    // Initially unauthorized
-    env.chrome.identity.getAuthToken = (options: any, cb: Function) => {
-      if (!options.interactive) {
-        env.chrome.runtime.lastError = { message: 'OAuth2 not granted' };
-        cb(null);
-      } else {
-        env.chrome.runtime.lastError = null;
-        cb('mock-granted-token');
-      }
-    };
-    await env.chrome.storage.local.set({ yearly_auth_status: 'unauthorized' });
-
-    // Mock calendar sync response
-    (global as any).fetch = jest.fn().mockImplementation((url: string) => {
-      if (url.includes('googleapis.com/calendar/v3')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: async () => ({
-            items: [
-              {
-                id: 'gcal-anniv-1',
-                summary: "Parents' Anniversary 💍",
-                description: '30 years',
-                start: { date: '2026-10-28' }
-              }
-            ]
-          })
-        });
-      }
-      return Promise.resolve({ ok: true, json: async () => ({}) });
-    });
-
-    await popup.init();
-
-    const permScreen = env.document.getElementById('permissionRequiredScreen');
-    expect(permScreen?.classList.contains('hidden')).toBe(false);
-
-    const authorizeBtn = env.document.getElementById('authorizeAccessBtn');
-    authorizeBtn?.dispatchEvent(new MockEvent('click'));
-
-    // Allow async auth and sync to resolve
-    await new Promise((r) => setTimeout(r, 50));
-
-    expect(permScreen?.classList.contains('hidden')).toBe(true);
-    const celebrationsContainer = env.document.getElementById('celebrationsContainer');
-    expect(celebrationsContainer?.classList.contains('hidden')).toBe(false);
-
-    const celebrationsList = env.document.getElementById('celebrationsList');
-    expect(celebrationsList?.textContent).toContain("Parents'");
-    expect(celebrationsList?.textContent).toContain("Anniversary");
-  });
-
-  it('auto-syncs on popup open if authorization was granted while popup was closed', async () => {
-    // User authorized in Google prompt (popup closed), so token is now available
-    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => {
-      env.chrome.runtime.lastError = null;
-      cb('mock-newly-authorized-token');
-    };
-    // Flag that auth was in progress when popup closed
-    await env.chrome.storage.local.set({
-      yearly_auto_sync_on_grant: true,
-      autogifter_cached_celebrations: []
-    });
-
-    (global as any).fetch = jest.fn().mockImplementation((url: string) => {
-      if (url.includes('googleapis.com/calendar/v3')) {
-        return Promise.resolve({
-          ok: true,
-          status: 200,
-          json: async () => ({
-            items: [
-              {
-                id: 'gcal-bday-auto',
-                summary: "Emma's Birthday 🎂",
-                description: 'Party!',
-                start: { date: '2026-10-30' }
-              }
-            ]
-          })
-        });
-      }
-      return Promise.resolve({ ok: true, json: async () => ({}) });
-    });
-
-    await popup.init();
-
-    // Check that auto-sync ran without clicking any sync button
-    const celebrationsList = env.document.getElementById('celebrationsList');
-    expect(celebrationsList?.textContent).toContain("Emma");
-    expect(celebrationsList?.textContent).toContain("Birthday");
-
-    // Flag should now be cleared
-    const stored = await env.chrome.storage.local.get(['yearly_auto_sync_on_grant']);
-    expect(stored.yearly_auto_sync_on_grant).toBeFalsy();
-  });
-
-  it('displays error feedback gracefully if authorization was cancelled', async () => {
-    // User cancels Google auth dialog
-    env.chrome.identity.getAuthToken = (options: any, cb: Function) => {
-      if (options.interactive) {
-        env.chrome.runtime.lastError = { message: 'The user did not approve access.' };
-        cb(null);
-      } else {
-        env.chrome.runtime.lastError = { message: 'Not logged in' };
-        cb(null);
-      }
-    };
-    await env.chrome.storage.local.set({ yearly_auth_status: 'unauthorized' });
-
-    await popup.init();
-
-    const authorizeBtn = env.document.getElementById('authorizeAccessBtn');
-    authorizeBtn?.dispatchEvent(new MockEvent('click'));
-
-    await new Promise((r) => setTimeout(r, 50));
-
-    const authFeedback = env.document.getElementById('authFeedback');
-    expect(authFeedback?.classList.contains('hidden')).toBe(false);
-    expect(authFeedback?.textContent).toContain('user did not approve access');
-    expect(authorizeBtn?.disabled).toBe(false);
-  });
-
-  it('clicking reset data button resets authorization state and displays Permission Required screen', async () => {
-    // Start in authorized state
-    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => cb('mock-valid-token');
-    await env.chrome.storage.local.set({
-      yearly_auth_status: 'authorized',
-      autogifter_cached_celebrations: [{ id: 'evt-1', recipientName: 'Alice', celebrationType: 'birthday' }]
-    });
-
-    await popup.init();
-
-    const permScreen = env.document.getElementById('permissionRequiredScreen');
-    expect(permScreen?.classList.contains('hidden')).toBe(true);
-
-    const resetBtn = env.document.getElementById('resetAuthBtn');
-    resetBtn?.dispatchEvent(new MockEvent('click'));
-
-    await new Promise((r) => setTimeout(r, 50));
-
-    expect(permScreen?.classList.contains('hidden')).toBe(false);
-    const stored = await env.chrome.storage.local.get(['yearly_auth_status']);
-    expect(stored.yearly_auth_status).toBe('unauthorized');
-  });
-
-  it('transitions to Permission Required screen if syncAllEvents encounters an unauthorized / permission error', async () => {
-    // Start in authorized state
-    env.chrome.identity.getAuthToken = (_options: any, cb: Function) => cb('mock-valid-token');
-    await env.chrome.storage.local.set({
-      yearly_auth_status: 'authorized',
-      autogifter_cached_celebrations: []
-    });
-
-    await popup.init();
-
-    // Mock storage.syncAllCelebrations to simulate 401 Unauthorized
-    jest.spyOn(storage, 'syncAllCelebrations').mockResolvedValueOnce({
-      ok: false,
-      error: 'Google Calendar API error (HTTP 401): Unauthorized permissions'
-    });
-
-    const syncBtn = env.document.getElementById('syncAllEventsBtn');
-    syncBtn?.dispatchEvent(new MockEvent('click'));
-
-    await new Promise((r) => setTimeout(r, 50));
-
-    const permScreen = env.document.getElementById('permissionRequiredScreen');
-    expect(permScreen?.classList.contains('hidden')).toBe(false);
   });
 });

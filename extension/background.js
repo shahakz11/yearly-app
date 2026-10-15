@@ -45,22 +45,9 @@ if (typeof chrome !== 'undefined' && chrome.runtime) {
       }
     });
   }
-
-  if (chrome.runtime.onMessage) {
-    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-      if (message && message.action === 'AUTHORIZE_AND_SYNC') {
-        performBackgroundSync(true).then(function (result) {
-          if (typeof sendResponse === 'function') sendResponse(result);
-        }).catch(function (err) {
-          if (typeof sendResponse === 'function') sendResponse({ ok: false, error: (err && err.message) || String(err) });
-        });
-        return true; // Keep channel open for async response
-      }
-    });
-  }
 }
 
-async function performBackgroundSync(interactive) {
+async function performBackgroundSync() {
   try {
     var storage = (typeof AutoGifterStorage !== 'undefined') ? AutoGifterStorage : null;
     if (!storage && typeof require !== 'undefined') {
@@ -68,8 +55,7 @@ async function performBackgroundSync(interactive) {
     }
 
     if (storage && storage.fetchCalendarEventsViaOAuth) {
-      var isInteractive = interactive === true;
-      var res = await storage.fetchCalendarEventsViaOAuth(30, isInteractive);
+      var res = await storage.fetchCalendarEventsViaOAuth(30, false);
       if (res && res.ok && res.data && res.data.sync) {
         var events = res.data.sync.events || [];
         var upcomingCount = events.filter(function (e) { return e.daysUntil <= 7; }).length;
@@ -79,32 +65,10 @@ async function performBackgroundSync(interactive) {
             chrome.action.setBadgeBackgroundColor({ color: '#e11d48' });
           }
         }
-
-        // Notify active Google Calendar tab(s) to show a subtle in-page celebration toast
-        if (typeof chrome !== 'undefined' && chrome.tabs && chrome.tabs.query) {
-          chrome.tabs.query({ url: '*://calendar.google.com/*' }, function (tabs) {
-            if (Array.isArray(tabs)) {
-              tabs.forEach(function (tab) {
-                if (tab && tab.id && chrome.tabs.sendMessage) {
-                  chrome.tabs.sendMessage(tab.id, {
-                    action: 'show_auth_toast',
-                    count: events.length
-                  }, function () {
-                    // Suppress lastError if tab is not receiving
-                    if (chrome.runtime && chrome.runtime.lastError) {}
-                  });
-                }
-              });
-            }
-          });
-        }
-        return res;
       }
-      return res;
     }
   } catch (err) {
     console.warn('[Yearly Background] Sync notice:', err);
-    return { ok: false, error: (err && err.message) || String(err) };
   }
 }
 

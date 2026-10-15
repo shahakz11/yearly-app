@@ -551,58 +551,12 @@
     return celebrations;
   }
 
-  function showInCalendarToast(message) {
-    if (typeof document === 'undefined' || !document.body) return;
-    var existing = document.getElementById('yearly-auth-toast');
-    if (existing && existing.parentNode) {
-      existing.parentNode.removeChild(existing);
-    }
-
-    var toast = document.createElement('div');
-    toast.id = 'yearly-auth-toast';
-    toast.className = 'yearly-calendar-toast';
-
-    var iconSpan = document.createElement('span');
-    iconSpan.className = 'yearly-toast-icon';
-    iconSpan.textContent = '🌸';
-
-    var textSpan = document.createElement('span');
-    textSpan.className = 'yearly-toast-text';
-    textSpan.textContent = message;
-
-    toast.appendChild(iconSpan);
-    toast.appendChild(textSpan);
-    document.body.appendChild(toast);
-
-    setTimeout(function () {
-      if (toast && toast.parentNode) {
-        toast.classList.add('fade-out');
-        setTimeout(function () {
-          if (toast && toast.parentNode) {
-            toast.parentNode.removeChild(toast);
-          }
-        }, 500);
-      }
-    }, 4500);
-  }
-
   function handleRuntimeMessage(request, sender, sendResponse) {
     if (request && request.action === 'scan_calendar') {
       scanAndInjectBadges();
       var detected = scanCelebrationEvents();
       if (typeof sendResponse === 'function') {
         sendResponse({ ok: true, celebrations: detected, count: detected.length });
-      }
-      return true;
-    }
-
-    if (request && request.action === 'show_auth_toast') {
-      var msg = request.count !== undefined
-        ? ('Yearly: Google Calendar connected! ' + request.count + ' celebration(s) synced.')
-        : 'Yearly: Google Calendar connected and synced!';
-      showInCalendarToast(msg);
-      if (typeof sendResponse === 'function') {
-        sendResponse({ ok: true });
       }
       return true;
     }
