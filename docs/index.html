@@ -4,13 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Yearly — Never miss a milestone. Thoughtful gifts in one click.</title>
+  <title>Yearly — Birthday Reminders &amp; Gifts for Google Calendar</title>
   <meta name="description"
-    content="Yearly integrates directly into Google Calendar to detect birthdays and anniversaries, recommending curated FloristOne flower bouquets with instant milestone reminders.">
+    content="Never forget a birthday or anniversary. Yearly adds smart milestone reminders to Google Calendar and lets you send curated flower bouquets in one click. Free.">
   <link rel="canonical" href="https://yearly.click/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#f43f5e">
   <meta name="google-site-verification" content="u85D0xaLr6J1RoRttbG__s-QdkEJigysOygCPDRs7yM">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18531225974"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18531225974');
+  </script>
 
   <!-- Favicon & Touch Icons (Google SERP & PWA Optimized) -->
   <link rel="shortcut icon" href="https://yearly.click/favicon.ico">
@@ -26,9 +36,9 @@
   <!-- OpenGraph / Facebook / LinkedIn -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Yearly">
-  <meta property="og:title" content="Yearly — Never miss a milestone. Thoughtful gifts in one click.">
+  <meta property="og:title" content="Yearly — Birthday Reminders &amp; Gifts for Google Calendar">
   <meta property="og:description"
-    content="Yearly integrates directly into Google Calendar to detect birthdays and anniversaries, recommending curated FloristOne flower bouquets with instant milestone reminders.">
+    content="Never forget a birthday or anniversary. Yearly adds smart milestone reminders to Google Calendar and lets you send curated flower bouquets in one click. Free.">
   <meta property="og:url" content="https://yearly.click/">
   <meta property="og:image" content="https://yearly.click/assets/icon-512.png">
   <meta property="og:image:width" content="512">
@@ -37,9 +47,9 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Yearly — Thoughtful gifts in one click">
+  <meta name="twitter:title" content="Yearly — Birthday Reminders &amp; Gifts for Google Calendar">
   <meta name="twitter:description"
-    content="Never miss a milestone. Thoughtful gifts in one click directly inside Google Calendar.">
+    content="Never forget a birthday or anniversary. Yearly adds smart milestone reminders to Google Calendar and lets you send curated flower bouquets in one click. Free.">
   <meta name="twitter:image" content="https://yearly.click/assets/icon-512.png">
 
   <!-- Structured Data / JSON-LD -->
@@ -73,7 +83,7 @@
         "@type": "SoftwareApplication",
         "@id": "https://yearly.click/#app",
         "name": "Yearly for Google Calendar",
-        "applicationCategory": "LifestyleApplication",
+        "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Google Workspace / Google Chrome",
         "offers": {
           "@type": "Offer",
@@ -165,6 +175,7 @@
           <a href="#how-it-works" class="hover:text-rose-600 transition">How It Works</a>
           <a href="#bouquets" class="hover:text-rose-600 transition">Curated Bouquets</a>
           <a href="#integrations" class="hover:text-rose-600 transition">Integrations</a>
+          <a href="quiz/" class="hover:text-rose-600 transition">Memory Quiz</a>
           <a href="support.html" class="hover:text-rose-600 transition">Support &amp; FAQ</a>
           <a href="privacy.html" class="hover:text-rose-600 transition">Privacy</a>
           <a href="terms.html" class="hover:text-rose-600 transition">Terms</a>
@@ -198,6 +209,8 @@
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Curated Bouquets</a>
       <a href="#integrations"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Integrations (Extension &amp; Add-on)</a>
+      <a href="quiz/"
+        class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Birthday Memory Quiz</a>
       <a href="support.html"
         class="block px-3 py-2 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100">Support &amp; FAQ</a>
       <a href="privacy.html"
@@ -723,6 +736,7 @@
             <li><a href="index.html" class="hover:text-white transition">Home</a></li>
             <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
             <li><a href="#bouquets" class="hover:text-white transition">Curated Bouquets</a></li>
+            <li><a href="quiz/" class="hover:text-white transition">Memory Quiz</a></li>
             <li><a href="#integrations" class="hover:text-white transition">Chrome Extension</a></li>
             <li><a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Workspace Add-on</a></li>
             <li><a href="#install" class="hover:text-white transition">Installation</a></li>
@@ -766,7 +780,7 @@
     </div>
   </footer>
 
-  <!-- Mobile Menu Script -->
+  <!-- Tracking & Mobile Menu Script -->
   <script>
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
@@ -775,6 +789,33 @@
         menu.classList.toggle('hidden');
       });
     }
+
+    // Google Ads Conversion Tracking on "Add to Chrome" & "Workspace Add-on" clicks
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('a[href*="chromewebstore.google.com"]').forEach((el) => {
+        el.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18531225974',
+              'event_category': 'engagement',
+              'event_label': 'add_to_chrome_click'
+            });
+          }
+        });
+      });
+
+      document.querySelectorAll('a[href*="workspace.google.com/marketplace"]').forEach((el) => {
+        el.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18531225974',
+              'event_category': 'engagement',
+              'event_label': 'workspace_addon_click'
+            });
+          }
+        });
+      });
+    });
   </script>
 </body>
 

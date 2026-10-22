@@ -1391,6 +1391,13 @@
             <option value="1">1. The Tuesday Trap (Personal - Wifey)</option>
             <option value="2">2. The Sibling Savior (Group Chat - Family)</option>
             <option value="3">3. Derek's Secret Charge (Personal - Plot Twist)</option>
+            <option value="4">4. The Birthday Blitz (Emergency 24h Birthday)</option>
+            <option value="5">5. The Zoom Call Poker Face (Workplace Multi-Tasker)</option>
+            <option value="6">6. The Time-Zone Trap (Long-Distance / Travel Rescue)</option>
+            <option value="7">7. The Office Birthday Hero (Workplace Peer Rescue)</option>
+            <option value="8">8. The Sunday Interrogation (Chronic Forgetfulness Drama)</option>
+            <option value="9">9. The Strategic Slacker (Pure Laziness & 5-Second Prep)</option>
+            <option value="10">10. The Accidental Romance Legend (Effortless Pre-Scheduling)</option>
             <option value="custom">✏️ Custom Blank Template</option>
           </select>
           
@@ -1709,11 +1716,16 @@
           <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">⚡ Quick Viral Presets:</div>
           <div class="badge-chips">
             <span class="badge-chip active" onclick="setHookPreset('HE FORGOT AGAIN 💀', this)">HE FORGOT AGAIN 💀</span>
+            <span class="badge-chip" onclick="setHookPreset('THE INTERROGATION 😱', this)">THE INTERROGATION 😱</span>
+            <span class="badge-chip" onclick="setHookPreset('ROMANCE HACK FOR LAZY GUYS 🛋️', this)">ROMANCE HACK FOR LAZY GUYS 🛋️</span>
+            <span class="badge-chip" onclick="setHookPreset('THOUGHTFUL IN 1 TAP 🌹', this)">THOUGHTFUL IN 1 TAP 🌹</span>
             <span class="badge-chip" onclick="setHookPreset('SAVED AT THE BUZZER 🚀', this)">SAVED AT THE BUZZER 🚀</span>
-            <span class="badge-chip" onclick="setHookPreset('BEST ANNIVERSARY HACK 💍', this)">BEST ANNIVERSARY HACK 💍</span>
-            <span class="badge-chip" onclick="setHookPreset('POV: IT\'S 8:14 PM 😱', this)">POV: IT'S 8:14 PM 😱</span>
-            <span class="badge-chip" onclick="setHookPreset('SAVED MY RELATIONSHIP 🌸', this)">SAVED MY RELATIONSHIP 🌸</span>
-            <span class="badge-chip" onclick="setHookPreset('NEVER FORGET HER BIRTHDAY 💐', this)">NEVER FORGET HER BIRTHDAY 💐</span>
+            <span class="badge-chip" onclick="setHookPreset('FAVORITE CHILD STATUS 🏆', this)">FAVORITE CHILD STATUS 🏆</span>
+            <span class="badge-chip" onclick="setHookPreset('THE BIGGEST PLOT TWIST 😱', this)">THE BIGGEST PLOT TWIST 😱</span>
+            <span class="badge-chip" onclick="setHookPreset('IT\'S 4 PM THE DAY BEFORE 💀', this)">IT'S 4 PM THE DAY BEFORE 💀</span>
+            <span class="badge-chip" onclick="setHookPreset('MID-MEETING PANIC 😱', this)">MID-MEETING PANIC 😱</span>
+            <span class="badge-chip" onclick="setHookPreset('DISTANCE IS NO EXCUSE 🌸', this)">DISTANCE IS NO EXCUSE 🌸</span>
+            <span class="badge-chip" onclick="setHookPreset('WHO FORGOT HER BIRTHDAY?! 😱', this)">WHO FORGOT HER BIRTHDAY?! 😱</span>
           </div>
         </div>
 
@@ -1903,6 +1915,7 @@ CTA Button: Install Free / Get Offer</div>
         notifTitle: "💍 Wifey's 3rd Anniversary Tuesday!",
         notifBody: "Send 50 Luxury Long-Stem Red Roses. Delivery scheduled for 10:00 AM.",
         notifBtn: "⚡ 1-Click Send 50 Red Roses ($49)",
+        defaultHook: "HE FORGOT AGAIN 💀",
         messages: [
           { type: 'time', text: 'Today 19:21', senderName: '', delay: 400 },
           { type: 'receive', text: "I really don't feel like celebrating this Tuesday.", senderName: '', delay: 1500 },
@@ -1910,7 +1923,21 @@ CTA Button: Install Free / Get Offer</div>
           { type: 'notif', text: '', senderName: '', delay: 4800 },
           { type: 'send', text: "Don't worry babe, I got you covered ❤️", senderName: '', delay: 7200 },
           { type: 'payoff', text: '', senderName: '', delay: 9600 }
-        ]
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: It's 8:14 PM and you almost forgot her anniversary... 💀\n2. If your partner forgets every date, send them this ASAP 😭\n3. Google Calendar just saved this guy's relationship in 1 click 🚀",
+            caption: "Saved at the buzzer 🚀 Never be that guy who forgets the anniversary. Yearly plugs straight into Google Calendar and lets you send 50 luxury roses in 1 click without ever opening a flower site.\n\n👉 Link in bio to install Yearly free! #yearly #relationshipgoals #anniversarysurprise #lastminutegift #husbandhack #floristone #couplehumor"
+          },
+          youtube: {
+            titles: "1. When You Forget Her Anniversary... But Have 1 Secret Hack 💐 #Shorts\n2. Google Calendar Saved This Relationship at 8:14 PM 🚀 #Shorts\n3. Never Sleep On The Couch Again (Google Calendar Hack) 💍 #Shorts",
+            description: "How Yearly saves you from milestone disasters directly inside Google Calendar. 1-click curated flower delivery with FloristOne.\n\n🔗 Install Yearly Free on Chrome: https://yearly.click\n⏰ Never miss birthdays, anniversaries, or special dates again.\n\n#Shorts #Yearly #GoogleCalendar #GiftIdeas #RelationshipHacks #FloristOne"
+          },
+          ads: {
+            primary: "Forgotten anniversaries shouldn't cost you your relationship. Yearly adds 1-click gift delivery directly to your Google Calendar alerts. When the reminder pops up, send 50 long-stem red roses in under 10 seconds.",
+            headline: "Headline: Never Miss Her Anniversary | 1-Click Google Calendar Gifts\nDescription: Curated FloristOne delivery synced with your calendar.\nCTA Button: Install Free / Get Offer"
+          }
+        }
       },
       2: {
         name: "2. The Sibling Savior (Group Chat - Family)",
@@ -1925,7 +1952,8 @@ CTA Button: Install Free / Get Offer</div>
         payoffBtn: 'Get Yearly for Calendar',
         notifTitle: "🎉 Mom & Dad 30th Anniversary Tomorrow",
         notifBody: "FloristOne Celebration Orchid & Bouquet Bundle ready.",
-        notifBtn: "⚡ 1-Click Send to Parents' Address",
+        notifBtn: "⚡ 1-Click Send to Parents' Address ($54)",
+        defaultHook: "FAVORITE CHILD STATUS 🏆",
         messages: [
           { type: 'time', text: 'Today 18:30', senderName: '', delay: 400 },
           { type: 'receive', text: "Mom & Dad's 30th anniversary is TOMORROW!!! 😱", senderName: 'Sister', delay: 1400 },
@@ -1934,7 +1962,21 @@ CTA Button: Install Free / Get Offer</div>
           { type: 'notif', text: '', senderName: '', delay: 5000 },
           { type: 'send', text: "It's done. Fresh luxury bouquet arriving tomorrow at 10 AM. You guys owe me $20 ☕", senderName: '', delay: 7600 },
           { type: 'payoff', text: '', senderName: '', delay: 10000 }
-        ]
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. When the sibling group chat is melting down at 6 PM... 😱\n2. How I secured Favorite Child status in 5 seconds 🏆\n3. Sibling group chat panic: A tragedy in 3 texts 💀",
+            caption: "Favorite child status secured 🏆 While my brother & sister were panicking over mom and dad's anniversary, Yearly caught it on my Google Calendar and sent an orchid bundle in 1 click. Easiest $20 they ever paid me.\n\n👉 Install Yearly free at yearly.click #yearly #familychat #siblinggoals #parentsanniversary #favoritechild #lifesaver #googlecalendar"
+          },
+          youtube: {
+            titles: "1. Sibling Group Chat Meltdown Saved by Google Calendar 🏆 #Shorts\n2. How to Become the Favorite Child in 5 Seconds 💐 #Shorts\n3. When Your Siblings Forget Mom & Dad's Anniversary 💀 #Shorts",
+            description: "The family group chat was panicking over mom and dad's 30th anniversary. Yearly detected the milestone in Google Calendar and handled fresh FloristOne flower delivery in 1 click.\n\n🔗 Get Yearly for Google Calendar: https://yearly.click\n\n#Shorts #FamilyGoals #GiftIdeas #GoogleCalendar #Yearly"
+          },
+          ads: {
+            primary: "Group gifts don't have to cause family chaos. Yearly detects family birthdays and anniversaries right inside Google Calendar, letting you send curated FloristOne bouquets in 1 click without leaving your desk.",
+            headline: "Headline: Be The Hero Of The Family Chat 💐 | 1-Click Calendar Gifting\nDescription: Automatic anniversary reminders and doorstep deliveries.\nCTA Button: Install Free"
+          }
+        }
       },
       3: {
         name: "3. Derek's Secret Charge (Personal - Plot Twist)",
@@ -1950,6 +1992,7 @@ CTA Button: Install Free / Get Offer</div>
         notifTitle: "🌹 FloristOne: 50 Roses Delivered",
         notifBody: "Delivered to doorstep for Derek's Anniversary surprise.",
         notifBtn: "⚡ View Delivery Photo",
+        defaultHook: "THE BIGGEST PLOT TWIST 😱",
         messages: [
           { type: 'time', text: 'Today 20:13', senderName: '', delay: 400 },
           { type: 'receive', text: "OMG I knew Derek was cheating... I saw a charge from a flower shop and got nothing 😭", senderName: '', delay: 1600 },
@@ -1957,7 +2000,287 @@ CTA Button: Install Free / Get Offer</div>
           { type: 'notif', text: '', senderName: '', delay: 4600 },
           { type: 'send', text: "Wait... the doorbell just rang. 50 RED ROSES JUST ARRIVED. OOPS Nevermind 😭❤️🌹", senderName: '', delay: 7200 },
           { type: 'payoff', text: '', senderName: '', delay: 9500 }
-        ]
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. She thought he was cheating... but wait for the twist 😭🌹\n2. The biggest relationship scare of the year 🚩\n3. Never accuse him before checking the front door 💀",
+            caption: "The plot twist of the century 🌹 Turns out he had Yearly installed on his Google Calendar and scheduled 50 roses weeks ago. Best relationship insurance ever made.\n\n👉 Install Yearly free at yearly.click #yearly #plottwist #relationshiptiktok #anniversarysurprise #surprisegift #floristone #couplegoals"
+          },
+          youtube: {
+            titles: "1. She Thought He Was Cheating... Then The Doorbell Rang 🌹 #Shorts\n2. The Most Wholesome Plot Twist on the Internet 💍 #Shorts\n3. Google Calendar Saved Him From False Accusations 💀 #Shorts",
+            description: "A suspicious flower shop charge turned into a 50-rose anniversary doorstep surprise thanks to Yearly for Google Calendar.\n\n🔗 Install Yearly on Chrome: https://yearly.click\n\n#Shorts #RelationshipGoals #Yearly #GoogleCalendar #Romance"
+          },
+          ads: {
+            primary: "Never let a forgotten milestone cause unnecessary tension. Yearly automatically schedules curated floral gifts directly from Google Calendar, ensuring deliveries arrive right on time.",
+            headline: "Headline: The Ultimate Relationship Insurance 🌹 | 1-Click Calendar Gifts\nDescription: Never miss anniversaries with automatic calendar gifting.\nCTA Button: Install Free / Try Now"
+          }
+        }
+      },
+      4: {
+        name: "4. The Birthday Blitz (Emergency 24h Birthday)",
+        chatType: 'personal',
+        contactName: 'Sarah ✨',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-wifey.jpg',
+        payoffUrl: 'bouquet-sweet-sunshine.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Never Miss Her Birthday 💐',
+        payoffBody: '1-Click curated birthday flowers & balloons via Google Calendar.',
+        payoffBtn: 'Install Yearly Free',
+        notifTitle: "🎂 Sarah's Birthday Tomorrow!",
+        notifBody: "Curated Sweet Sunshine Bouquet & Celebration Balloon ready.",
+        notifBtn: "⚡ 1-Click Send for Tomorrow 10 AM ($45)",
+        defaultHook: "IT'S 4 PM THE DAY BEFORE 💀",
+        messages: [
+          { type: 'time', text: 'Today 16:00', senderName: '', delay: 400 },
+          { type: 'receive', text: "Hey! Are we still doing dinner tomorrow for my birthday? 🎂", senderName: '', delay: 1400 },
+          { type: 'draft', text: "shoot shoot shoot...", senderName: '', delay: 2800 },
+          { type: 'notif', text: '', senderName: '', delay: 4500 },
+          { type: 'send', text: "Of course! Something bright and special is already on the way 🌻✨", senderName: '', delay: 7000 },
+          { type: 'payoff', text: '', senderName: '', delay: 9400 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: It's 4 PM the day before her birthday and you have nothing 💀\n2. How to order birthday flowers in 4 seconds without panicking 🚀\n3. Stop scrolling if her birthday is this week 💐",
+            caption: "Saved at the buzzer 🎂 If you get that sinking feeling the day before her birthday, Yearly is your cheat code. 1-click curated flowers and balloons straight from Google Calendar.\n\n👉 Install Yearly free at yearly.click #yearly #birthdayhack #birthdaygift #lastminutegift #boyfriendhack #googlecalendar #floristone"
+          },
+          youtube: {
+            titles: "1. It's 4 PM Before Her Birthday... Watch This 💀 #Shorts\n2. The 5-Second Birthday Gift Hack in Google Calendar 🎂 #Shorts\n3. Never Forget Her Birthday Again (Yearly Extension) 💐 #Shorts",
+            description: "Forget searching 20 flower websites. Yearly detects upcoming birthdays in Google Calendar and lets you send curated bouquets in one single click.\n\n🔗 Install Yearly Free: https://yearly.click\n\n#Shorts #BirthdayGifts #GoogleCalendar #Yearly #LifeHacks"
+          },
+          ads: {
+            primary: "Last-minute birthday panic is officially over. Yearly adds 1-click gift delivery directly to your Google Calendar. When a birthday pops up, send fresh FloristOne flowers and balloons in 5 seconds.",
+            headline: "Headline: Never Forget Her Birthday Again 🎂 | 1-Click Calendar Gifting\nDescription: Send curated flowers directly from your Google Calendar.\nCTA Button: Install Free"
+          }
+        }
+      },
+      5: {
+        name: "5. The Zoom Call Poker Face (Workplace Multi-Tasker)",
+        chatType: 'personal',
+        contactName: 'David (Manager) 💼',
+        statusText: 'Zoom Call • 1-on-1',
+        avatarUrl: 'avatar-husband.jpg',
+        payoffUrl: 'realistic-roses-delivery.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Saved During The Meeting 🚀',
+        payoffBody: '1-Click calendar gifting without leaving your browser or meeting.',
+        payoffBtn: 'Add to Calendar Free',
+        notifTitle: "💍 3-Year Anniversary Tonight!",
+        notifBody: "Send 50 Crimson Red Roses to Restaurant for 6:45 PM.",
+        notifBtn: "⚡ 1-Click Send to Restaurant ($49)",
+        defaultHook: "MID-MEETING PANIC 😱",
+        messages: [
+          { type: 'time', text: 'Today 15:45', senderName: '', delay: 400 },
+          { type: 'receive', text: "Can you present the Q4 budget deck on our 4 PM all-hands?", senderName: '', delay: 1400 },
+          { type: 'draft', text: "sure, also what time is d...", senderName: '', delay: 2900 },
+          { type: 'notif', text: '', senderName: '', delay: 4600 },
+          { type: 'send', text: "Deck is locked and ready. See you on the call! 📊", senderName: '', delay: 7100 },
+          { type: 'payoff', text: '', senderName: '', delay: 9500 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: You're screen-sharing with your boss and realize it's your anniversary 💀\n2. The poker face every corporate worker needs to master 😭\n3. How Google Calendar saved this guy while on a Zoom call 🚀",
+            caption: "Maintaining full eye contact with the webcam while ordering 50 roses in 1 click 😭 Yearly integrates with Google Calendar so you don't even have to leave your browser to save your relationship.\n\n👉 Install Yearly free at yearly.click #yearly #corporatehumor #wfhproblems #zoomcall #anniversarysurprise #husbandhack #googlecalendar"
+          },
+          youtube: {
+            titles: "1. Ordering Anniversary Roses While Screen-Sharing With My Boss 💀 #Shorts\n2. The Ultimate Corporate Multi-Tasking Lifesaver 💼 #Shorts\n3. How Google Calendar Saved My Relationship on a Zoom Call 🌹 #Shorts",
+            description: "When your anniversary dinner is tonight and your schedule is packed with meetings, Yearly lets you order curated roses in 1 click right from Google Calendar.\n\n🔗 Get Yearly Free on Chrome: https://yearly.click\n\n#Shorts #WorkFromHome #GoogleCalendar #RelationshipHacks #Yearly"
+          },
+          ads: {
+            primary: "Too busy with back-to-back meetings to browse flower websites? Yearly adds 1-click gift ordering right onto your Google Calendar events. Send luxury roses in 5 seconds without missing a beat.",
+            headline: "Headline: Never Miss A Milestone Mid-Meeting 💼 | 1-Click Calendar Gifts\nDescription: Effortless FloristOne flower deliveries from Google Calendar.\nCTA Button: Install Free"
+          }
+        }
+      },
+      6: {
+        name: "6. The Time-Zone Trap (Long-Distance / Travel Rescue)",
+        chatType: 'personal',
+        contactName: 'Mom ❤️',
+        statusText: 'Timezone: +8 Hours',
+        avatarUrl: 'avatar-sister.jpg',
+        payoffUrl: 'bouquet-pink-posh.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Distance Is No Excuse 🌸',
+        payoffBody: 'Thoughtful doorstep deliveries worldwide from Google Calendar.',
+        payoffBtn: 'Try Yearly Free',
+        notifTitle: "🎂 Mom's 60th Birthday Today at Home!",
+        notifBody: "Send Luxury Pink Posh Peony Bundle to Mom's Address.",
+        notifBtn: "⚡ 1-Click Send for 11:00 AM Local Time ($52)",
+        defaultHook: "DISTANCE IS NO EXCUSE 🌸",
+        messages: [
+          { type: 'time', text: 'Today 08:15', senderName: '', delay: 400 },
+          { type: 'receive', text: "Flight landed! Hope you have a safe trip sweetheart ❤️", senderName: '', delay: 1500 },
+          { type: 'draft', text: "thanks mom, wait isn't it...", senderName: '', delay: 3000 },
+          { type: 'notif', text: '', senderName: '', delay: 4700 },
+          { type: 'send', text: "Happy 60th Birthday Mom! Look out for the doorbell at 11 AM 💐🥰", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. When your phone updates time zones and it's suddenly Mom's birthday... 💀\n2. Distance is no excuse: How I sent flowers from 5,000 miles away 🌸\n3. The sinking feeling when you land in Europe and realize it's her birthday ✈️",
+            caption: "Distance is no excuse 🌸 Landed after an overnight flight and realized it was already Mom's 60th birthday back home. Yearly popped up on Google Calendar, pre-filled her address, and dispatched local fresh flowers in 1 click.\n\n👉 Install Yearly free at yearly.click #yearly #traveltok #longdistance #momsofinstagram #birthdaysurprise #googlecalendar #lifesaver"
+          },
+          youtube: {
+            titles: "1. Time Zones Almost Made Me Miss Mom's 60th Birthday ✈️ #Shorts\n2. Sending Flowers from 5,000 Miles Away in 1 Click 🌸 #Shorts\n3. The Google Calendar Travel Hack You Need 🌍 #Shorts",
+            description: "Traveling across time zones? Yearly keeps track of birthdays and family milestones in Google Calendar and lets you send curated FloristOne bouquets anywhere in seconds.\n\n🔗 Install Yearly Free: https://yearly.click\n\n#Shorts #TravelHacks #BirthdayGifts #GoogleCalendar #Yearly"
+          },
+          ads: {
+            primary: "Traveling for work shouldn't mean missing family milestones. Yearly tracks your Google Calendar dates and lets you send fresh, locally delivered flowers in 1 click from anywhere in the world.",
+            headline: "Headline: Thoughtful From Anywhere In The World 🌸 | Yearly Calendar Add-on\nDescription: 1-Click FloristOne flower deliveries synced to your calendar.\nCTA Button: Install Free / Get Started"
+          }
+        }
+      },
+      7: {
+        name: "7. The Office Birthday Hero (Workplace Peer Rescue)",
+        chatType: 'group',
+        contactName: 'Design Team 🎨',
+        statusText: 'Jordan, Sam, Maya (3)',
+        avatarUrl: 'avatar-family.jpg',
+        payoffUrl: 'bouquet-sweet-sunshine.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Office Hero Status 🎈',
+        payoffBody: 'Same-day celebration bouquets & balloons from your shared calendar.',
+        payoffBtn: 'Install for Google Calendar',
+        notifTitle: "🎉 Maya's 5-Year Work Anniversary & Birthday",
+        notifBody: "Celebration Sunflower Bouquet & Balloon delivered to Office Lobby.",
+        notifBtn: "⚡ 1-Click Send to Office Reception ($45)",
+        defaultHook: "WHO FORGOT HER BIRTHDAY?! 😱",
+        messages: [
+          { type: 'time', text: 'Today 09:15', senderName: '', delay: 400 },
+          { type: 'receive', text: "DID ANYONE GET MAYA A GIFT?! She arrives in 45 mins! 😱", senderName: 'Jordan', delay: 1400 },
+          { type: 'draft', text: "ordering now don't panic...", senderName: '', delay: 2800 },
+          { type: 'notif', text: '', senderName: '', delay: 4600 },
+          { type: 'send', text: "Relax team, it's done. Same-day bouquet & balloons arriving at reception 🎈🌻", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: The entire office forgot the lead designer's birthday 💀\n2. 45 minutes until she walks in... can we save this?! 🏃‍♂️\n3. How to be the office hero in 5 seconds 🏆",
+            caption: "Office disaster avoided 🎈 The team was in full panic mode until Yearly caught it on the shared Google Calendar. 1-click and fresh sunflowers + balloons were dispatched to the front desk before she even arrived.\n\n👉 Install Yearly free at yearly.click #yearly #officehumor #workplacegoals #birthdaysurprise #corporatehacks #googlecalendar #lifesaver"
+          },
+          youtube: {
+            titles: "1. When the Entire Office Forgets Her Birthday... 😱 #Shorts\n2. 45 Minutes to Save the Office Birthday 🎈 #Shorts\n3. The Google Calendar Workplace Hack Every Team Needs 🏆 #Shorts",
+            description: "Never scramble for last-minute office celebrations again. Yearly brings 1-click gift and flower delivery directly into Google Calendar shared team schedules.\n\n🔗 Add Yearly to Google Calendar: https://yearly.click\n\n#Shorts #OfficeHumor #WorkplaceCulture #GoogleCalendar #Yearly"
+          },
+          ads: {
+            primary: "Scrambling for coworker birthdays and office milestones? Yearly integrates with Google Calendar so your team can dispatch same-day celebratory flowers and balloons in 1 click.",
+            headline: "Headline: The Office Celebration Lifesaver 🎈 | Yearly for Google Calendar\nDescription: 1-Click FloristOne flower deliveries for team celebrations.\nCTA Button: Install Free"
+          }
+        }
+      },
+      8: {
+        name: "8. The Sunday Interrogation (Chronic Forgetfulness Drama)",
+        chatType: 'personal',
+        contactName: 'Wifey (Jessica) 💍',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-wifey.jpg',
+        payoffUrl: 'bouquet-pure-elegance.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'The Forgetfulness Immunity 🛡️',
+        payoffBody: 'Yearly caught it 14 days ago in Google Calendar. Stress level: zero.',
+        payoffBtn: 'Get Yearly for Calendar',
+        notifTitle: "💍 4th Anniversary in 14 Days",
+        notifBody: "Pre-scheduled FloristOne Oriental Lilies delivery for Thursday 10:00 AM.",
+        notifBtn: "⚡ 1-Click Auto-Schedule ($49)",
+        defaultHook: "THE INTERROGATION 😱",
+        messages: [
+          { type: 'time', text: 'Sunday 10:45', senderName: '', delay: 400 },
+          { type: 'receive', text: "Do you even know what next Thursday is, Liam? 🤨", senderName: '', delay: 1400 },
+          { type: 'draft', text: "uhhh... thursday?", senderName: '', delay: 2800 },
+          { type: 'notif', text: '', senderName: '', delay: 4600 },
+          { type: 'send', text: "Thursday is our 4th anniversary. Your favorite lilies arrive at 10 AM sharp. Relax babe 😉❤️", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: She hits you with 'Do you know what day next week is?' 💀\n2. The panic every chronic forgetter knows all too well 😭\n3. How Google Calendar saved me from the Sunday interrogation 🚀",
+            caption: "The cold sweat was real 😭 But Yearly caught our anniversary 14 days ago in Google Calendar and pre-scheduled her favorite lilies while I was half-asleep in bed. Total romance legend without lifting a finger.\n\n👉 Install Yearly free at yearly.click #yearly #husbandgoals #relationshipproblems #anniversarygift #lifehack #googlecalendar #floristone"
+          },
+          youtube: {
+            titles: "1. When She Tests Your Memory... But You Have A Secret Weapon 💀 #Shorts\n2. The Sunday Interrogation Every Boyfriend Dreads 💍 #Shorts\n3. How to Outsmart Chronic Forgetfulness in 1 Click 💐 #Shorts",
+            description: "Chronic forgetfulness is no match for Yearly. It spots your upcoming relationship milestones weeks in advance and lets you pre-schedule curated flower delivery directly from Google Calendar.\n\n🔗 Install Yearly on Chrome & Calendar: https://yearly.click\n\n#Shorts #RelationshipHacks #GoogleCalendar #Yearly #LifeHacks"
+          },
+          ads: {
+            primary: "Tired of the cold-sweat panic when your partner asks 'Do you know what day next week is?' Yearly monitors your Google Calendar for anniversaries and birthdays, giving you 14-day advance alerts with 1-click gift scheduling.",
+            headline: "Headline: Never Get Caught Off Guard Again 💍 | Yearly for Google Calendar\nDescription: 14-Day advance milestone detection & 1-click curated delivery.\nCTA Button: Install Free"
+          }
+        }
+      },
+      9: {
+        name: "9. The Strategic Slacker (Pure Laziness & 5-Second Prep)",
+        chatType: 'personal',
+        contactName: 'Kevin (Roommate) 🛋️',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-husband.jpg',
+        payoffUrl: 'realistic-roses-delivery.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'The Couch Champion 🛋️',
+        payoffBody: 'No 50-page catalogs. No 15-field address forms. Just 1 click from calendar.',
+        payoffBtn: 'Install Yearly Free',
+        notifTitle: "🎂 Emma's Birthday in 3 Days",
+        notifBody: "Address pre-filled from Contacts. 50 Red Roses curated bundle ready.",
+        notifBtn: "⚡ 1-Click Order from Couch ($49)",
+        defaultHook: "ROMANCE HACK FOR LAZY GUYS 🛋️",
+        messages: [
+          { type: 'time', text: 'Saturday 14:15', senderName: '', delay: 400 },
+          { type: 'receive', text: "Bro! Emma's birthday is Tuesday, have you spent 40 mins on flower sites yet?! 😭", senderName: '', delay: 1400 },
+          { type: 'draft', text: "nah too lazy...", senderName: '', delay: 2800 },
+          { type: 'notif', text: '', senderName: '', delay: 4600 },
+          { type: 'send', text: "Done. Tapped 1 button on Google Calendar without getting off the couch. Roses arrive Tuesday 10 AM 🌹", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. The ultimate romance hack for lazy guys who hate shopping 🛋️\n2. 0 catalogs. 0 forms. 1 click from Google Calendar 🚀\n3. How to look like the most thoughtful partner with 4 seconds of effort 🌹",
+            caption: "Work smarter, not harder 🛋️ Traditional flower sites want you to fill out 15 address forms and browse 50 pages of catalogs. Yearly syncs with Google Calendar so you send 50 luxury roses in literally 1 tap from bed.\n\n👉 Install Yearly free at yearly.click #yearly #lazyhacks #boyfriendhack #googlecalendar #giftideas #floristone #relationshipgoals"
+          },
+          youtube: {
+            titles: "1. The 4-Second Romance Hack for Lazy People 🛋️ #Shorts\n2. Why I'll Never Use A Traditional Flower Site Again 🌹 #Shorts\n3. Google Calendar Just Made Gift Shopping Obsolete 🚀 #Shorts",
+            description: "No more spending 45 minutes on bulky flower delivery websites. Yearly detects celebrations right inside Google Calendar and dispatches fresh FloristOne flowers in one single tap.\n\n🔗 Get Yearly for Google Calendar: https://yearly.click\n\n#Shorts #LifeHacks #LazyHacks #GoogleCalendar #Yearly"
+          },
+          ads: {
+            primary: "Hate browsing endless flower websites and typing 15-field checkout forms? Yearly puts curated, top-rated floral gifts directly inside your Google Calendar. One tap, zero hassle, delivered right on time.",
+            headline: "Headline: The 1-Click Calendar Gift Hack 🛋️ | Zero Forms, Pure Results\nDescription: Pre-curated FloristOne flower deliveries right from your schedule.\nCTA Button: Install Free"
+          }
+        }
+      },
+      10: {
+        name: "10. The Accidental Romance Legend (Effortless Pre-Scheduling)",
+        chatType: 'personal',
+        contactName: 'Maya ❤️',
+        statusText: 'iMessage',
+        avatarUrl: 'avatar-wifey.jpg',
+        payoffUrl: 'bouquet-sunset-passion.jpg',
+        safeZoneMode: 'reels',
+        payoffTitle: 'Romance Legend Status 🌹',
+        payoffBody: 'Tapped with a pinky while brushing teeth 7 days ago. Hero reputation secured.',
+        payoffBtn: 'Install Yearly Free',
+        notifTitle: "💍 1-Year Milestone Next Week",
+        notifBody: "Sunset Passion Bouquet & personalized card scheduled for delivery.",
+        notifBtn: "⚡ 1-Click Pre-Schedule ($45)",
+        defaultHook: "THOUGHTFUL IN 1 TAP 🌹",
+        messages: [
+          { type: 'time', text: 'Today 11:30', senderName: '', delay: 400 },
+          { type: 'receive', text: "THE DOORBELL JUST RANG!! SUNSET ROSES?! You planned this days ago?! 😭❤️", senderName: '', delay: 1400 },
+          { type: 'receive', text: "You are literally the most thoughtful boyfriend on this planet!! 🥺", senderName: '', delay: 3000 },
+          { type: 'notif', text: '', senderName: '', delay: 4800 },
+          { type: 'send', text: "Only the best for you babe. Always thinking ahead 😉✨", senderName: '', delay: 7200 },
+          { type: 'payoff', text: '', senderName: '', delay: 9600 }
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. When she thinks you spent weeks planning an elaborate surprise... 💀\n2. I literally tapped 1 button while brushing my teeth last week 😭\n3. From chronic forgetter to romance legend in 5 seconds 🌹",
+            caption: "She thinks I'm a romance mastermind... Yearly is my dirty little secret 😭 Tapped one button on Google Calendar 7 days ago and forgot about it. Sunset roses delivered on time, favorite partner status unlocked.\n\n👉 Install Yearly free at yearly.click #yearly #relationshipproblems #anniversarygift #boyfriendhack #googlecalendar #floristone"
+          },
+          youtube: {
+            titles: "1. She Thinks I Spent Weeks Planning This... 💀 #Shorts\n2. How Google Calendar Made Me An Accidental Romance Legend 🌹 #Shorts\n3. The Secret Relationship Insurance You Need 💍 #Shorts",
+            description: "You don't need to be naturally organized to be a legendary partner. Yearly syncs with Google Calendar to pre-schedule fresh flower deliveries before you even have a chance to forget.\n\n🔗 Install Yearly Free: https://yearly.click\n\n#Shorts #RelationshipGoals #GiftIdeas #GoogleCalendar #Yearly"
+          },
+          ads: {
+            primary: "You don't have to spend hours planning romantic gestures. Yearly connects to Google Calendar, alerts you days before important milestones, and lets you pre-schedule luxury floral deliveries in 5 seconds.",
+            headline: "Headline: Become A Romance Legend in 5 Seconds 🌹 | Yearly for Calendar\nDescription: Automated milestone gifts synced directly with Google Calendar.\nCTA Button: Install Free"
+          }
+        }
       },
       custom: {
         name: "✏️ Custom Blank Template",
@@ -1973,13 +2296,28 @@ CTA Button: Install Free / Get Offer</div>
         notifTitle: "🎁 Birthday Milestone Detected",
         notifBody: "Send fresh celebration flowers in 1 click.",
         notifBtn: "⚡ 1-Click Send Flowers ($45)",
+        defaultHook: "SAVED AT THE BUZZER 🚀",
         messages: [
           { type: 'time', text: 'Today 14:00', senderName: '', delay: 400 },
           { type: 'receive', text: "Are you ready for tonight? 🎉", senderName: '', delay: 1400 },
           { type: 'notif', text: '', delay: 2800 },
           { type: 'send', text: "Always ready! Something special is on the way 💐", senderName: '', delay: 5200 },
           { type: 'payoff', text: '', delay: 7400 }
-        ]
+        ],
+        defaultCopy: {
+          tiktok: {
+            hooks: "1. POV: You almost forgot their special day... 💀\n2. The 1-click calendar hack you need 🚀\n3. How to never miss a milestone again 💐",
+            caption: "Saved at the buzzer 🚀 Never get caught empty-handed. Yearly adds 1-click gifting directly to your Google Calendar.\n\n👉 Install Yearly free at yearly.click #yearly #calendarhack #relationshipgoals #giftideas"
+          },
+          youtube: {
+            titles: "1. The 1-Click Calendar Hack for Gifts 💐 #Shorts\n2. Never Forget An Important Date Again 🚀 #Shorts\n3. How Google Calendar Saves Relationships 💍 #Shorts",
+            description: "Yearly detects upcoming birthdays and milestones in Google Calendar and lets you send curated gifts in 1 click.\n\n🔗 Install Free: https://yearly.click"
+          },
+          ads: {
+            primary: "Never scramble for gifts again. Yearly connects with Google Calendar to deliver fresh flowers in 1 click.",
+            headline: "Headline: Never Miss A Milestone | Yearly for Google Calendar\nDescription: 1-Click curated gift delivery.\nCTA Button: Install Free"
+          }
+        }
       }
     };
 
@@ -2129,6 +2467,8 @@ CTA Button: Install Free / Get Offer</div>
     // ========================================================
     // TEMPLATE PERSISTENCE & LOCALSTORAGE MANAGEMENT
     // ========================================================
+    const BUILTIN_PRESET_IDS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'custom'];
+
     function loadSavedTemplates() {
       allPresets = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
       try {
@@ -2142,7 +2482,7 @@ CTA Button: Install Free / Get Offer</div>
             'ad-creative-tuesday-trap.jpg': 'realistic-couple-roses.jpg'
           };
           Object.keys(parsed).forEach(k => {
-            if (['1', '2', '3', 'custom'].includes(k)) {
+            if (BUILTIN_PRESET_IDS.includes(k)) {
               needsCleanup = true;
               return;
             }
@@ -2174,7 +2514,7 @@ CTA Button: Install Free / Get Offer</div>
         <option value="${k}" ${k === currentPresetId ? 'selected' : ''}>${allPresets[k].name || 'Template ' + k}</option>
       `).join('');
 
-      const isCustom = !['1', '2', '3'].includes(currentPresetId);
+      const isCustom = !BUILTIN_PRESET_IDS.includes(currentPresetId);
       document.getElementById('deleteTemplateBtn').style.display = isCustom ? 'inline-flex' : 'none';
     }
 
@@ -2204,7 +2544,7 @@ CTA Button: Install Free / Get Offer</div>
     }
 
     function deleteCurrentTemplate() {
-      if (['1', '2', '3'].includes(currentPresetId)) {
+      if (BUILTIN_PRESET_IDS.includes(currentPresetId)) {
         alert("Default presets cannot be deleted.");
         return;
       }
@@ -2221,7 +2561,7 @@ CTA Button: Install Free / Get Offer</div>
     function persistCustomTemplates() {
       const customOnly = {};
       Object.keys(allPresets).forEach(k => {
-        if (!['1', '2', '3'].includes(k)) {
+        if (!BUILTIN_PRESET_IDS.includes(k)) {
           customOnly[k] = allPresets[k];
         }
       });
@@ -2556,13 +2896,28 @@ CTA Button: Install Free / Get Offer</div>
       const pSelect = document.getElementById('presetSelect');
       if (pSelect) pSelect.value = id;
       
-      const isCustom = !['1', '2', '3'].includes(id);
+      const isCustom = !BUILTIN_PRESET_IDS.includes(id);
       document.getElementById('deleteTemplateBtn').style.display = isCustom ? 'inline-flex' : 'none';
 
       loadStateIntoInputs();
       renderAssetGrids();
       renderMessagesEditor();
       restartVideo();
+
+      // Automatically sync thumbnail hook & live preview
+      if (state.defaultHook) {
+        thumbState.hookText = state.defaultHook;
+        const hookInput = document.getElementById('thumbHookText');
+        if (hookInput) hookInput.value = state.defaultHook;
+      }
+      renderThumbnailCanvas();
+
+      // Automatically populate Tab 3 Multi-Platform Copywriting
+      if (state.defaultCopy) {
+        applyGeneratedCopy(state.defaultCopy);
+      } else {
+        generateOfflineCopy();
+      }
     }
 
     // Message Sequence Editor
@@ -3832,16 +4187,17 @@ Output a single valid JSON object with EXACTLY this structure:
             console.warn(`Model ${model} failed, trying fallback...`, mErr);
           }
         }
+      }
 
-        if (rawContent) {
-          const parsed = extractJSON(rawContent);
-          applyGeneratedCopy(parsed);
-          showToast("✨ AI Copywriting generated successfully!");
-        } else {
-          generateOfflineCopy();
-        }
+      if (rawContent) {
+        const parsed = extractJSON(rawContent);
+        applyGeneratedCopy(parsed);
+        showToast("✨ AI Copywriting generated successfully!");
+      } else {
+        generateOfflineCopy();
+      }
 
-      } catch (err) {
+    } catch (err) {
         console.warn("Groq Copywriting Error, using intelligent template engine:", err);
         generateOfflineCopy();
       } finally {

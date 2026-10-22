@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Milestone Memory Quiz — How Good Is Your Birthday &amp; Anniversary Memory? | Yearly</title>
+  <meta name="description"
+    content="Take the 60-second Milestone Memory Quiz. Diagnose your birthday panic risk, discover your gift-giving style, and see if your relationships are safe or on the edge of disaster.">
+  <link rel="canonical" href="https://yearly.click/quiz/">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#f43f5e">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18531225974"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18531225974');
+  </script>
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="../assets/icon-128.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../site.webmanifest">
+
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Yearly">
+  <meta property="og:title" content="Milestone Memory Quiz — Can You Actually Remember Your Loved Ones' Birthdays?">
+  <meta property="og:description"
+    content="Take the 60-second diagnostic test. Discover your Milestone Memory Tier, calculate your birthday panic risk, and stop scrambling at 9:00 PM!">
+  <meta property="og:url" content="https://yearly.click/quiz/">
+  <meta property="og:image" content="https://yearly.click/assets/banner.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Milestone Memory Quiz — How Good Is Your Milestone Memory?">
+  <meta name="twitter:description"
+    content="6 quick questions to diagnose if you're a Milestone Master or an Amnesiac living on convenience store gift cards.">
+  <meta name="twitter:image" content="https://yearly.click/assets/banner.png">
+
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "The Milestone Memory Test: Can You Actually Remember Your Loved Ones' Birthdays?",
+    "description": "An interactive 6-question diagnostic quiz evaluating birthday and anniversary recall, gift readiness, and milestone panic risk.",
+    "educationalUse": "Assessment",
+    "provider": {
+      "@type": "Organization",
+      "name": "Yearly",
+      "url": "https://yearly.click/"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "Yearly - Google Calendar Assistant",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Google Workspace / Chrome Extension",
+      "url": "https://yearly.click/"
+    }
+  }
+  </script>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          colors: {
+            rose: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              200: '#fecdd3',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              800: '#9f1239',
+              900: '#881337',
+            },
+            indigo: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.6' },
+              '50%': { transform: 'scale(1.05)', opacity: '0.9' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(8px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulseGlow 6s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.35s ease-out forwards',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    /* Confetti Canvas overlay */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 100;
+    }
+    /* Custom circular progress gauge */
+    .gauge-circle {
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-rose-100 selection:text-rose-900 relative">
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Ambient Decorative Background Blobs -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl animate-pulse-slow"></div>
+    <div class="absolute top-1/3 -right-32 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="absolute -bottom-32 left-1/4 w-96 h-96 bg-rose-100/50 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Announcement Trust Bar -->
+  <div class="bg-rose-50 border-b border-rose-100/80 py-2 px-4 text-center text-xs sm:text-sm font-medium text-rose-800">
+    🌸 <span class="font-semibold">The Milestone Memory Test</span> • 60-Second Relationship Safety Diagnosis • 100% Free &amp; Private
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="../index.html" class="flex items-center gap-2.5 group transition" title="Yearly Home">
+        <img src="../assets/icon-128.png" alt="Yearly Logo" class="w-8 h-8 rounded-xl shadow-sm group-hover:scale-105 transition-transform object-contain" />
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-lg text-slate-900 tracking-tight">Yearly</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded-full">Quiz</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Header CTAs -->
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="hidden sm:inline-flex text-xs font-semibold text-slate-600 hover:text-rose-600 transition">
+          ← Back to Yearly.click
+        </a>
+        <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold px-3.5 py-1.5 sm:py-2 rounded-xl shadow-sm hover:shadow transition transform hover:-translate-y-0.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12c6.626 0 12-5.373 12-12S18.626 0 12 0zm0 17.5c-3.038 0-5.5-2.462-5.5-5.5s2.462-5.5 5.5-5.5 5.5 2.462 5.5 5.5-2.462 5.5-5.5 5.5z"/>
+          </svg>
+          <span>Add to Chrome (Free)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Quiz Container -->
+  <main class="flex-grow flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6">
+    <div class="w-full max-w-2xl mx-auto">
+
+      <!-- ========================================== -->
+      <!-- SCREEN 0: INTRO SCREEN                    -->
+      <!-- ========================================== -->
+      <section id="screen-intro" class="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 p-6 sm:p-10 text-center relative overflow-hidden transition-all duration-300 animate-fade-in">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-rose-50 border border-rose-200/80 text-rose-700 text-xs sm:text-sm font-semibold px-3.5 py-1.5 rounded-full mb-6">
+          <span class="animate-bounce">🧠</span>
+          <span>Diagnostic Memory Assessment • 2026 Edition</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+          The Milestone <br class="hidden sm:inline">
+          <span class="bg-gradient-to-r from-rose-600 to-indigo-600 bg-clip-text text-transparent">Memory Test</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-600 max-w-lg mx-auto mb-8 leading-relaxed">
+          Can you <span class="font-semibold text-slate-900">actually</span> remember your loved ones' birthdays? Take this 60-second test to calculate your panic risk before an accidental relationship catastrophe strikes.
+        </p>
+
+        <!-- Feature Pills -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-left">
+          <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm font-medium text-slate-700">
+            <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xs shrink-0">6</span>
+            <span>Relatable diagnostic questions</span>
+          </div>
+          <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm font-medium text-slate-700">
+            <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs shrink-0">⚡</span>
+            <span>Takes under 60 seconds</span>
+          </div>
+          <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm font-medium text-slate-700">
+            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs shrink-0">🎯</span>
+            <span>Instant score &amp; viral tier</span>
+          </div>
+        </div>
+
+        <!-- Start CTA Button -->
+        <button id="btn-start-quiz" type="button"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-lg shadow-rose-600/30 hover:shadow-rose-600/50 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+          <span>Start Memory Quiz</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+
+        <!-- Social Proof Micro-quote -->
+        <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center gap-3 text-xs text-slate-500">
+          <div class="flex -space-x-1.5 overflow-hidden">
+            <span class="inline-block h-6 w-6 rounded-full bg-rose-200 text-[10px] font-bold text-rose-800 flex items-center justify-center ring-2 ring-white">MT</span>
+            <span class="inline-block h-6 w-6 rounded-full bg-indigo-200 text-[10px] font-bold text-indigo-800 flex items-center justify-center ring-2 ring-white">SK</span>
+            <span class="inline-block h-6 w-6 rounded-full bg-emerald-200 text-[10px] font-bold text-emerald-800 flex items-center justify-center ring-2 ring-white">AL</span>
+          </div>
+          <span>Over <strong>14,200+</strong> calendar owners have taken the milestone safety test.</span>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 1: QUESTION CARDS (DYNAMIC)         -->
+      <!-- ========================================== -->
+      <section id="screen-questions" class="hidden bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 p-6 sm:p-10 relative transition-all duration-300">
+        <!-- Progress Bar Header -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-500 mb-2">
+            <span id="question-indicator" class="text-rose-600 font-bold">Question 1 of 6</span>
+            <span id="category-badge" class="bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide uppercase">Recall Timing</span>
+          </div>
+          <!-- Progress Track -->
+          <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden p-0.5">
+            <div id="progress-bar-fill" class="bg-gradient-to-r from-rose-500 to-indigo-600 h-full rounded-full transition-all duration-500 ease-out" style="width: 16.66%;"></div>
+          </div>
+        </div>
+
+        <!-- Question Content -->
+        <div id="question-wrapper" class="min-h-[280px] flex flex-col justify-between">
+          <div>
+            <h2 id="question-title" class="text-xl sm:text-2xl font-bold text-slate-900 leading-snug mb-6">
+              <!-- Injected by JavaScript -->
+            </h2>
+
+            <!-- Options Container -->
+            <div id="options-container" class="space-y-3" role="radiogroup" aria-label="Question options">
+              <!-- Injected by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Bottom Navigation (Back Button + Keyboard Tip) -->
+          <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button id="btn-prev-question" type="button" class="text-xs sm:text-sm font-semibold text-slate-400 hover:text-slate-700 disabled:opacity-0 disabled:pointer-events-none transition flex items-center gap-1.5 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              <span>Previous Question</span>
+            </button>
+            <div class="text-[11px] text-slate-400 hidden sm:flex items-center gap-1.5">
+              <span>Tip: Click option or press</span>
+              <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-600 font-mono text-[10px]">1-4</kbd>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 2: ANALYZING INTERSTITIAL          -->
+      <!-- ========================================== -->
+      <section id="screen-analyzing" class="hidden bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 p-8 sm:p-14 text-center transition-all duration-300">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-6 relative">
+          <div class="absolute inset-0 rounded-full border-4 border-slate-100"></div>
+          <div class="absolute inset-0 rounded-full border-4 border-rose-600 border-t-transparent animate-spin"></div>
+          <div class="absolute inset-0 flex items-center justify-center text-xl sm:text-2xl animate-pulse">🧠</div>
+        </div>
+
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Analyzing Your Milestone Memory...</h3>
+        <p id="analyzing-status" class="text-sm font-medium text-rose-600 h-6 transition-all duration-300">
+          Calculating temporal recall neurons...
+        </p>
+
+        <div class="max-w-xs mx-auto mt-6 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+          <div id="analyzing-progress-bar" class="bg-rose-600 h-full w-0 transition-all duration-1000 ease-out"></div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 3: DYNAMIC RESULTS                  -->
+      <!-- ========================================== -->
+      <section id="screen-results" class="hidden space-y-6 transition-all duration-300 animate-fade-in">
+        
+        <!-- Result Hero Card -->
+        <div class="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-200/50 p-6 sm:p-10 relative overflow-hidden">
+          <!-- Top Badge & Retake Button -->
+          <div class="flex items-center justify-between mb-6">
+            <span id="result-tier-pill" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
+              <!-- Tier Pill (JS) -->
+            </span>
+            <button id="btn-retake-quiz" type="button" class="text-xs font-semibold text-slate-400 hover:text-rose-600 transition flex items-center gap-1 cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Retake Quiz</span>
+            </button>
+          </div>
+
+          <!-- Circular Score Gauge & Headline -->
+          <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8 pb-8 border-b border-slate-100">
+            <!-- SVG Circular Gauge -->
+            <div class="relative w-36 h-36 shrink-0 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" stroke-width="10" />
+                <circle id="score-gauge-circle" class="gauge-circle" cx="60" cy="60" r="50" fill="none" stroke="#f43f5e" stroke-width="10" stroke-linecap="round" stroke-dasharray="314.159" stroke-dashoffset="314.159" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span id="score-number-display" class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">0%</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1">Memory Score</span>
+              </div>
+            </div>
+
+            <!-- Tier Title & Tagline -->
+            <div class="text-center sm:text-left space-y-2">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-widest" id="result-tier-label">Diagnostic Diagnosis</div>
+              <h2 id="result-tier-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                <!-- Title (JS) -->
+              </h2>
+              <p id="result-tier-tagline" class="text-sm sm:text-base font-semibold text-rose-600">
+                <!-- Tagline (JS) -->
+              </p>
+            </div>
+          </div>
+
+          <!-- Diagnostic Insight Description -->
+          <div class="space-y-4 mb-8">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">The Clinical Breakdown</h4>
+            <p id="result-tier-description" class="text-sm sm:text-base text-slate-700 leading-relaxed bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-100">
+              <!-- Injected by JavaScript -->
+            </p>
+          </div>
+
+          <!-- 3 Diagnostic Score Metrics -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Panic Probability</div>
+              <div id="metric-panic" class="text-lg font-extrabold text-slate-900 mt-0.5">Calculating...</div>
+              <div class="text-[11px] text-slate-500 mt-1">Last-minute adrenaline factor</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Gifting Readiness</div>
+              <div id="metric-gift" class="text-lg font-extrabold text-slate-900 mt-0.5">Calculating...</div>
+              <div class="text-[11px] text-slate-500 mt-1">Preparation vs drugstore rush</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Recall Autonomy</div>
+              <div id="metric-autonomy" class="text-lg font-extrabold text-slate-900 mt-0.5">Calculating...</div>
+              <div class="text-[11px] text-slate-500 mt-1">Cognitive load &amp; alert safety</div>
+            </div>
+          </div>
+
+          <!-- Social Share Bar (Viral Component) -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-rose-50/70 border border-rose-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-center sm:text-left">
+              <div class="text-xs font-bold text-rose-900 uppercase tracking-wide">Dare your friends &amp; family</div>
+              <div class="text-xs sm:text-sm text-rose-700">Can they beat your score, or are they living on convenience store cards?</div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <!-- Copy Link Button -->
+              <button id="btn-copy-score" type="button" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition active:scale-95 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span id="copy-btn-text">Share My Score</span>
+              </button>
+              <!-- Twitter/X Share -->
+              <a id="btn-share-twitter" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-10 h-10 bg-slate-900 hover:bg-black text-white rounded-xl shadow-sm transition active:scale-95" title="Share on X / Twitter">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </a>
+              <!-- WhatsApp Share -->
+              <a id="btn-share-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-10 h-10 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-sm transition active:scale-95" title="Share on WhatsApp">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.174.449.741.964 1.2 1.017.904 1.874 1.184 2.138 1.315.264.13.419.108.575-.072.156-.18.665-.774.842-1.04.177-.266.354-.222.593-.133.24.089 1.52.716 1.78.846.26.13.433.195.498.303.065.108.065.628-.079 1.033z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- HIGH-CONVERTING CALL TO ACTION             -->
+        <!-- ========================================== -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden border border-slate-700/60">
+          <!-- Subtle glow effect -->
+          <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 space-y-6">
+            <div class="inline-flex items-center gap-2 bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-semibold px-3 py-1 rounded-full">
+              <span>🛡️ The Permanent Solution</span>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight">
+                Never gamble with milestones again.
+              </h3>
+              <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed">
+                Meet <span class="text-white font-semibold">Yearly — Google Calendar Assistant</span>. Automatically detects birthdays &amp; anniversaries in your existing calendar and alerts you 14d, 7d, 3d, and 1d early.
+              </p>
+            </div>
+
+            <!-- Features Checklist -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-200">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Automated birthday &amp; anniversary detection</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>1-Click FloristOne flower deliveries (US &amp; CA)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Zero spam, 100% private Google Calendar sync</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>No credit card needed • Free forever tier</span>
+              </div>
+            </div>
+
+            <!-- Primary CTA Actions -->
+            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <a href="https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2.5 bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white font-bold text-base px-6 py-3.5 rounded-2xl shadow-lg shadow-rose-600/40 hover:shadow-rose-600/60 transition transform hover:-translate-y-0.5 cursor-pointer">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12c6.626 0 12-5.373 12-12S18.626 0 12 0zm0 17.5c-3.038 0-5.5-2.462-5.5-5.5s2.462-5.5 5.5-5.5 5.5 2.462 5.5 5.5-2.462 5.5-5.5 5.5z"/>
+                </svg>
+                <span>Add to Chrome — It's Free</span>
+              </a>
+
+              <a href="https://workspace.google.com/marketplace/app/yearly/729862306327" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-sm font-semibold px-5 py-3.5 rounded-2xl transition">
+                <span>Google Workspace Add-on</span>
+              </a>
+
+              <a href="../index.html" class="inline-flex items-center justify-center text-xs font-semibold text-slate-400 hover:text-white transition px-3 py-2 text-center">
+                Learn more at Yearly.click →
+              </a>
+            </div>
+
+            <div class="flex items-center gap-2 text-[11px] text-slate-400 pt-1">
+              <div class="flex text-amber-400">★★★★★</div>
+              <span>Works directly inside calendar.google.com</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="toast-message">Score copied to clipboard!</span>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12 mt-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800 text-xs">
+        <div class="flex items-center gap-2.5">
+          <img src="../assets/icon-128.png" alt="Yearly Logo" class="w-7 h-7 rounded-lg object-contain" />
+          <span class="font-bold text-base text-white">Yearly</span>
+          <span class="text-slate-500">— Never miss a milestone.</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-slate-400">
+          <a href="../index.html" class="hover:text-white transition">Home</a>
+          <a href="../index.html#how-it-works" class="hover:text-white transition">How It Works</a>
+          <a href="../support.html" class="hover:text-white transition">Support &amp; FAQ</a>
+          <a href="../privacy.html" class="hover:text-white transition">Privacy Policy</a>
+          <a href="../terms.html" class="hover:text-white transition">Terms</a>
+        </div>
+      </div>
+      <div class="pt-6 text-[11px] text-slate-500 text-center sm:text-left space-y-2">
+        <p>
+          Google Calendar™, Google Workspace™, and Google Chrome™ are trademarks of Google LLC. FloristOne is a trademark of Florist One. Yearly is an independent software application.
+        </p>
+        <p>&copy; 2026 Yearly (yearly.click). All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- QUIZ JAVASCRIPT ENGINE                     -->
+  <!-- ========================================== -->
+  <script>
+    // -------------------------------------------------------------
+    // Quiz Questions Data (Diagnostically calibrated 0 to 24 points)
+    // -------------------------------------------------------------
+    const questions = [
+      {
+        id: 1,
+        category: "Recall Timing",
+        title: "Your best friend's birthday is next Tuesday. When do you realize it?",
+        options: [
+          { text: "2 weeks ahead — my gift is already picked or on its way.", score: 4 },
+          { text: "The morning of, when I spot an Instagram or Facebook story.", score: 2 },
+          { text: "Around 11:30 PM when they post a 'Thanks for the birthday love' recap.", score: 1 },
+          { text: "Tuesday? Wait... which Tuesday? Is it today?!", score: 0 }
+        ]
+      },
+      {
+        id: 2,
+        category: "Date Precision",
+        title: "Can you name your partner or closest friend's exact birthdate without checking a phone or calendar?",
+        options: [
+          { text: "Instantly without a single millisecond of hesitation.", score: 4 },
+          { text: "Give me 10 seconds to buffer and mental-math it.", score: 2 },
+          { text: "I know the month with confidence; the day is... fuzzy.", score: 1 },
+          { text: "I am respectfully pleading the fifth to protect my safety.", score: 0 }
+        ]
+      },
+      {
+        id: 3,
+        category: "Panic Quotient",
+        title: "Have you ever scrambled for a last-minute gift at 9:00 PM the night before an anniversary or birthday?",
+        options: [
+          { text: "Never. I am chronically prepared and stress-free.", score: 4 },
+          { text: "Once or twice... pure frantic adrenaline rush.", score: 2 },
+          { text: "Almost every single milestone. It's a miracle I survive.", score: 1 },
+          { text: "That is literally my standard baseline lifestyle.", score: 0 }
+        ]
+      },
+      {
+        id: 4,
+        category: "Tracking Architecture",
+        title: "How do you currently track birthdays and anniversaries?",
+        options: [
+          { text: "Automated calendar reminders timed 14d, 7d, & 3d in advance.", score: 4 },
+          { text: "Scattered Facebook pings, group chats, and sticky notes.", score: 2 },
+          { text: "My organic human brain (which is visibly malfunctioning).", score: 1 },
+          { text: "What reminders? I rely on divine intervention and luck.", score: 0 }
+        ]
+      },
+      {
+        id: 5,
+        category: "Gift Preparedness",
+        title: "If someone asked you what your mom, dad, or partner wants for their next milestone right now, could you answer?",
+        options: [
+          { text: "Yes, I maintain an active, curated wish list year-round.", score: 4 },
+          { text: "I have a general directional idea (e.g. 'something cozy').", score: 2 },
+          { text: "Dead silence accompanied by instant cold sweats.", score: 1 },
+          { text: "A generic convenience store gift card it is!", score: 0 }
+        ]
+      },
+      {
+        id: 6,
+        category: "Nightmare Scenario",
+        title: "What is your biggest milestone-related anxiety?",
+        options: [
+          { text: "I have zero anxiety — my calendar warnings give me plenty of runway.", score: 4 },
+          { text: "Forgetting my partner's anniversary and dealing with the fallout.", score: 2 },
+          { text: "Looking like an uncaring friend by sending a late-day text.", score: 2 },
+          { text: "All of the above — the guilt keeps me up at night.", score: 0 }
+        ]
+      }
+    ];
+
+    // -------------------------------------------------------------
+    // Results Tiers (80-100%, 50-79%, 20-49%, 0-19%)
+    // -------------------------------------------------------------
+    const tiers = {
+      master: {
+        min: 80,
+        badge: "🏆 Rare Breed (Top 4%)",
+        badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-200",
+        color: "#10b981",
+        title: "The Milestone Master",
+        tagline: "Your memory is remarkable — but human memory always drops the ball eventually.",
+        description: "You take relationships seriously and rarely miss a beat. Your friends probably think you have a secret database or photographic recall. However, even the sharpest minds get caught off-guard during frantic work deadlines, travel delays, or chaotic weeks. Why burn cognitive RAM on dates when Yearly can silently automate your 14-day safety runway in Google Calendar?",
+        panicMetric: "5% (Low Risk)",
+        giftMetric: "Proactive & Curated",
+        autonomyMetric: "95% Self-Reliant"
+      },
+      improviser: {
+        min: 50,
+        badge: "⚡ Close Call Zone (Top 38%)",
+        badgeClass: "bg-amber-100 text-amber-800 border-amber-200",
+        color: "#f59e0b",
+        title: "The Dangerously Close Improviser",
+        tagline: "You usually survive, but near-misses and midnight stress are exhausting your nervous system.",
+        description: "You care deeply about the people in your life, but modern life is noisy. You've definitely texted 'Happy Birthday!' at 11:45 PM while sweating, or frantic-ordered flowers hoping they arrive before dinner. You're surviving on adrenaline instead of an automated system. One unexpectedly busy Monday is all it takes to turn a close call into a painful relationship catastrophe.",
+        panicMetric: "48% (Moderate Panic)",
+        giftMetric: "Last-Minute Heroics",
+        autonomyMetric: "52% Reliability"
+      },
+      scrambler: {
+        min: 20,
+        badge: "🏃 High Stress Zone",
+        badgeClass: "bg-orange-100 text-orange-800 border-orange-200",
+        color: "#f97316",
+        title: "The Last-Minute Scrambler",
+        tagline: "You are living on borrowed time, drugstore chocolates, and pure luck.",
+        description: "Let's be real: late-night digital gift cards, desperate CVS floral runs, and 'so sorry for the late text, crazy week!' apologies are your unofficial signature. You don't forget because you don't care — you forget because you're human and your brain wasn't designed to track 40 birthdays simultaneously without a dedicated tool. Put an end to the scramble today.",
+        panicMetric: "76% (High Danger)",
+        giftMetric: "Convenience Store Special",
+        autonomyMetric: "28% Reliability"
+      },
+      amnesiac: {
+        min: 0,
+        badge: "🚨 Critical Relationship Emergency",
+        badgeClass: "bg-rose-100 text-rose-800 border-rose-200",
+        color: "#f43f5e",
+        title: "The Milestone Amnesiac (Code Red)",
+        tagline: "Your relationships are in active, immediate danger!",
+        description: "Houston, we have a catastrophic emergency. You aren't just forgetting birthdays — you're playing Russian roulette with the people you care about most. Your loved ones are quietly lowering their expectations, and your guilt level is through the roof. It's time to admit defeat: your brain cannot do this alone. Install Yearly right now before you accidentally commit relationship treason.",
+        panicMetric: "99% (Critical)",
+        giftMetric: "Emergency Triage Only",
+        autonomyMetric: "8% Reliability"
+      }
+    };
+
+    // -------------------------------------------------------------
+    // State Tracking
+    // -------------------------------------------------------------
+    let currentQuestionIndex = 0;
+    const userAnswers = []; // stores selected option index for each question
+
+    // DOM Elements
+    const screenIntro = document.getElementById('screen-intro');
+    const screenQuestions = document.getElementById('screen-questions');
+    const screenAnalyzing = document.getElementById('screen-analyzing');
+    const screenResults = document.getElementById('screen-results');
+
+    const btnStart = document.getElementById('btn-start-quiz');
+    const btnPrev = document.getElementById('btn-prev-question');
+    const btnRetake = document.getElementById('btn-retake-quiz');
+    const questionIndicator = document.getElementById('question-indicator');
+    const categoryBadge = document.getElementById('category-badge');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const questionTitle = document.getElementById('question-title');
+    const optionsContainer = document.getElementById('options-container');
+
+    const analyzingStatus = document.getElementById('analyzing-status');
+    const analyzingProgressBar = document.getElementById('analyzing-progress-bar');
+
+    const btnCopyScore = document.getElementById('btn-copy-score');
+    const copyBtnText = document.getElementById('copy-btn-text');
+    const btnShareTwitter = document.getElementById('btn-share-twitter');
+    const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+
+    let currentCalculatedScore = 0;
+    let currentTierData = null;
+
+    // -------------------------------------------------------------
+    // Quiz Lifecycle Controllers
+    // -------------------------------------------------------------
+    btnStart.addEventListener('click', () => {
+      screenIntro.classList.add('hidden');
+      screenQuestions.classList.remove('hidden');
+      currentQuestionIndex = 0;
+      userAnswers.length = 0;
+      renderQuestion();
+      window.scrollTo({ top: screenQuestions.offsetTop - 80, behavior: 'smooth' });
+    });
+
+    btnPrev.addEventListener('click', () => {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    });
+
+    btnRetake.addEventListener('click', () => {
+      screenResults.classList.add('hidden');
+      screenIntro.classList.remove('hidden');
+      currentQuestionIndex = 0;
+      userAnswers.length = 0;
+      window.scrollTo({ top: screenIntro.offsetTop - 80, behavior: 'smooth' });
+    });
+
+    // Render single question
+    function renderQuestion() {
+      const q = questions[currentQuestionIndex];
+      questionIndicator.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+      categoryBadge.textContent = q.category;
+      
+      const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressBarFill.style.width = `${progressPercent}%`;
+
+      questionTitle.textContent = q.title;
+      btnPrev.disabled = currentQuestionIndex === 0;
+
+      // Render options
+      optionsContainer.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((opt, idx) => {
+        const isSelected = userAnswers[currentQuestionIndex] === idx;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.setAttribute('role', 'radio');
+        button.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+        button.className = `w-full text-left p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex items-start gap-3.5 group cursor-pointer ${
+          isSelected 
+            ? 'border-rose-600 bg-rose-50/80 shadow-md ring-2 ring-rose-600/20' 
+            : 'border-slate-200/90 hover:border-rose-300 hover:bg-rose-50/30 hover:shadow-sm bg-white'
+        }`;
+
+        button.innerHTML = `
+          <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 transition-colors ${
+            isSelected 
+              ? 'bg-rose-600 text-white' 
+              : 'bg-slate-100 text-slate-700 group-hover:bg-rose-100 group-hover:text-rose-700'
+          }">
+            ${letters[idx]}
+          </span>
+          <span class="text-sm sm:text-base font-medium text-slate-800 leading-snug pt-1">
+            ${opt.text}
+          </span>
+        `;
+
+        button.addEventListener('click', () => {
+          selectOption(idx);
+        });
+
+        optionsContainer.appendChild(button);
+      });
+    }
+
+    // Handle Option Selection
+    function selectOption(optionIndex) {
+      userAnswers[currentQuestionIndex] = optionIndex;
+
+      // Re-render quickly for visual active feedback
+      renderQuestion();
+
+      // Auto advance after slight delay for smooth tactile feel
+      setTimeout(() => {
+        if (currentQuestionIndex < questions.length - 1) {
+          currentQuestionIndex++;
+          renderQuestion();
+        } else {
+          // Finished all questions! Trigger analysis
+          finishQuiz();
+        }
+      }, 260);
+    }
+
+    // Keyboard navigation (1-4 or A-D)
+    document.addEventListener('keydown', (e) => {
+      if (screenQuestions.classList.contains('hidden')) return;
+
+      const key = e.key.toUpperCase();
+      let optionIndex = -1;
+      if (key === '1' || key === 'A') optionIndex = 0;
+      else if (key === '2' || key === 'B') optionIndex = 1;
+      else if (key === '3' || key === 'C') optionIndex = 2;
+      else if (key === '4' || key === 'D') optionIndex = 3;
+
+      if (optionIndex !== -1 && questions[currentQuestionIndex].options[optionIndex]) {
+        selectOption(optionIndex);
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Analyzing Transition & Calculation
+    // -------------------------------------------------------------
+    function finishQuiz() {
+      screenQuestions.classList.add('hidden');
+      screenAnalyzing.classList.remove('hidden');
+      window.scrollTo({ top: screenAnalyzing.offsetTop - 80, behavior: 'smooth' });
+
+      // Animate fake analysis states
+      const steps = [
+        { text: "Scanning calendar recall synapses...", pct: "35%" },
+        { text: "Auditing emergency florist dispatch frequency...", pct: "70%" },
+        { text: "Calculating relationship catastrophe risk...", pct: "100%" }
+      ];
+
+      setTimeout(() => {
+        analyzingStatus.textContent = steps[0].text;
+        analyzingProgressBar.style.width = steps[0].pct;
+      }, 300);
+
+      setTimeout(() => {
+        analyzingStatus.textContent = steps[1].text;
+        analyzingProgressBar.style.width = steps[1].pct;
+      }, 750);
+
+      setTimeout(() => {
+        analyzingStatus.textContent = steps[2].text;
+        analyzingProgressBar.style.width = steps[2].pct;
+      }, 1200);
+
+      setTimeout(() => {
+        computeAndShowResults();
+      }, 1700);
+    }
+
+    // -------------------------------------------------------------
+    // Score Calculation & Tier Rendering
+    // -------------------------------------------------------------
+    function computeAndShowResults() {
+      screenAnalyzing.classList.add('hidden');
+      screenResults.classList.remove('hidden');
+
+      // Calculate total points
+      let rawScore = 0;
+      const maxPossibleRaw = 24; // 6 questions * max 4 points
+
+      questions.forEach((q, qIdx) => {
+        const selectedOptIdx = userAnswers[qIdx] ?? 0;
+        rawScore += q.options[selectedOptIdx].score;
+      });
+
+      const scorePercent = Math.min(100, Math.max(0, Math.round((rawScore / maxPossibleRaw) * 100)));
+      currentCalculatedScore = scorePercent;
+
+      // Determine tier
+      let tierKey = 'amnesiac';
+      if (scorePercent >= tiers.master.min) {
+        tierKey = 'master';
+      } else if (scorePercent >= tiers.improviser.min) {
+        tierKey = 'improviser';
+      } else if (scorePercent >= tiers.scrambler.min) {
+        tierKey = 'scrambler';
+      }
+      const tier = tiers[tierKey];
+      currentTierData = tier;
+
+      // Inject Tier Data into DOM
+      const tierPill = document.getElementById('result-tier-pill');
+      tierPill.className = `inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold px-3.5 py-1 rounded-full uppercase tracking-wider border ${tier.badgeClass}`;
+      tierPill.textContent = tier.badge;
+
+      document.getElementById('result-tier-title').textContent = tier.title;
+      document.getElementById('result-tier-tagline').textContent = tier.tagline;
+      document.getElementById('result-tier-description').textContent = tier.description;
+
+      document.getElementById('metric-panic').textContent = tier.panicMetric;
+      document.getElementById('metric-gift').textContent = tier.giftMetric;
+      document.getElementById('metric-autonomy').textContent = tier.autonomyMetric;
+
+      // Animate circular gauge
+      const circle = document.getElementById('score-gauge-circle');
+      const scoreDisplay = document.getElementById('score-number-display');
+      circle.setAttribute('stroke', tier.color);
+
+      const circumference = 2 * Math.PI * 50; // ~314.159
+      const targetOffset = circumference - (scorePercent / 100) * circumference;
+      
+      // Animate count-up
+      let currentNumber = 0;
+      const stepDuration = 1200 / (scorePercent || 1);
+      const timer = setInterval(() => {
+        if (currentNumber >= scorePercent) {
+          clearInterval(timer);
+          scoreDisplay.textContent = `${scorePercent}%`;
+        } else {
+          currentNumber++;
+          scoreDisplay.textContent = `${currentNumber}%`;
+        }
+      }, stepDuration);
+
+      setTimeout(() => {
+        circle.style.strokeDashoffset = targetOffset;
+      }, 50);
+
+      // Setup Social Share Links
+      updateShareLinks(scorePercent, tier);
+
+      // Trigger Confetti!
+      triggerConfetti(tierKey === 'master' || tierKey === 'improviser');
+
+      window.scrollTo({ top: screenResults.offsetTop - 80, behavior: 'smooth' });
+    }
+
+    // -------------------------------------------------------------
+    // Social Sharing Logic
+    // -------------------------------------------------------------
+    function updateShareLinks(score, tier) {
+      const shareUrl = "https://yearly.click/quiz/";
+      const shareMessage = `I scored ${score}% on the Milestone Memory Quiz: "${tier.title}"! 🧠 Can you remember your loved ones' birthdays or are you scrambling for last-minute gifts? Take the 60s quiz:`;
+      
+      // Twitter Web Intent
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(shareUrl)}`;
+      btnShareTwitter.href = twitterUrl;
+
+      // WhatsApp Web Intent
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage + " " + shareUrl)}`;
+      btnShareWhatsapp.href = whatsappUrl;
+
+      // Copy Clipboard Handler
+      btnCopyScore.onclick = async () => {
+        const fullShareText = `${shareMessage} ${shareUrl}`;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(fullShareText);
+          } else {
+            // Fallback for older browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = fullShareText;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+          }
+          showToast("Score copied to clipboard! 📋");
+          copyBtnText.textContent = "Copied!";
+          setTimeout(() => {
+            copyBtnText.textContent = "Share My Score";
+          }, 2500);
+        } catch (err) {
+          showToast("Share link ready! 📋");
+        }
+      };
+    }
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // -------------------------------------------------------------
+    // Lightweight Canvas Confetti Engine (Zero Dependencies)
+    // -------------------------------------------------------------
+    function triggerConfetti(isHighTier) {
+      const canvas = document.getElementById('confetti-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      const colors = ['#f43f5e', '#e11d48', '#4f46e5', '#10b981', '#f59e0b', '#ec4899'];
+      const count = isHighTier ? 90 : 40;
+      const particles = [];
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: width / 2,
+          y: height / 2 + 50,
+          w: Math.random() * 8 + 4,
+          h: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 18,
+          vy: (Math.random() - 0.8) * 16,
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 10,
+          gravity: 0.25,
+          opacity: 1
+        });
+      }
+
+      let animationFrame;
+      const startTime = Date.now();
+
+      function update() {
+        ctx.clearRect(0, 0, width, height);
+        let alive = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.vx *= 0.98;
+          p.rotation += p.rotationSpeed;
+          p.opacity -= 0.008;
+
+          if (p.opacity > 0 && p.y < height) {
+            alive++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = Math.max(0, p.opacity);
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+          }
+        });
+
+        if (alive > 0 && Date.now() - startTime < 3500) {
+          animationFrame = requestAnimationFrame(update);
+        } else {
+          ctx.clearRect(0, 0, width, height);
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+
+      update();
+    }
+
+    // Google Ads Conversion Tracking on "Add to Chrome"
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('a[href*="chromewebstore.google.com"]').forEach((el) => {
+        el.addEventListener('click', () => {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18531225974',
+              'event_category': 'engagement',
+              'event_label': 'quiz_add_to_chrome_click'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
