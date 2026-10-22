@@ -20,6 +20,19 @@
     gtag('js', new Date());
 
     gtag('config', 'AW-18531225974');
+
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18531225974/JaYtCLP6lKYdEPaisIRF',
+          'event_callback': callback
+      });
+      return false;
+    }
   </script>
 
   <!-- Favicon & Touch Icons (Google SERP & PWA Optimized) -->
@@ -793,10 +806,10 @@
     // Google Ads Conversion Tracking on "Add to Chrome" & "Workspace Add-on" clicks
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('a[href*="chromewebstore.google.com"]').forEach((el) => {
-        el.addEventListener('click', () => {
+        el.addEventListener('click', (e) => {
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', {
-              'send_to': 'AW-18531225974',
+              'send_to': 'AW-18531225974/JaYtCLP6lKYdEPaisIRF',
               'event_category': 'engagement',
               'event_label': 'add_to_chrome_click'
             });
@@ -808,7 +821,7 @@
         el.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', {
-              'send_to': 'AW-18531225974',
+              'send_to': 'AW-18531225974/JaYtCLP6lKYdEPaisIRF',
               'event_category': 'engagement',
               'event_label': 'workspace_addon_click'
             });

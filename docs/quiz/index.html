@@ -19,6 +19,19 @@
     gtag('js', new Date());
 
     gtag('config', 'AW-18531225974');
+
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18531225974/JaYtCLP6lKYdEPaisIRF',
+          'event_callback': callback
+      });
+      return false;
+    }
   </script>
 
   <!-- Favicon & Touch Icons -->
@@ -1059,7 +1072,7 @@
         el.addEventListener('click', () => {
           if (typeof gtag === 'function') {
             gtag('event', 'conversion', {
-              'send_to': 'AW-18531225974',
+              'send_to': 'AW-18531225974/JaYtCLP6lKYdEPaisIRF',
               'event_category': 'engagement',
               'event_label': 'quiz_add_to_chrome_click'
             });
