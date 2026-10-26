@@ -109,6 +109,44 @@
           "https://chromewebstore.google.com/detail/yearly/lhifmijfheppabhbjphipdeafeklnpnn",
           "https://workspace.google.com/marketplace/app/yearly/729862306327"
         ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://yearly.click/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Yearly free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Yearly is completely free to install and use as both a Google Chrome Extension and a Google Workspace Add-on. There are no subscriptions or hidden charges; you only pay standard merchant prices if you choose to send flowers via FloristOne."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Yearly know who to buy flowers for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yearly automatically detects celebration events (birthdays, anniversaries, and milestones) directly from your Google Calendar. It matches recipient names and occasions locally in your browser to suggest curated floral bouquets and timely reminders."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I customize flower bouquets and delivery dates?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can select from curated arrangements (roses, lilies, sunflowers, mixed bouquets), choose exact delivery dates and addresses, and personalize heartfelt greeting messages before completing your purchase through secure FloristOne checkout."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Yearly access my private calendar details?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Yearly operates on a local-first, zero-centralized-database architecture. Event matching scans strictly for celebration titles client-side. We never store, transmit, or sell your private calendar events or contacts."
+            }
+          }
+        ]
       }
     ]
   }
@@ -172,7 +210,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- Brand -->
-        <a href="index.html" class="flex items-center gap-2.5 group">
+        <a href="/" class="flex items-center gap-2.5 group">
           <img
             src="assets/icon-128.png"
             alt="Yearly Logo"
@@ -687,6 +725,71 @@
     </div>
   </section>
 
+  <!-- Section: Frequently Asked Questions (#faq) -->
+  <section id="faq" class="py-16 md:py-24 bg-white border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-rose-600 uppercase tracking-widest mb-3">Got Questions?</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </p>
+        <p class="mt-4 text-base text-slate-600">
+          Everything you need to know about Yearly, our Google Calendar™ integration, and flower delivery.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Question 1 -->
+        <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-6 transition" open>
+          <summary class="flex items-center justify-between font-bold text-slate-900 cursor-pointer list-none text-base">
+            <span>Is Yearly free?</span>
+            <span class="text-rose-600 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Yes, Yearly is completely free to install and use as both a Google Chrome Extension and a Google Workspace Add-on. There are no subscriptions or hidden charges; you only pay standard merchant prices if you choose to send flowers via FloristOne.
+          </p>
+        </details>
+
+        <!-- Question 2 -->
+        <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-6 transition">
+          <summary class="flex items-center justify-between font-bold text-slate-900 cursor-pointer list-none text-base">
+            <span>How does Yearly know who to buy flowers for?</span>
+            <span class="text-rose-600 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Yearly automatically detects celebration events (birthdays, anniversaries, and milestones) directly from your Google Calendar. It matches recipient names and occasions locally in your browser to suggest curated floral bouquets and timely reminders.
+          </p>
+        </details>
+
+        <!-- Question 3 -->
+        <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-6 transition">
+          <summary class="flex items-center justify-between font-bold text-slate-900 cursor-pointer list-none text-base">
+            <span>Can I customize flower bouquets and delivery dates?</span>
+            <span class="text-rose-600 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            Yes. You can select from curated arrangements (roses, lilies, sunflowers, mixed bouquets), choose exact delivery dates and addresses, and personalize heartfelt greeting messages before completing your purchase through secure FloristOne checkout.
+          </p>
+        </details>
+
+        <!-- Question 4 -->
+        <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-6 transition">
+          <summary class="flex items-center justify-between font-bold text-slate-900 cursor-pointer list-none text-base">
+            <span>Does Yearly access my private calendar details?</span>
+            <span class="text-rose-600 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+            No. Yearly operates on a local-first, zero-centralized-database architecture. Event matching scans strictly for celebration titles client-side. We never store, transmit, or sell your private calendar events or contacts.
+          </p>
+        </details>
+      </div>
+
+      <div class="mt-8 text-center text-xs text-slate-500">
+        Have more questions? Visit our comprehensive <a href="support.html" class="text-rose-600 font-medium hover:underline">Support &amp; FAQ Center</a>.
+      </div>
+    </div>
+  </section>
+
   <!-- Section: Bottom Installation CTA (#install) -->
   <section id="install"
     class="py-16 md:py-24 bg-gradient-to-r from-rose-600 via-rose-700 to-indigo-700 text-white text-center">
@@ -746,7 +849,7 @@
         <div>
           <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3">Product</h3>
           <ul class="space-y-2 text-xs">
-            <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+            <li><a href="/" class="hover:text-white transition">Home</a></li>
             <li><a href="#how-it-works" class="hover:text-white transition">How It Works</a></li>
             <li><a href="#bouquets" class="hover:text-white transition">Curated Bouquets</a></li>
             <li><a href="quiz/" class="hover:text-white transition">Memory Quiz</a></li>
@@ -773,6 +876,7 @@
         <div>
           <h3 class="text-xs font-semibold text-white uppercase tracking-wider mb-3">Support &amp; Trust</h3>
           <ul class="space-y-2 text-xs">
+            <li><a href="#faq" class="hover:text-white transition">Quick FAQ</a></li>
             <li><a href="support.html" class="hover:text-white transition">Support &amp; FAQ</a></li>
             <li><a href="support.html#contact" class="hover:text-white transition">Contact Support</a></li>
             <li><a href="support.html#faq-permissions" class="hover:text-white transition">Permissions FAQ</a></li>
